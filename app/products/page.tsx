@@ -1,5 +1,5 @@
 
-import Breadcrumb from "../components/layout/Breadcrumb";
+import Breadcrumb from "../components/layout/breadcrumb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import TabSection from "../components/productpage/Tab";
