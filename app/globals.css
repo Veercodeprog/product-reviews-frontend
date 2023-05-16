@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.my-custom-class {
+    @apply text-red-500 font-bold;
+}
+
+
+/* @layer base basics style applied to all elements on the page by default.such typography,colors and fondational css for eg we call directly the html tag to add class */
+
+@layer base {
+    body {
+        background-color: #fff;
+        /* font-family: sans-serif; */
+    }
+}
+
+
+/* @layer components applied to elements that have a specific class or data attribute. This layer contains styles for reusable UI components such as buttons, menus, cards, and so on */
+
+@layer components {
+    /* This won't be included in your compiled CSS unless you actually use it */
+    /* .home-btn {
+    @apply bg-white text-gray-700 border border-gray-300 rounded-full font-medium text-sm px-3 py-1.5 mr-2 mb-2 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-900 dark:focus:ring-gray-700 w-28;
+  } */
+
+
+  /* Custom CSS */
+@media only screen and (max-width: 470px) {
+  .home-btn {
+    font-size: 0.3rem !important;
+    /* padding: 6px 10px; adjust padding values */
+    border-radius: 1.5rem !important;
+    margin-right: 8px !important;
+    /* width: 80px !important; */
+    height: 43px !important;
+    line-height: 1rem !important;
+
+
+    /* center text */
+    
+    /* justify-content: center;
+    align-items: center; */
+overflow: hidden;
+    /* optional: add a border around the button to visualize its boundaries */
+    border: 1px solid black;
+  }
+}
+
+  @media only screen and (max-width: 620px) {
+        .home-btn {
+      font-size: 0.8rem !important; /* decrease font size */
+     padding: 0px 0px; /* top and bottom padding are both 3px */
+     
+
+      margin-right: 0.5rem; /* add margin between buttons */
+      max-width: 110px !important;
+
+
+ 
+  
+    
+}
+ }
+
+
+
+    .small--sub--headings {
+        @apply text-xl font-semibold mb-4;
+    }
+    .image--headings {
+        @apply text-base text-gray-800 px-2 pt-2;
+    }
+    .image--desc {
+        @apply text-sm text-gray-600 px-2 pb-1;
+    }
+    .page-headings {
+        @apply text-3xl font-medium text-center mb-4 text-gray-900;
+    }
+    .para {
+        @apply text-base text-justify space-y-2 text-gray-700 sm:text-base;
+    }
+}
+
+
+/* @layer utilities are low-level utility styles that can be used to style any element on the page. These styles are typically short classes that provide specific CSS properties, such as bg-red-500 for a red background color or font-bold for bold text */
+
+@base utilities {}
+
+/* index.css */
+
+
+/* 
+body {
+    background-color: #fff;
+    font-family: sans-serif;
+} */
+
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.home-btn {
+    flex-basis: 20%;
+}
+
+
+/*   
+ .cat-btn{
+ flex-basis: 15%;
+
+}  */
+
+/* @media (min-width: 640px) {
+    &.text-scale {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+} */
+
+.text-red-500 {
+    color: #EF4444;
+}
+
+.bg-blue-500 {
+    background-color: #3B82F6;
+}
+
+.tab-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.tab-menu li {
+    margin-right: 10px;
+}
+
+.tab-menu li a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    background-color: #ccc;
+    border-radius: 4px 4px 0 0;
+    text-decoration: none;
+}
+
+.tab-menu li.active a {
+    color: #fff;
+    background-color: #333;
+}
+
+.tab-pane {
+    display: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+
+
+/* Custom CSS */
+
