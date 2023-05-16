@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useSession from "next-auth";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import AdminSidebar from "../components/admin/sidebar";
 
 export default function AdminPage() {
   const [user, setUser] = useState(null);
-  const router = useRouter();
+  // const router = useRouter();
   const [isAdmin, setIsAdmin] = useState(false);
    const [isLoading, setIsLoading] = useState(true);
 function checkAdminRole() {

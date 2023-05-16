@@ -125,16 +125,16 @@ useEffect(() => {
     {/* Replace the example data with your actual product data */}
 
  
-      
-   {categories.map(category => (
-    <tr>
+{categories.map(category => (
+   <tr key={category.id}>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.id}</td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.name}</td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> {category.category_description}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.category_description}</td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.emoji}</td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.category_featured}</td>
    </tr>
-   ))}
+))}
+
  
     {/* Add more rows for each product */}
   </tbody>
