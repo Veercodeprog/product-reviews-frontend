@@ -35,7 +35,7 @@ function MainHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
-  const [user, setUser] = useState(null);
+const [user, setUser] = useState<UserType | null>(null);
 
   // function setToken(userToken) {
   //   sessionStorage.setItem('token', JSON.stringify(userToken));
