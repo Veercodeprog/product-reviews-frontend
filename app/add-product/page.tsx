@@ -27,8 +27,8 @@ function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
   };
   reader.readAsDataURL(file);
 }
-  const renderCircle = (stepNum, formName) => {
-    const isActive = currentStep === stepNum;
+const renderCircle = (stepNum: number, formName: string) => {
+  const isActive = currentStep === stepNum;
 
     return (
       <div className="flex flex-col items-center">
