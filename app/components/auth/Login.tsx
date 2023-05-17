@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { handleLogin } from "@/app/utils/api";
 import { handleSignup } from "@/app/utils/api";
 import { signInWithGoogle } from "@/app/utils/auth";
-import { redirect } from "next/navigation";
+
 import Image from "next/image";
 
 // import { useRouter } from 'next/router';
 // import { signInWithGoogle } from "@/app/utils/firebase";
 // const API_BASE_URL = process.env.API_BASE_URL;
-import SessionManager from "@/app/utils/auth";
-import sessionManagerWithoutFirebase from "@/app/utils/sessionManager";
+
 import { Imperial_Script } from "next/font/google";
 import { useRouter } from "next/navigation";
 
