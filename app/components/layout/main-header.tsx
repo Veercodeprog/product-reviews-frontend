@@ -200,7 +200,7 @@ const handleLoginSubmit = (user: UserType) => {
                   <li className="md:ml-4">
                     <div className="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0">
                       <button onClick={handleLogout}>Logout</button>
-                      {showLogin && <ModalLogin onClose={handleCloseLogin} />}
+                      {showLogin && <ModalLogin onSubmit={handleLoginSubmit} onClose={handleCloseLogin} />}
                     </div>
                   </li>
                 </>
