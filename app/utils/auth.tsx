@@ -83,53 +83,53 @@ export const signOutUser = async () => {
   try {
     await signOut(auth);
     console.log("User signed out");
-    handleAuthentication(null); // Pass null to indicate user signed out
+    // handleAuthentication(null); // Pass null to indicate user signed out
   } catch (error) {
     console.error("Sign out failed", error);
   }
 };
 // onAuthStateChanged(auth, handleAuthentication);
-const handleAuthentication = async (user) => {
-  if (user) {
-    // User is signed in
-    // console.log('User signed in:', user);
-    const token = await getIdToken(user);
-    const tokenResult = await getIdTokenResult(user);
-    const { claims } = tokenResult;
-    console.log("Claims:", claims);
-    console.log("Token:", token);
-    const displayName = user.displayName;
-    console.log("DisplayName:", displayName);
+// const handleAuthentication = async (user) => {
+//   if (user) {
+//     // User is signed in
+//     // console.log('User signed in:', user);
+//     const token = await getIdToken(user);
+//     const tokenResult = await getIdTokenResult(user);
+//     const { claims } = tokenResult;
+//     console.log("Claims:", claims);
+//     console.log("Token:", token);
+//     const displayName = user.displayName;
+//     console.log("DisplayName:", displayName);
 
-    // Perform actions for logged in user, e.g., show user-specific content
-    // Set state or update UI to reflect logged in state
-    // Example: setLoggedIn(true);
+//     // Perform actions for logged in user, e.g., show user-specific content
+//     // Set state or update UI to reflect logged in state
+//     // Example: setLoggedIn(true);
 
 
-}else {
-    // User is signed out
-    console.log("User signed out hi");
+// }else {
+//     // User is signed out
+//     console.log("User signed out hi");
 
-    // Perform actions for logged out user, e.g., show login form
-    // Set state or update UI to reflect logged out state
-    // Example: setLoggedIn(false);
-  }
-};
+//     // Perform actions for logged out user, e.g., show login form
+//     // Set state or update UI to reflect logged out state
+//     // Example: setLoggedIn(false);
+//   }
+// };
 
-const SessionManager = ({ updateUser }) => {
-  useEffect(() => {
-    // Listen for authentication state changes
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      Promise.resolve().then(() => handleAuthentication(user));
-      updateUser(user); // Update the user state
-    });
+// const SessionManager = ({ updateUser }) => {
+//   useEffect(() => {
+//     // Listen for authentication state changes
+//     const unsubscribe = onAuthStateChanged(auth, (user) => {
+//       Promise.resolve().then(() => handleAuthentication(user));
+//       updateUser(user); // Update the user state
+//     });
 
-    // Clean up the listener when the component unmounts
-    return () => unsubscribe();
-  }, );
+//     // Clean up the listener when the component unmounts
+//     return () => unsubscribe();
+//   }, );
 
-  return null;
-};
+//   return null;
+// };
 
 export default SessionManager;
 export { handleAuthentication };
