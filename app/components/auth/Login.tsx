@@ -100,7 +100,7 @@ const ModalLogin = ({ onClose, onSubmit }: ModalLoginProps) => {
         </span>
 
         {!showPasswordForm && (
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
                 className="block text-gray-700 font-bold mb-2"
@@ -134,7 +134,7 @@ const ModalLogin = ({ onClose, onSubmit }: ModalLoginProps) => {
             <button
               className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-5"
               type="submit"
-              onClick={handleSubmit}
+             
              
             >
               Login
