@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { handleSignup } from "@/app/utils/api";
-const ModalSignup = ({ onClose, onSubmit }) => {
+interface ModalLoginProps {
+  onClose: () => void;
+  onSubmit: (user: any) => void;
+}
+const ModalSignup = ({ onClose, onSubmit }: ModalLoginProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
