@@ -12,6 +12,13 @@ function SocialProfileForm({ onNext, onPrevious }: { onNext: (e: React.MouseEven
     e.preventDefault();
     onPrevious(e);
   };
+const handleChangeImage = () => {
+    const avatarImg = document.getElementById("avatar-img");
+    if (avatarImg) {
+      avatarImg.click();
+    }
+  };
+
 return(
 <>
 	<div className="flex flex-row items-center mb-4">
@@ -52,7 +59,7 @@ return(
               <button
                 type="button"
                 className="justify-end next w-24 sm:w-32 bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0 mr-8"
-                onClick={() => document.getElementById("avatar-img").click()}
+                onClick={handleChangeImage}
               >
                 Change
               </button>
