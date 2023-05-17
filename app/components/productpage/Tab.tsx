@@ -50,9 +50,10 @@ const Tab = (props: TabProps) => {
 export default function TabSection(){
  const [activeTab, setActiveTab] = useState(tabs[0].id);
 
-  function handleTabClick(id) {
-    setActiveTab(id);
-  }
+ function handleTabClick(id: string) {
+  setActiveTab(id);
+}
+
 
   const tabsContent = tabs.map((tab) => (
     <Tab key={tab.id} tab={tab} toggle={() => handleTabClick(tab.id)} />
