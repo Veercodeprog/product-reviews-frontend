@@ -27,7 +27,7 @@ const ModalSignup = ({ onClose, onSubmit }: ModalLoginProps) => {
     setPassword(event.target.value);
   };
 
-  const buttonSignup = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const buttonSignup = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // Add your signup logic here
