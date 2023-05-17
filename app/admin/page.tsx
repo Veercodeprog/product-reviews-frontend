@@ -83,7 +83,7 @@ function checkAdminRole() {
   
 
   {/* Right Side */}
-  <div className="ml-10 w-5/6 h-full ">
+  <div className=" w-5/6 h-full ">
     {/* Content for the right side goes here */}
 sghhj
 
