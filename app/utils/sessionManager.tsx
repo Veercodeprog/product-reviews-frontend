@@ -4,11 +4,18 @@ import axios from "axios";
 import { auth } from "./firebase";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 // SessionManager.js
+type User = {
+  id: string;
+  name: string;
+  firstName: string;
+  role: string;
+  // other properties...
+};
 
 class sessionManagerWithoutFirebase {
   // Other code...
 
-  static setUser(user: UserType) {
+  static setUser(user: User) {
     localStorage.setItem("user", JSON.stringify(user));
   }
   static getUser() {

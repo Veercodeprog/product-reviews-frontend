@@ -25,14 +25,14 @@ const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 //     // Failed to set session persistence
 //     console.error("Failed to set session persistence", error);
 //   });
-type UserType = {
+type User = {
   id: string;
   name: string;
-  displayName: string;
-  // ... other properties
-};  
-
-const storeAuthentication = (token: string  , user: UserType) => {
+  firstName: string;
+  role: string;
+  // other properties...
+};
+const storeAuthentication = (token: string  , user: User) => {
     sessionManagerWithoutFirebase.setUser(user);
   localStorage.setItem("token", token);
 };

@@ -2,11 +2,17 @@ import axios from "axios";
 import { auth } from "./firebase";
 import { setPersistence, browserSessionPersistence } from "firebase/auth";
 import sessionManagerWithoutFirebase from "./sessionManager";
-import { onAuthStateChanged, User } from "firebase/auth";
+// import { onAuthStateChanged, User } from "firebase/auth";
 import { useState, useEffect } from "react";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
+type User = {
+  id: string;
+  name: string;
+  firstName: string;
+  role: string;
+  // other properties...
+};
 const storeAuthentication = (token: string, user: User) => {
   sessionManagerWithoutFirebase.setUser(user);
   localStorage.setItem("token", token);
@@ -73,26 +79,26 @@ export const customSignOutUser = async () => {
   }
 };
 
-const CustomSessionManager = ({ updateUser }: { updateUser: (user: User | null) => void }) => {
-  useEffect(() => {
-    const userString = localStorage.getItem("user");
-    const user = userString ? JSON.parse(userString) : null;
-    updateUser(user);
+// const CustomSessionManager = ({ updateUser }: { updateUser: (user: User | null) => void }) => {
+//   useEffect(() => {
+//     const userString = localStorage.getItem("user");
+//     const user = userString ? JSON.parse(userString) : null;
+//     updateUser(user);
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User is signed in:", user.displayName);
-        updateUser(user);
-      } else {
-        console.log("User is signed out");
-        updateUser(null);
-      }
-    });
+//     const unsubscribe = onAuthStateChanged(auth, (user) => {
+//       if (user) {
+//         console.log("User is signed in:", user.displayName);
+//         updateUser(user);
+//       } else {
+//         console.log("User is signed out");
+//         updateUser(null);
+//       }
+//     });
 
-    return () => unsubscribe();
-  }, [updateUser]);
+//     return () => unsubscribe();
+//   }, [updateUser]);
 
-  return null;
-};
+//   return null;
+// };
 
-export default CustomSessionManager;
+// export default CustomSessionManager;
