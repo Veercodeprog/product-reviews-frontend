@@ -7,17 +7,17 @@ import AccountSetup from "../components/addproductpage/account-setup-data";
 function AddProductPage() {
   const [currentStep, setCurrentStep] = useState(1);
 
-  const handleClick = (e) => {
+  const handleClick = (e :unknown) => {
     e.preventDefault();
     setCurrentStep(currentStep + 1);
   };
 
-  const handlePrevious = (e) => {
+  const handlePrevious = (e :unknown) => {
     e.preventDefault();
     setCurrentStep(currentStep - 1);
   };
 
-  function handleImageUpload(event) {
+  function handleImageUpload(event : unknown) { 
     const file = event.target.files[0];
     if (!file) return;
     const reader = new FileReader();
