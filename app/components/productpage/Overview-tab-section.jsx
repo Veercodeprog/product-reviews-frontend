@@ -29,9 +29,9 @@ function OverviewTab() {
           >
             <div style={{ position: "relative" }}>
               <Image
-                className="w-full h-48 object-cover object-center mb-10"
+                className="w-full h-48 object-cover object-center mb-10" width={200} height={150}
                 src={imageUrl}
-                alt={`Image ${index + currentIndex + 1}`}
+                alt={`Image ${index + currentIndex + 1}`}  
               />
               {index === 0 && (
                 <button

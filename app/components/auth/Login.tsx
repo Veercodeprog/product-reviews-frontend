@@ -13,7 +13,12 @@ import sessionManagerWithoutFirebase from "@/app/utils/sessionManager";
 import { Imperial_Script } from "next/font/google";
 import { useRouter } from "next/navigation";
 
-const ModalLogin = ({ onClose, onSubmit }) => {
+interface ModalLoginProps {
+  onClose: () => void;
+  onSubmit: (user: any) => void;
+}
+
+const ModalLogin = ({ onClose, onSubmit }: ModalLoginProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [user, setUsername] = useState("");
@@ -21,42 +26,39 @@ const ModalLogin = ({ onClose, onSubmit }) => {
   const [error, setError] = useState("");
   const [showPasswordForm, setShowPasswordForm] = useState(false);
 
-    const router = useRouter();
+  const router = useRouter();
 
-  const handleUsernameChange = (event) => {
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
-  const handleShowPasswordForm = (fname, lname, email) => {
+
+  const handleShowPasswordForm = (fname: string, lname: string, email: string) => {
     setShowPasswordForm(true);
     setFirstName(fname);
     setLastName(lname);
     setUsername(email);
   };
-  const handlePasswordFormSubmit = (event) => {
+
+  const handlePasswordFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleSignup(firstName, lastName, user, pwd);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      // await handleLogin(user, pwd );
       const result = await handleLogin(user, pwd);
-      // sessionManagerWithoutFirebase.setUser(result.user)
 
-      // console.log("result user: ", result.user);
-      // console.log("result token :", result.token);
       if (result.user) {
         onSubmit(result.user);
       }
       if (result.user.role == "admin") {
-        // window.location.href = "/admin";
-router.push("/admin")
+        router.push("/admin");
         console.log("ADMIN USER");
       }
       onClose();
@@ -66,7 +68,7 @@ router.push("/admin")
     }
   };
 
-  const handleGoogleSignIn = async (event) => {
+  const handleGoogleSignIn = async (event: React.MouseEvent<HTMLButtonElement>) => {
     try {
       const result = await signInWithGoogle(event, handleShowPasswordForm);
       console.log("user by sign in with google:", result);
@@ -85,6 +87,7 @@ router.push("/admin")
       // Handle the error as needed
     }
   };
+
 
   return (
     <div className="fixed z-10 inset-0 flex items-center justify-center bg-black bg-opacity-50">

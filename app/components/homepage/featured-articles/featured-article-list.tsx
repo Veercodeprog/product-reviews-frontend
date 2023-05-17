@@ -7,7 +7,7 @@ return(
                     <div className="relative">
                       <Image
                         className="w-full rounded-lg"
-                        src="https://dummyimage.com/200x150/000/fff.jpg"
+                        src="https://dummyimage.com/200x150/000/fff.jpg" width={200} height={150}
                         alt="image1"
                       />
 
@@ -23,7 +23,7 @@ return(
                     <div className="relative">
                       <Image
                         className="w-full rounded-lg"
-                        src="https://dummyimage.com/200x150/000/fff.jpg"
+                        src="https://dummyimage.com/200x150/000/fff.jpg" width={200} height={150}
                         alt="image1"
                       />
 
@@ -39,7 +39,7 @@ return(
                     <div className="relative">
                       <Image
                         className="w-full rounded-lg"
-                        src="https://dummyimage.com/200x150/000/fff.jpg"
+                        src="https://dummyimage.com/200x150/000/fff.jpg" width={200} height={150}
                         alt="image1"
                       />
 
@@ -55,7 +55,7 @@ return(
                     <div className="relative">
                       <Image
                         className="w-full rounded-lg"
-                        src="https://dummyimage.com/200x150/000/fff.jpg"
+                        src="https://dummyimage.com/200x150/000/fff.jpg" width={200} height={150}
                         alt="image1"
                       />
 
@@ -73,7 +73,23 @@ return(
                     <div className="relative">
                       <Image
                         className="w-full rounded-lg"
-                        src="https://dummyimage.com/200x150/000/fff.jpg"
+                        src="https://dummyimage.com/200x150/000/fff.jpg" width={200} height={150}
+                        alt="image1"
+                      />
+
+                      <h2 className="image--headings md__down:text-2xl">
+                        Image Title
+                      </h2>
+                      <p className="image--desc md__down:text-xl">
+                        Image Description
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-full sm:w-1/2 lg:w-1/4 px-2 mb-4 ">
+                    <div className="relative">
+                      <Image
+                        className="w-full rounded-lg"
+                        src="https://dummyimage.com/200x150/000/fff.jpg" width={200} height={150}
                         alt="image1"
                       />
 
@@ -90,7 +106,7 @@ return(
                       <Image
                         className="w-full rounded-lg"
                         src="https://dummyimage.com/200x150/000/fff.jpg"
-                        alt="image1"
+                        alt="image1" width={200} height={150}
                       />
 
                       <h2 className="image--headings md__down:text-2xl">
@@ -106,23 +122,7 @@ return(
                       <Image
                         className="w-full rounded-lg"
                         src="https://dummyimage.com/200x150/000/fff.jpg"
-                        alt="image1"
-                      />
-
-                      <h2 className="image--headings md__down:text-2xl">
-                        Image Title
-                      </h2>
-                      <p className="image--desc md__down:text-xl">
-                        Image Description
-                      </p>
-                    </div>
-                  </div>
-                  <div className="w-full sm:w-1/2 lg:w-1/4 px-2 mb-4 ">
-                    <div className="relative">
-                      <Image
-                        className="w-full rounded-lg"
-                        src="https://dummyimage.com/200x150/000/fff.jpg"
-                        alt="image1"
+                        alt="image1" width={200} height={150}
                       />
 
                       <h2 className="image--headings md__down:text-2xl">

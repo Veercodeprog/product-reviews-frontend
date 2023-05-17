@@ -18,6 +18,7 @@ export default function ProductsPage() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center">
               <Image
                 src="https://dummyimage.com/200x150/000/fff.jpg"
+                width={200} height={150}
                 alt="..."
                 className="mr-8"
               />

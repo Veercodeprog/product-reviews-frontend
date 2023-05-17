@@ -6,9 +6,12 @@ return(
  <div className="container mx-auto flex flex-col md:flex-row items-center sm:mb-14">
             <div className="md:w-3/4 md:pr-16 flex flex-col md:items-start md:text-left md:mb-0 items-center text-center">
               <div className="flex items-center">
+
+                    
                 <Image
-                  src="https://dummyimage.com/200x150/000/fff.jpg"
-                  alt="..."
+                      
+                        src="https://dummyimage.com/200x150/000/fff.jpg"
+                        alt="image1" width={200} height={150}
                   className="mr-8"
                 />
                 <p className="card-text para">
