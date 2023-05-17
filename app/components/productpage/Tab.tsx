@@ -10,8 +10,14 @@ const tabs = [
   { id: "tab3", title: "Founders" },
   { id: "tab4", title: "Reviews" },
 ];
+type TabProps = {
+  tab: {
+    id: string;
+    // other properties of the tab object
+  };
+};
 
-const Tab = (props) => {
+const Tab = (props: TabProps) => {
   const isActive = props.tab.id;
 
   return (

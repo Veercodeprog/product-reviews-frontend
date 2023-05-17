@@ -15,64 +15,55 @@ import sessionManagerWithoutFirebase from "./sessionManager";
 import "firebase/firestore";
 import { auth } from "./firebase";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-// setPersistence(auth, browserSessionPersistence)
-//   .then(() => {
-//     // Session persistence successfully set
-//     console.log("Session persistence set");
-//   })
-//   .catch((error) => {
-//     // Failed to set session persistence
-//     console.error("Failed to set session persistence", error);
-//   });
-const storeAuthentication = (token, user) => {
-    sessionManagerWithoutFirebase.setUser(user);
+ type UserType = {
+  id: number;
+  username: string;
+  role: string;
+  firstName: string;
+  // Add other properties as needed
+};
+const storeAuthentication = (token: string, user: UserType) => {
+  sessionManagerWithoutFirebase.setUser(user);
   localStorage.setItem("token", token);
 };
+
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
-export const signInWithGoogle = async (event, handleShowPasswordForm) => {
+export const signInWithGoogle = async (
+  event: React.MouseEvent<HTMLButtonElement>,
+  handleShowPasswordForm: (
+    firstName: string,
+    lastName: string,
+    email: string
+  ) => void
+) => {
   event.preventDefault();
   try {
     await setPersistence(auth, browserSessionPersistence); // Set session persistence
 
     const result = await signInWithPopup(auth, provider);
-    const { user } = result; //select
-    // Check if the user is already registered in your backend
-
+    const { user } = result;
 
     const response = await axios.post(`${baseUrl}/checkUser`, {
       email: user.email,
     });
-    console.log("complete Response:", response);  //checked from mysql db and mysql table object
-    console.log("complete user object google:", user);
 
     if (response.data.exists) {
-      console.log("User already registered");
-      // Perform login with the existing user
       const { id, role, firstName, username } = response.data;
-      //  currentUser = { id, role, firstName ,username};
-      //   const token = response.headers.authorization;
-      //   console.log("Token:", token);
- 	
+
       if (response.data.role === "admin") {
         window.location.href = `${baseUrl}/`; // Redirect to admin page for admin users
       } else {
         console.log("normal user");
       }
     } else {
-      console.log("User not registered");
-      // Extract the user's name from the email
       const [fname, lname] = user.displayName.split(" ");
-      // Perform signup with the user's details
-      // const password = prompt("Please enter a password:");
-      // console.log(fname,lname ,user.email,user.password)
       handleShowPasswordForm(fname, lname, user.email);
-      // handleSignup(fname, lname, user.email, password);
     }
-storeAuthentication(response.data.token, response.data.user);
-return response.data
+
+    storeAuthentication(response.data.token, response.data.user);
+    return response.data;
   } catch (error) {
     console.error("Sign in with Google failed", error);
     throw error;
@@ -88,11 +79,9 @@ export const signOutUser = async () => {
     console.error("Sign out failed", error);
   }
 };
-// onAuthStateChanged(auth, handleAuthentication);
-const handleAuthentication = async (user) => {
+
+const handleAuthentication = async (user: UserType | null) => {
   if (user) {
-    // User is signed in
-    // console.log('User signed in:', user);
     const token = await getIdToken(user);
     const tokenResult = await getIdTokenResult(user);
     const { claims } = tokenResult;
@@ -100,33 +89,20 @@ const handleAuthentication = async (user) => {
     console.log("Token:", token);
     const displayName = user.displayName;
     console.log("DisplayName:", displayName);
-
-    // Perform actions for logged in user, e.g., show user-specific content
-    // Set state or update UI to reflect logged in state
-    // Example: setLoggedIn(true);
-
-
-}else {
-    // User is signed out
+  } else {
     console.log("User signed out hi");
-
-    // Perform actions for logged out user, e.g., show login form
-    // Set state or update UI to reflect logged out state
-    // Example: setLoggedIn(false);
   }
 };
 
-const SessionManager = ({ updateUser }) => {
+const SessionManager = ({ updateUser }: { updateUser: (user: UserType | null) => void }) => {
   useEffect(() => {
-    // Listen for authentication state changes
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       Promise.resolve().then(() => handleAuthentication(user));
-      updateUser(user); // Update the user state
+      updateUser(user);
     });
 
-    // Clean up the listener when the component unmounts
     return () => unsubscribe();
-  }, );
+  }, []);
 
   return null;
 };
