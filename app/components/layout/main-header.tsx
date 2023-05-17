@@ -8,15 +8,15 @@ import ModalSignup from "../auth/Signup";
 // import { , getCurrentUser,handleLogout } from "@/app/utils/api";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/app/utils/firebase";
-import SessionManager from "@/app/utils/auth";
-import sessionManagerWithoutFirebase from "@/app/utils/sessionManager";
-import CustomSessionManager from "@/app/utils/api";
+// import SessionManager from "@/app/utils/auth";
+// import sessionManagerWithoutFirebase from "@/app/utils/sessionManager";
+// import CustomSessionManager from "@/app/utils/api";
 
-import { parseCookies } from "nookies";
+// import { parseCookies } from "nookies";
 
 import { customSignOutUser } from "@/app/utils/api";
 
-import { handleLogin } from "@/app/utils/api";
+// import { handleLogin } from "@/app/utils/api";
 
 import {
   faMagnifyingGlass,
