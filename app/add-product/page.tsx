@@ -12,22 +12,21 @@ function AddProductPage() {
     setCurrentStep(currentStep + 1);
   };
 
-  const handlePrevious = (e :unknown) => {
-    e.preventDefault();
-    setCurrentStep(currentStep - 1);
+  const handlePrevious = (e: React.MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();
+  setCurrentStep(currentStep - 1);
+};
+
+function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const imgBox = document.querySelector(".image-box") as HTMLElement;
+    imgBox.style.backgroundImage = `url(${e.target?.result})`;
   };
-
-  function handleImageUpload(event : unknown) { 
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const imgBox = document.querySelector(".image-box");
-      imgBox.style.backgroundImage = `url(${e.target.result})`;
-    };
-    reader.readAsDataURL(file);
-  }
-
+  reader.readAsDataURL(file);
+}
   const renderCircle = (stepNum, formName) => {
     const isActive = currentStep === stepNum;
 
