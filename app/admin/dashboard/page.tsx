@@ -2,10 +2,24 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AdminSidebar from "@/app/components/admin/sidebar";
+interface User {
+  firstName: string;
+  // Other properties of the user object
+}
 export default function CategoriesAdminPage() {
 const [isAdmin, setIsAdmin] = useState(false);
 const [user, setUser] = useState(null)
    const [isLoading, setIsLoading] = useState(true);
+  function getUser(): User | null {
+    // Replace this with your actual logic to retrieve the user object
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      return parsedUser;
+    }
+    return null;
+  }
+
 function checkAdminRole() {
   // Replace this with your own logic to check if the user is an admin
 
@@ -49,7 +63,7 @@ setUser(parsedUser)
   <div className="w-5/6 h-full bg-white my-1">
     {/* Content for the right side goes here */}
 
-<h1>hello, {user?.firstName}</h1>
+            <h1>hello, {user?.firstName}</h1>
 
 
   </div>	
