@@ -49,7 +49,7 @@ setUser(parsedUser)
   <div className="w-5/6 h-full bg-white my-1">
     {/* Content for the right side goes here */}
 
-<h1>hello, {user.firstName}</h1>
+<h1>hello, {user?.firstName}</h1>
 
 
   </div>	
