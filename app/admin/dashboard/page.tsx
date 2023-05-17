@@ -8,8 +8,8 @@ interface User {
 }
 export default function CategoriesAdminPage() {
 const [isAdmin, setIsAdmin] = useState(false);
-const [user, setUser] = useState(null)
-   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+     const [isLoading, setIsLoading] = useState(true);
   function getUser(): User | null {
     // Replace this with your actual logic to retrieve the user object
     const storedUser = localStorage.getItem("user");
@@ -63,7 +63,7 @@ setUser(parsedUser)
   <div className="w-5/6 h-full bg-white my-1">
     {/* Content for the right side goes here */}
 
-            <h1>hello, {user?.firstName}</h1>
+            <h1>hello, {(user as User)?.firstName}</h1>
 
 
   </div>	
