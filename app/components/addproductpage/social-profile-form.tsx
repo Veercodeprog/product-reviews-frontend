@@ -1,14 +1,14 @@
 import { faImage, faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-function SocialProfileForm({ onNext, onPrevious }) {
+function SocialProfileForm({ onNext, onPrevious }: { onNext: (e: React.MouseEvent<HTMLButtonElement>) => void, onPrevious: (e: React.MouseEvent<HTMLButtonElement>) => void }  ) {
   // ...
 
-  const handleNext = (e) => {
+  const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onNext(e);
   };
 
-  const handlePrevious = (e) => {
+  const handlePrevious = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onPrevious(e);
   };

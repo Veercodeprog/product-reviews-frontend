@@ -1,12 +1,12 @@
-function AccountSetup({ onNext, onPrevious }) {
+function AccountSetup({ onNext, onPrevious }: { onNext: (e: React.MouseEvent<HTMLButtonElement>) => void, onPrevious: (e: React.MouseEvent<HTMLButtonElement>) => void }  ) {
   // ...
 
-  const handleNext = (e) => {
+  const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onNext(e);
   };
 
-  const handlePrevious = (e) => {
+  const handlePrevious = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onPrevious(e);
   };
