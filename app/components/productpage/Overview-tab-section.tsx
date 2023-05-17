@@ -7,7 +7,7 @@ import images from "../../../data/images"
 function OverviewTab() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleScroll = (direction) => {
+  const handleScroll = (direction: string) => {
     if (direction === "next" && currentIndex < images.length - 3) {
       setCurrentIndex(currentIndex + 1);
     } else if (direction === "prev" && currentIndex > 0) {
