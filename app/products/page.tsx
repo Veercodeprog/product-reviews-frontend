@@ -3,7 +3,7 @@ import Breadcrumb from "../components/layout/breadcrumb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import TabSection from "../components/productpage/Tab";
-
+import Image from "next/image";
 
 
 export default function ProductsPage() {
@@ -16,7 +16,7 @@ export default function ProductsPage() {
         <div className="container sm:mx-auto flex sm:px-2 sm:py-2 md:flex-row sm:-ml-12 md:ml-0  flex-col sm:items-center">
           <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left md:mb-0 items-center text-center">
             <div className="flex flex-col sm:flex-row items-start sm:items-center">
-              <img
+              <Image
                 src="https://dummyimage.com/200x150/000/fff.jpg"
                 alt="..."
                 className="mr-8"

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-
+import Image from "next/image";
 import images from "../../../data/images"
 function OverviewTab() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,7 +28,7 @@ function OverviewTab() {
             className="w-full overflow-hidden lg:w-1/3 xl:w-1/3 px-4 relative"
           >
             <div style={{ position: "relative" }}>
-              <img
+              <Image
                 className="w-full h-48 object-cover object-center mb-10"
                 src={imageUrl}
                 alt={`Image ${index + currentIndex + 1}`}

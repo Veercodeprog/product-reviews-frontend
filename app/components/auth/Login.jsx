@@ -3,6 +3,7 @@ import { handleLogin } from "@/app/utils/api";
 import { handleSignup } from "@/app/utils/api";
 import { signInWithGoogle } from "@/app/utils/auth";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 // import { useRouter } from 'next/router';
 // import { signInWithGoogle } from "@/app/utils/firebase";
@@ -137,7 +138,7 @@ router.push("/admin")
             </button>
             <div className="mt-5 flex items-center    space-x-2">
               <div className="w-5 h-5">
-                <img
+                <Image
                   src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
                   alt="Google Icon"
                 />

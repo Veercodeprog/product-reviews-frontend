@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 export default function ProductCards(){
 return(
  <div className="container mx-auto flex flex-col md:flex-row items-center sm:mb-14">
             <div className="md:w-3/4 md:pr-16 flex flex-col md:items-start md:text-left md:mb-0 items-center text-center">
               <div className="flex items-center">
-                <img
+                <Image
                   src="https://dummyimage.com/200x150/000/fff.jpg"
                   alt="..."
                   className="mr-8"

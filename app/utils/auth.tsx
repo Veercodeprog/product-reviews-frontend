@@ -126,7 +126,7 @@ const SessionManager = ({ updateUser }) => {
 
     // Clean up the listener when the component unmounts
     return () => unsubscribe();
-  }, []);
+  }, );
 
   return null;
 };
