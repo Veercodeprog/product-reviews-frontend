@@ -129,7 +129,7 @@ const handleLoginSubmit = (user: UserType) => {
                 {" "}
                 <p className="no-underline text-grey-darkest hover:text-black">
                   Welcome,{" "}
-                  {user.displayName ? user.displayName : user.firstName}
+                  {user.firstName }
                 </p>
               </>
             ) : (
