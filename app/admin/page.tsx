@@ -5,19 +5,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useSession from "next-auth";
 import Link from "next/link";
 import AdminSidebar from "../components/admin/sidebar";
-
+interface User {
+  firstName: string;
+  // Other properties of the user object
+}
 export default function AdminPage() {
-  const [user, setUser] = useState(null);
-  // const router = useRouter();
-  const [isAdmin, setIsAdmin] = useState(false);
-   const [isLoading, setIsLoading] = useState(true);
+ const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+     const [isLoading, setIsLoading] = useState(true);
+  function getUser(): User | null {
+    // Replace this with your actual logic to retrieve the user object
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      return parsedUser;
+    }
+    return null;
+  }
+
 function checkAdminRole() {
   // Replace this with your own logic to check if the user is an admin
 
-  const user = localStorage.getItem('user'); // Retrieve the user object from local storage or wherever it is stored
-  if (user) {
-    const parsedUser = JSON.parse(user);
+  const storedUser = localStorage.getItem('user'); // Retrieve the user object from local storage or wherever it is stored
+  if (storedUser) {
+    const parsedUser = JSON.parse(storedUser);
+setUser(parsedUser)
     return parsedUser.role === 'admin';
+
   }
 
   return false; // Default to false if user is not found or role is not 'admin'
@@ -25,8 +39,6 @@ function checkAdminRole() {
 
  useEffect(() => {
     // Simulating an asynchronous check for admin role
-
-
     setTimeout(() => {
       const isAdminUser = checkAdminRole(); // Replace with your logic to check if the user is an admin
 
@@ -85,10 +97,7 @@ function checkAdminRole() {
   {/* Right Side */}
   <div className=" w-5/6 h-full ">
     {/* Content for the right side goes here */}
-sghhj
-
-
-sdjknjkds
+ <h1>welcome, {(user as User)?.firstName}</h1>
   </div>	
 </div>
 

@@ -131,5 +131,5 @@ export const signOutUser = async () => {
 //   return null;
 // };
 
-export default SessionManager;
-export { handleAuthentication };
+// export default SessionManager;
+// export { handleAuthentication };
