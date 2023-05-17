@@ -115,7 +115,7 @@ return(
               Features :
             </label>
             <textarea
-              type="text"
+            
               name="fname"
               id="fname"
               placeholder="Features"
