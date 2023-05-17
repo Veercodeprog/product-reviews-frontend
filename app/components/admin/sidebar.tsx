@@ -19,10 +19,11 @@ export default function AdminSidebar() {
 
   const inactiveLink = "flex-gap-1";
   const activeLink = inactiveLink + "bg-white";
-  const handleTabClick = (tabName) => {
-    setActiveTab(tabName);
-    router.push(`/admin/${tabName.toLowerCase()}`); // Update the URL based on the clicked tab
-  };
+ const handleTabClick = (tabName: string) => {
+  setActiveTab(tabName);
+  router.push(`/admin/${tabName.toLowerCase()}`); // Update the URL based on the clicked tab
+};
+
   const handleToggleSidebar = () => {
     setShow(!show);
   };
