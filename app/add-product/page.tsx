@@ -8,7 +8,7 @@ function AddProductPage() {
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleClick = (e :unknown) => {
-    e.preventDefault();
+    (e as React.MouseEvent).preventDefault();
     setCurrentStep(currentStep + 1);
   };
 
