@@ -25,46 +25,54 @@ const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 //     // Failed to set session persistence
 //     console.error("Failed to set session persistence", error);
 //   });
-const storeAuthentication = (token, user) => {
+type UserType = {
+  id: string;
+  name: string;
+  displayName: string;
+  // ... other properties
+};  
+
+const storeAuthentication = (token: string  , user: UserType) => {
     sessionManagerWithoutFirebase.setUser(user);
   localStorage.setItem("token", token);
 };
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
-export const signInWithGoogle = async (event, handleShowPasswordForm) => {
-  event.preventDefault();
-  try {
-    await setPersistence(auth, browserSessionPersistence); // Set session persistence
+ export const signInWithGoogle = async (event: React.MouseEvent, handleShowPasswordForm: (fname: string, lname: string, email: string) => void) => {
 
-    const result = await signInWithPopup(auth, provider);
-    const { user } = result; //select
-    // Check if the user is already registered in your backend
+    event.preventDefault();
+    try {
+      await setPersistence(auth, browserSessionPersistence); // Set session persistence
+
+      const result = await signInWithPopup(auth, provider);
+      const { user } = result; //select
+      // Check if the user is already registered in your backend
 
 
-    const response = await axios.post(`${baseUrl}/checkUser`, {
-      email: user.email,
-    });
-    console.log("complete Response:", response);  //checked from mysql db and mysql table object
-    console.log("complete user object google:", user);
+      const response = await axios.post(`${baseUrl}/checkUser`, {
+        email: user.email,
+      });
+      console.log("complete Response:", response);  //checked from mysql db and mysql table object
+      console.log("complete user object google:", user);
 
-    if (response.data.exists) {
-      console.log("User already registered");
-      // Perform login with the existing user
-      const { id, role, firstName, username } = response.data;
-      //  currentUser = { id, role, firstName ,username};
-      //   const token = response.headers.authorization;
-      //   console.log("Token:", token);
- 	
-      if (response.data.role === "admin") {
-        window.location.href = `${baseUrl}/`; // Redirect to admin page for admin users
+      if (response.data.exists) {
+        console.log("User already registered");
+        // Perform login with the existing user
+        const { id, role, firstName, username } = response.data;
+        //  currentUser = { id, role, firstName ,username};
+        //   const token = response.headers.authorization;
+        //   console.log("Token:", token);
+    
+        if (response.data.role === "admin") {
+          window.location.href = `${baseUrl}/`; // Redirect to admin page for admin users
+        } else {
+          console.log("normal user");
+        }
       } else {
-        console.log("normal user");
-      }
-    } else {
-      console.log("User not registered");
-      // Extract the user's name from the email
-      const [fname, lname] = user.displayName.split(" ");
+        console.log("User not registered");
+        // Extract the user's name from the email
+        const [fname, lname] = user.displayName.split(" ");
       // Perform signup with the user's details
       // const password = prompt("Please enter a password:");
       // console.log(fname,lname ,user.email,user.password)
