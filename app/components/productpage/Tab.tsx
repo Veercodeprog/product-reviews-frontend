@@ -13,6 +13,7 @@ const tabs = [
 type TabProps = {
   tab: {
     id: string;
+title: string;
     // other properties of the tab object
   };
  toggle: (id: string) => void;
