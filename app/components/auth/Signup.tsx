@@ -11,23 +11,23 @@ const ModalSignup = ({ onClose, onSubmit }: ModalLoginProps) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleFirstNameChange = (event) => {
+  const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
   };
 
-  const handleLastNameChange = (event) => {
+  const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLastName(event.target.value);
   };
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
 
-  const buttonSignup = async (event) => {
+  const buttonSignup = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
     // Add your signup logic here
