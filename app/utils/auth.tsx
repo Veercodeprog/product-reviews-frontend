@@ -72,11 +72,12 @@ provider.setCustomParameters({ prompt: "select_account" });
       } else {
         console.log("User not registered");
         // Extract the user's name from the email
-        const [fname, lname] = user.displayName.split(" ");
+      const [fname, lname] = user.displayName?.split(" ") ?? ["", ""];
       // Perform signup with the user's details
       // const password = prompt("Please enter a password:");
       // console.log(fname,lname ,user.email,user.password)
-      handleShowPasswordForm(fname, lname, user.email);
+const email = user.email ?? "";
+      handleShowPasswordForm(fname, lname, email);
       // handleSignup(fname, lname, user.email, password);
     }
 storeAuthentication(response.data.token, response.data.user);
