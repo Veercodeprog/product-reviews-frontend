@@ -15,6 +15,7 @@ type TabProps = {
     id: string;
     // other properties of the tab object
   };
+ toggle: (id: string) => void;
 };
 
 const Tab = (props: TabProps) => {
