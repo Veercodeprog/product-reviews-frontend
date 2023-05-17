@@ -133,9 +133,9 @@ const ModalLogin = ({ onClose, onSubmit }: ModalLoginProps) => {
             </div>
             <button
               className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-5"
-              // onClick={props.onLogin}
-              onClick={handleSubmit}
               type="submit"
+              onClick={handleSubmit}
+             
             >
               Login
             </button>
@@ -143,11 +143,12 @@ const ModalLogin = ({ onClose, onSubmit }: ModalLoginProps) => {
               <div className="w-5 h-5">
                 <Image
                   src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                  alt="Google Icon"
+                  alt="Google Icon" 
                 />
               </div>
               <button
                 className="flex items-center justify-center px-4 py-2 space-x-2 bg-blue-500 hover:bg-blue-600 text-white rounded focus:outline-none focus:ring focus:ring-blue-300"
+ type ="submit"
                 onClick={handleGoogleSignIn}
               >
                 <span>Sign in with Google</span>
