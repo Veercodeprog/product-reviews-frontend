@@ -143,7 +143,8 @@ const ModalLogin = ({ onClose, onSubmit }: ModalLoginProps) => {
               <div className="w-5 h-5">
                 <Image
                   src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                  alt="Google Icon" 
+                  alt="Google Icon" width={20}
+    height={20}
                 />
               </div>
               <button
