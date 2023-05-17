@@ -3,10 +3,18 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AdminSidebar from "@/app/components/admin/sidebar";
 import { fetchCategories } from "@/app/utils/admin/adminApi";
+interface Category {
+  id: number;
+  name: string;
+  category_description: string;
+  emoji: string;
+  category_featured: string;
+}
+
 export default function CategoriesAdminPage() {
 const [isAdmin, setIsAdmin] = useState(false);
    const [isLoading, setIsLoading] = useState(true);
-const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
 function checkAdminRole() {
   // Replace this with your own logic to check if the user is an admin
@@ -125,15 +133,21 @@ useEffect(() => {
     {/* Replace the example data with your actual product data */}
 
  
-{categories.map(category => (
-   <tr key={category.id}>
+{categories.length > 0 ? (
+  categories.map((category) => (
+    <tr key={category.id}>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.id}</td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.name}</td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.category_description}</td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.emoji}</td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.category_featured}</td>
-   </tr>
-))}
+    </tr>
+  ))
+) : (
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colSpan={5}>No categories found.</td>
+  </tr>
+)}
 
  
     {/* Add more rows for each product */}
