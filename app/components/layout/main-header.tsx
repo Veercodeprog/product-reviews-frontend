@@ -24,6 +24,13 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
+ type UserType = {
+  id: number;
+  username: string;
+  role: string;
+  firstName: string;
+  // Add other properties as needed
+};
 function MainHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -90,7 +97,7 @@ console.log("stored",storedUser)
   const handleCloseSignup = () => {
     setShowSignup(false);
   };
-  const handleLoginSubmit = (user) => {
+const handleLoginSubmit = (user: UserType) => {
     // Update the user state
     setUser(user);
   };
