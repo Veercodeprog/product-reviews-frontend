@@ -16,7 +16,7 @@ import { auth } from "@/app/utils/firebase";
 
 import { customSignOutUser } from "@/app/utils/api";
 
-// import { handleLogin } from "@/app/utils/api";
+import { handleLogin } from "@/app/utils/api";
 
 import {
   faMagnifyingGlass,

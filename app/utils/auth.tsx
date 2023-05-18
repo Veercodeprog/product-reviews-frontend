@@ -63,7 +63,7 @@ provider.setCustomParameters({ prompt: "select_account" });
         //  currentUser = { id, role, firstName ,username};
         //   const token = response.headers.authorization;
         //   console.log("Token:", token);
-    
+    return response.data;
         if (response.data.role === "admin") {
           window.location.href = `${baseUrl}/`; // Redirect to admin page for admin users
         } else {
@@ -80,8 +80,8 @@ const email = user.email ?? "";
       handleShowPasswordForm(fname, lname, email);
       // handleSignup(fname, lname, user.email, password);
     }
-storeAuthentication(response.data.token, response.data.user);
-return response.data
+// storeAuthentication(response.data.token, response.data.user);
+
   } catch (error) {
     console.error("Sign in with Google failed", error);
     throw error;

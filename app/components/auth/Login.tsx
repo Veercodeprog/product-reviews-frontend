@@ -42,9 +42,22 @@ const ModalLogin = ({ onClose, onSubmit }: ModalLoginProps) => {
     setUsername(email);
   };
 
-  const handlePasswordFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handlePasswordFormSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    handleSignup(firstName, lastName, user, pwd);
+ try {
+      const result= await   handleSignup(firstName, lastName, user, pwd);
+if (result.user) {
+        onSubmit(result.user);
+      }
+      if (result.user.role == "admin") {
+        console.log("ADMIN USER");
+      }
+      onClose();
+    } catch (error) {
+      console.error("Signup failed", error);
+      setError("Error occurred during signup");
+    }
+
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
