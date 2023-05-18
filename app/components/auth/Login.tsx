@@ -56,7 +56,7 @@ if (result.user) {
     } catch (error) {
       console.error("Signup failed", error);
       setError("Error occurred during signup");
-    }
+    } 
 
   };
 
@@ -84,7 +84,7 @@ if (result.user) {
     try {
       const result = await signInWithGoogle(event, handleShowPasswordForm);
       console.log("user by sign in with google:", result);
-      if (result) {
+      if (result.user) {
         console.log("user by sign in with google:", result.user);
         onSubmit(result.user);
       }

@@ -48,18 +48,20 @@ provider.setCustomParameters({ prompt: "select_account" });
       const result = await signInWithPopup(auth, provider);
       const { user } = result; //select
       // Check if the user is already registered in your backend
-
+console.log("USER", user)
 
       const response = await axios.post(`${baseUrl}/checkUser`, {
         email: user.email,
       });
+ const { id, role, firstName, mail } = response.data;
       console.log("complete Response:", response);  //checked from mysql db and mysql table object
+console.log("complete Response1:", response.data); 
       console.log("complete user object google:", user);
 
-      if (response.data.exists) {
+      if (response.data) {
         console.log("User already registered");
         // Perform login with the existing user
-        const { id, role, firstName, username } = response.data;
+    
         //  currentUser = { id, role, firstName ,username};
         //   const token = response.headers.authorization;
         //   console.log("Token:", token);
