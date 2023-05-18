@@ -1,8 +1,8 @@
 export default function PopularNowText() {
 return(
 <div className="flex flex-wrap items-center">
-                <p className="text-lg inline-flex items-center flex-shrink-0 mt-3">
-                  <span className="px-2 font-medium">Popular Now:</span>
+                <p className="text-lg inline-flex items-center flex-shrink-0 mt-3 max-w-screen px-2 ">
+                  <span className="font-medium">Popular Now:</span>
                   <a
                     href=""
                     className=" font-light sm:font-normal text-blue-500 underline hover:no-underline"
