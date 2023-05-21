@@ -12,9 +12,10 @@ import slugify from 'slugify';
 
 export default function SearchInput() {
   const [value, setValue] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+   const [products, setProducts] = useState<any[]>([]);
+const [categories, setCategories] = useState<any[]>([]);
+
 
 const router = useRouter()
 
