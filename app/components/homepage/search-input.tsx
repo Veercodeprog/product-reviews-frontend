@@ -5,7 +5,7 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
 import { getAllProductsName } from "@/app/utils/dataApi";
 import { faBinoculars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { fetchObjectFromCategories,fetchObjectFromProducts } from "@/app/utils/dataApi";
-import Autosuggest from "react-autosuggest";
+import Autosuggest from 'react-autosuggest';
 import { useRouter } from "next/navigation";
 import slugify from 'slugify';
 
@@ -45,12 +45,12 @@ const router = useRouter()
     }
   };
 
-  const getSuggestions = (inputValue) => {
+  const getSuggestions = (inputValue:any) => {
   const inputValueLower = inputValue.toLowerCase();
-  const productSuggestions = products.filter((product) =>
+  const productSuggestions = products.filter((product:any) =>
     product.toLowerCase().includes(inputValueLower)
   );
-  const categorySuggestions = categories.filter((category) =>
+  const categorySuggestions = categories.filter((category:any) =>
     category.toLowerCase().includes(inputValueLower)
   );
 
@@ -58,10 +58,10 @@ const router = useRouter()
   return [...productSuggestions, ...categorySuggestions];
 };
 
-const getSuggestionValue = (suggestion) => suggestion;
-const renderSuggestion = (suggestion) => <div>{suggestion}</div>;
+const getSuggestionValue = (suggestion:any) => suggestion;
+const renderSuggestion = (suggestion:any) => <div>{suggestion}</div>;
 
-const onSuggestionsFetchRequested = ({ value }) => {
+const onSuggestionsFetchRequested = ({ value }: { value: string }) => {
   const newSuggestions = getSuggestions(value);
   setSuggestions(newSuggestions);
 };
@@ -70,7 +70,7 @@ const onSuggestionsFetchRequested = ({ value }) => {
     setSuggestions([]);
   };
 
-const onSuggestionSelected = async (event, { suggestion }) => {
+const onSuggestionSelected = async (event:React.FormEvent<any>, { suggestion }: { suggestion: string }) => {
   try {
     let response;
     if (products.includes(suggestion)) {
@@ -100,7 +100,7 @@ router.push(`/category/${categorySlug}`);
   }
 };
 
-  const onChange = (event, { newValue }) => {
+  const onChange = (event: React.FormEvent<any>, { newValue }: { newValue: string }) => {
     setValue(newValue);
   };
 
@@ -119,15 +119,17 @@ router.push(`/category/${categorySlug}`);
                     className="w-full pl-12 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     placeholder="Search"
                   /> */}
-      <Autosuggest
+      
+<Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={onSuggestionsFetchRequested}
         onSuggestionsClearRequested={onSuggestionsClearRequested}
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         onSuggestionSelected={onSuggestionSelected} // Add the onSuggestionSelected event handler
+         inputProps={inputProps}
+        highlightFirstSuggestion={true}
 
-        inputProps={inputProps}
       />
       <div className="absolute top-3 left-3">
         <FontAwesomeIcon icon={faSearch} size="lg" />
