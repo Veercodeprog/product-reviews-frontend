@@ -221,6 +221,7 @@ onChange={handleProductIconImageChange}
                   id="product-img1"
                   name="product-img1"
                   className="hidden"
+  onChange={(e) => handleScreenshotImageChange(0, e)} // Pass the index 0 for the first screenshot
 
                 />
               </div>
@@ -240,7 +241,7 @@ onChange={handleProductIconImageChange}
                   id="product-img2"
                   name="product-img2"
                   className="hidden"
-  onChange={(e) => handleScreenshotImageChange(0, e)} // Pass the index 0 for the first screenshot
+  onChange={(e) => handleScreenshotImageChange(1, e)} // Pass the index 0 for the first screenshot
 
                 />
               </div>
@@ -248,7 +249,6 @@ onChange={handleProductIconImageChange}
                 <label
                   htmlFor="product-img3"
                   className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-75 cursor-pointer"
-  onChange={(e) => handleScreenshotImageChange(1, e)} // Pass the index 0 for the first screenshot
                 
 >
                   <FontAwesomeIcon
