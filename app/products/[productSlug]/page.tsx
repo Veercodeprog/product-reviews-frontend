@@ -7,23 +7,28 @@ import Image from "next/image";
 import { useRouter, useSearchParams ,usePathname} from "next/navigation";
 import { fetchObjectFromProducts } from "@/app/utils/dataApi";
 import { useState, useEffect } from "react";
+interface Product {
+  name: string;
+  short_description?: string;
+  // Define other product properties here
+}
+
+interface Props {
+  params: {
+    productSlug: string;
+  };
+}
 
 
-
-export default function ProductsDescriptionPage(props) {
- const router = useRouter();
-  // const  productSlug  = useSearchParams(); 
-console.log("props:", props)
-  const pathname = usePathname();
-const {productSlug} = props.params
-console.log("productSlug:",productSlug)
-  const [product, setProduct] = useState(null);
+export default function ProductsDescriptionPage(props: Props) {
+  const { productSlug } = props.params;
+  const [product, setProduct] = useState<Product | undefined>(undefined);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const unslugifiedProductName = unslugify(productSlug);
-        const response = await fetchObjectFromProducts(unslugifiedProductName, );
+        const response = await fetchObjectFromProducts(unslugifiedProductName);
         setProduct(response);
       } catch (error) {
         console.error(error);
@@ -35,7 +40,7 @@ console.log("productSlug:",productSlug)
     }
   }, [productSlug]);
 
-  function unslugify(slug) {
+  function unslugify(slug: string) {
     // Replace hyphens with spaces and capitalize the first letter of each word
     const words = slug.split('-');
     const unslugified = words
@@ -44,13 +49,14 @@ console.log("productSlug:",productSlug)
 
     return unslugified;
   }
-return (
-    <main className="container mx-auto p-4  md:px-10 md:pr-10 mt-16 ">
+
+  return (
+    <main className="container mx-auto p-4 md:px-10 md:pr-10 mt-16">
       <Breadcrumb />
-{product && (
+      {product && (
         <div>
           <h2>{product.name}</h2>
-          <p>{product.short_description}</p>
+          {product.short_description && <p>{product.short_description}</p>}
           {/* Display other product details */}
         </div>
       )}
