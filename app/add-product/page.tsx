@@ -7,28 +7,42 @@ import AccountSetup from "../components/addproductpage/account-setup-data";
 function AddProductPage() {
   const [currentStep, setCurrentStep] = useState(1);
 
-  const handleClick = (e :unknown) => {
+  const [personalFormData, setPersonalFormData] = useState({});
+  const [socialProfileData, setSocialProfileData] = useState({});
+
+  const handleClick = (e: unknown) => {
     (e as React.MouseEvent).preventDefault();
     setCurrentStep(currentStep + 1);
+    console.log("Form submitted:", personalFormData, socialProfileData);
   };
 
   const handlePrevious = (e: React.MouseEvent<HTMLButtonElement>) => {
-  e.preventDefault();
-  setCurrentStep(currentStep - 1);
-};
-
-function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
-  const file = event.target.files?.[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const imgBox = document.querySelector(".image-box") as HTMLElement;
-    imgBox.style.backgroundImage = `url(${e.target?.result})`;
+    e.preventDefault();
+    setCurrentStep(currentStep - 1);
   };
-  reader.readAsDataURL(file);
-}
-const renderCircle = (stepNum: number, formName: string) => {
-  const isActive = currentStep === stepNum;
+
+  const handlePersonalDetailsNext = (e: any, data: any) => {
+    setPersonalFormData(data);
+    setCurrentStep(currentStep + 1);
+  };
+
+  const handleSocialProfilesNext = (e: any, data: any) => {
+    setSocialProfileData(data);
+    setCurrentStep(currentStep + 1);
+  };
+
+  function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const imgBox = document.querySelector(".image-box") as HTMLElement;
+      imgBox.style.backgroundImage = `url(${e.target?.result})`;
+    };
+    reader.readAsDataURL(file);
+  }
+  const renderCircle = (stepNum: number, formName: string) => {
+    const isActive = currentStep === stepNum;
 
     return (
       <div className="flex flex-col items-center">
@@ -83,19 +97,30 @@ const renderCircle = (stepNum: number, formName: string) => {
         {/* fieldsets */}
         <fieldset className={`relative ${currentStep !== 1 && "hidden"}`}>
           <PersonalDetailsForm
-            onNext={handleClick}
+ 
+            onNext={handlePersonalDetailsNext}
             onPrevious={handlePrevious}
           />
         </fieldset>
 
         <fieldset className={`relative ${currentStep !== 2 && "hidden"}`}>
-          <SocialProfileForm onNext={handleClick} onPrevious={handlePrevious} />
+          <SocialProfileForm
+            socialProfileData={socialProfileData}
+            setSocialProfileData={setSocialProfileData}
+            onNext={handleSocialProfilesNext}
+            onPrevious={handlePrevious}
+          />
         </fieldset>
         <fieldset className={`relative ${currentStep !== 3 && "hidden"}`}>
           {/* <h2 className="fs-title">Account Setup</h2>
         <h3 className="fs-subtitle">Create your account</h3> */}
 
-          <AccountSetup onNext={handleClick} onPrevious={handlePrevious} />
+          <AccountSetup
+          personalProfileFormData={JSON.stringify(personalFormData)}
+          socialProfileFormData={JSON.stringify(socialProfileData)}
+            onNext={handleClick}
+            onPrevious={handlePrevious}
+          />
         </fieldset>
       </form>
     </div>

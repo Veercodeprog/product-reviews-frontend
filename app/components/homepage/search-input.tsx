@@ -1,16 +1,152 @@
+"use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState ,useEffect} from "react";
+import { getAllCategoriesName } from "@/app/utils/dataApi";
+import { getAllProductsName } from "@/app/utils/dataApi";
 import { faBinoculars, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { fetchObjectFromCategories,fetchObjectFromProducts } from "@/app/utils/dataApi";
+import Autosuggest from "react-autosuggest";
+import { useRouter } from "next/navigation";
+import slugify from 'slugify';
+
+
 export default function SearchInput() {
-return(
-<div className="search-input">
-                <input
-                  type="text"
-                  className="w-full pl-12 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                  placeholder="Search"
-                />
-                <div className="absolute top-3 left-3">
-                  <FontAwesomeIcon icon={faSearch} size="lg" />
-                </div>
-</div>
-)
+  const [value, setValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+const router = useRouter()
+
+  useEffect(() => {
+    // Fetch all products and categories from the server
+    fetchProducts();
+    fetchCategories();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await getAllProductsName();
+      const products = response;
+      setProducts(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await  getAllCategoriesName();
+      const categories = response;
+ console.log("categories:", response)
+      setCategories(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getSuggestions = (inputValue) => {
+  const inputValueLower = inputValue.toLowerCase();
+  const productSuggestions = products.filter((product) =>
+    product.toLowerCase().includes(inputValueLower)
+  );
+  const categorySuggestions = categories.filter((category) =>
+    category.toLowerCase().includes(inputValueLower)
+  );
+
+  // Combine and return the suggestions
+  return [...productSuggestions, ...categorySuggestions];
+};
+
+const getSuggestionValue = (suggestion) => suggestion;
+const renderSuggestion = (suggestion) => <div>{suggestion}</div>;
+
+const onSuggestionsFetchRequested = ({ value }) => {
+  const newSuggestions = getSuggestions(value);
+  setSuggestions(newSuggestions);
+};
+
+  const onSuggestionsClearRequested = () => {
+    setSuggestions([]);
+  };
+
+const onSuggestionSelected = async (event, { suggestion }) => {
+  try {
+    let response;
+    if (products.includes(suggestion)) {
+      // Selected suggestion is from products array
+    // const response = await fetchObjectFromProducts(suggestion);
+   const productSlug = suggestion ? slugify(suggestion, { lower: true }) : '';
+
+router.push(`/products/${productSlug}`);
+
+
+   
+    } else if (categories.includes(suggestion)) {
+      // Selected suggestion is from categories array
+      const categorySlug = suggestion ? slugify(suggestion, { lower: true }) : '';
+
+router.push(`/category/${categorySlug}`);
+
+    } else {
+      // Invalid suggestion or not found in either array
+      throw new Error('Invalid suggestion');
+    }
+    // console.log('Fetched object:', response);
+    // Handle the fetched object from the server here
+    // setSelectedData(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+  const onChange = (event, { newValue }) => {
+    setValue(newValue);
+  };
+
+  const inputProps = {
+    placeholder: "Search",
+    value,
+    onChange,
+    className:
+      "w-full pl-12 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent",
+  };
+
+  return (
+    <div className="search-input">
+      {/* <input
+                    type="text"
+                    className="w-full pl-12 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    placeholder="Search"
+                  /> */}
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={onSuggestionsClearRequested}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        onSuggestionSelected={onSuggestionSelected} // Add the onSuggestionSelected event handler
+
+        inputProps={inputProps}
+      />
+      <div className="absolute top-3 left-3">
+        <FontAwesomeIcon icon={faSearch} size="lg" />
+      </div>
+    </div>
+  );
 }
+// export async function getStaticProps() {
+//   let products = [];
+//   let categories = [];
+
+//   try {
+//     const productsResponse = await getAllProductsName();
+//     products = productsResponse;
+
+//     const categoriesResponse = await getAllCategoriesName();
+//     categories = categoriesResponse;
+//   } catch(e){
+// console.log(e)
+// }
+
+// }

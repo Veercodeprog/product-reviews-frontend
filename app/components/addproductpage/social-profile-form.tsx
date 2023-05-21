@@ -1,11 +1,51 @@
 import { faImage, faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-function SocialProfileForm({ onNext, onPrevious }: { onNext: (e: React.MouseEvent<HTMLButtonElement>) => void, onPrevious: (e: React.MouseEvent<HTMLButtonElement>) => void }  ) {
-  // ...
+import { on } from "events";
+import { useState } from "react";
+function SocialProfileForm({ onNext, onPrevious ,socialProfileData,setSocialProfileData}: { onNext: any, onPrevious: (e: React.MouseEvent<HTMLButtonElement>) => void ,socialProfileData:any, setSocialProfileData:any }  ) {
+const [avatarImg, setAvatarImg] = useState('');
+
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [role, setRole] = useState(''); 
+  const [bio, setBio] = useState('');
+  const [workEmail, setWorkEmail] = useState(''); 
+  const [msg, setMsg] = useState(''); 
+  const [linkedinUrl, setLinkedinUrl] = useState('');
+const [twitterUrl, setTwitterUrl] = useState('');
+
+
+
+
+ const handleAvatarImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0]; // Get the first selected file
+
+  if (file) {
+    // Perform any necessary operations on the file (e.g., extracting file name, URL, etc.)
+    const fileURL = URL.createObjectURL(file);
+
+    setAvatarImg(fileURL);
+  }
+};
+
+
 
   const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    onNext(e);
+const socialFormData = {  
+      avatarImg,    
+      fname,
+      lname,  
+      role,
+      bio,
+      workEmail,
+      msg,
+      linkedinUrl,
+      twitterUrl,
+    };
+setSocialProfileData(socialFormData);
+//  handleSocialProfilesNext(socialData);
+ onNext(e, socialFormData)
   };
 
   const handlePrevious = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -51,6 +91,8 @@ return(
 					id="avatar-img"
 					name="avatar-img"
 					className="hidden"
+value={avatarImg}
+onChange={handleAvatarImageChange}
 					/>
 				</label>
 				</div>
@@ -68,88 +110,112 @@ return(
 
           <div className="flex flex-row	 mb-4">
             <label htmlFor="fname" className=" w-1/3 md:w-1/6  mb-2 font-bold">
-              Product Name :
+               Name :
             </label>
             <input
               type="text"
               name="fname"
               id="fname"
-              placeholder="Product Name"
-              className=" block w-1/2 items-start  px-4 py-2 border border-gray-300 rounded-md"
+              placeholder="First Name"
+              className="block w-1/5 mr-10 items-start  px-4 py-2 border border-gray-300 rounded-md"
+value={fname}
+onChange={(e) => setFname(e.target.value)}
+            />
+ <input
+              type="text"
+              name="lname"
+              id="lname"
+              placeholder="Last Name"
+              className="  block w-1/5 items-end  px-4 py-2 border border-gray-300 rounded-md"
+value={lname}
+onChange={(e) => setLname(e.target.value)}
             />
           </div>
 
+
           <div className="flex flex-row	 mb-4">
-            <label htmlFor="fname" className=" w-1/3 md:w-1/6  mb-2 font-bold">
+            <label htmlFor="role" className=" w-1/3 md:w-1/6  mb-2 font-bold">
               Role :
             </label>
             <input
               type="text"
-              name="fname"
-              id="fname"
-              placeholder="Product Name"
+              name="role"
+              id="role"
+              placeholder="What's your role in the team"
               className=" block w-1/2   px-4 py-2 border border-gray-300 rounded-md"
+value={role}
+onChange={(e) => setRole(e.target.value)}
             />
           </div>
           <div className="flex flex-row	 mb-4">
-            <label htmlFor="fname" className=" w-1/3 md:w-1/6  mb-2 font-bold">
+            <label htmlFor="bio" className=" w-1/3 md:w-1/6  mb-2 font-bold">
               Bio :
             </label>
             <input
               type="text"
-              name="fname"
-              id="fname"
-              placeholder="Product Name"
+              name="bio"
+              id="bio"
+              placeholder="Add a nice bio"
               className=" block w-1/2   px-4 py-2 border border-gray-300 rounded-md"
+value={bio}
+onChange={(e) => setBio(e.target.value)}
             />
           </div>
           <div className="flex flex-row	 mb-4">
-            <label htmlFor="fname" className=" w-1/3 md:w-1/6  mb-2 font-bold">
+            <label htmlFor="work-email" className=" w-1/3 md:w-1/6  mb-2 font-bold">
               Work Email :
             </label>
             <input
               type="text"
-              name="fname"
-              id="fname"
-              placeholder="Product Name"
+              name="work-email"
+              id="work-email"
+              placeholder="Enter a valid work email to verify"
               className=" block w-1/2 items-start  px-4 py-2 border border-gray-300 rounded-md"
+value={workEmail}
+onChange={(e) => setWorkEmail(e.target.value)}
             />
           </div>
           <div className="flex flex-row	 mb-4">
-            <label htmlFor="fname" className="w-1/3 md:w-1/6  mb-2 font-bold">
-              Overview :
+            <label htmlFor="msg" className="w-1/3 md:w-1/6  mb-2 font-bold">
+          Message :
             </label>
             <textarea
             
-              name="fname"
-              id="fname"
-              placeholder="Overview"
+              name="msg"
+              id="msg"
+              placeholder="Write a message to the world"
               className=" block w-1/2 items-start  px-4 py-2 border border-gray-300 rounded-md"
+value={msg}
+onChange={(e) => setMsg(e.target.value)}
             />
           </div>
 
           <div className="flex flex-row	 mb-4">
-            <label htmlFor="fname" className=" w-1/3 md:w-1/6  mb-2 font-bold">
+            <label htmlFor="linkedin" className=" w-1/3 md:w-1/6  mb-2 font-bold">
               Linkedin :
             </label>
             <input
               type="text"
-              name="fname"
-              id="fname"
-              placeholder="Product Name"
+              name="linkedin"
+              id="linkedin"
+              placeholder="Enter your linkedin profile url"
               className=" block w-1/2 items-start  px-4 py-2 border border-gray-300 rounded-md"
+value={linkedinUrl}
+onChange={(e) => setLinkedinUrl(e.target.value)}
             />
           </div>
           <div className="flex flex-row	 mb-4">
-            <label htmlFor="fname" className=" w-1/3 md:w-1/6  mb-2 font-bold">
+            <label htmlFor="twitter" className=" w-1/3 md:w-1/6  mb-2 font-bold">
               Twitter :
             </label>
             <input
               type="text"
-              name="fname"
-              id="fname"
-              placeholder="Product Name"
+              name="twitter"
+              id="twitter"
+              placeholder="Enter your Twitter user name"
               className=" block w-1/2 items-start  px-4 py-2 border border-gray-300 rounded-md"
+value={twitterUrl}
+onChange={(e) => setTwitterUrl(e.target.value)}
             />
           </div>
 

@@ -1,17 +1,80 @@
 import { faImage, faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-function PersonalDetailsForm({ onNext, onPrevious }: { onNext: (e: React.MouseEvent<HTMLButtonElement>) => void, onPrevious: (e: React.MouseEvent<HTMLButtonElement>) => void }  ) {
+function PersonalDetailsForm({ onNext, onPrevious }: { onNext: any, onPrevious: (e: React.MouseEvent<HTMLButtonElement>) => void  }  ) {
   // ...
+const [productName, setProductName] = useState('');
+  const [shortDescription, setShortDescription] = useState('');
+  const [productIcon, setProductIcon] = useState<string>('');
+  const [webUrl, setWebUrl] = useState('');
+const [overview, setOverview] = useState('');
+  const [features, setFeatures] = useState('');
+const [screenshots, setScreenshots] = useState<string[]>([]);
+  const [videoUrl, setVideoUrl] = useState('');
+const [category, setCategory] = useState('');
+  const [tags, setTags] = useState('');
+
+
+// const [productName, setProductName] = useState('');
+//   const [shortDescription, setShortDescription] = useState('');
+const handleProductIconImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0]; // Get the first selected file
+
+  if (file) {
+    // Perform any necessary operations on the file (e.g., extracting file name, URL, etc.)
+    const fileURL = URL.createObjectURL(file);
+
+    setProductIcon(fileURL);
+  }
+};
+
+const handleScreenshotImageChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0]; // Get the first selected file
+
+  if (file) {
+    // Perform any necessary operations on the file (e.g., extracting file name, URL, etc.)
+    const fileURL = URL.createObjectURL(file);
+
+    // Create a copy of the screenshots array
+    const updatedScreenshots = [...screenshots];
+
+    // Update the specific screenshot image at the given index
+    updatedScreenshots[index] = fileURL;
+
+    // Set the updated screenshots array in the state
+    setScreenshots(updatedScreenshots);
+  }
+};
+
+
 
   const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    onNext(e);
+
+ const personalFormData = {
+    productName,
+    shortDescription,
+      productIcon: productIcon ? productIcon.toString() : '' // Convert to string if necessary
+,
+    webUrl,
+    overview,
+    features,
+    screenshots,
+    videoUrl,
+    category,
+    tags,
+  };
+// setPersonalFormData(personalFormData);
+    // handlePersonalDetailsNext(personalData);
+ onNext( e,personalFormData);
   };
 
   const handlePrevious = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onPrevious(e);
   };
+
+
 return(
 <>
 
@@ -21,10 +84,12 @@ return(
             </label>
             <input
               type="text"
-              name="fname"
-              id="fname"
+              name="productname"
+              id="productname"
               placeholder="Product Name"
               className=" block w-1/3 items-start  px-4 py-2 border border-gray-300 rounded-md"
+ value={productName}
+          onChange={(e) => setProductName(e.target.value)}
             />
           </div>
           <div className="flex flex-row mb-4">
@@ -33,15 +98,17 @@ return(
             </label>
             <input
               type="text"
-              name="lname"
-              id="lname"
+              name="shortdesc"
+              id="shortdesc"
               placeholder=" Short Description"
               className=" block w-1/3  px-4 py-2 border border-gray-300 rounded-md"
+ value={shortDescription}
+          onChange={(e) => setShortDescription(e.target.value)}
             />
           </div>
           <div className="flex flex-row mb-4">
             <label htmlFor="product-img" className=" w-1/5 md:w-1/6 font-bold">
-              <FontAwesomeIcon icon={faImage} /> Product Image:
+              <FontAwesomeIcon icon={faImage} /> Product Icon:
             </label>
             <label
               htmlFor="product-img"
@@ -55,6 +122,7 @@ return(
               id="product-img"
               name="product-img"
               className="w-1/3 px-4 py-2 border border-gray-300 rounded-md hidden"
+onChange={handleProductIconImageChange}
             />
           </div>
 
@@ -63,7 +131,7 @@ return(
               htmlFor="product-img"
               className=" w-1/5 md:w-1/6mr-4 font-bold"
             >
-              <FontAwesomeIcon icon={faImage} /> Product Image:
+              <FontAwesomeIcon icon={faImage} /> Product Icon:
             </label>
 
             <div className="relative w-40 h-40 bg-black rounded-md">
@@ -87,45 +155,51 @@ return(
           </div>
 
           <div className="flex flex-row	 mb-4">
-            <label htmlFor="fname" className="  w-1/5 md:w-1/6  mb-2 font-bold">
+            <label htmlFor="url" className="  w-1/5 md:w-1/6  mb-2 font-bold">
               Website Url :
             </label>
             <input
               type="text"
-              name="fname"
-              id="fname"
+              name="url"
+              id="url"
               placeholder=" Website Url"
               className=" block w-1/3  px-4 py-2 border border-gray-300 rounded-md"
+ value={webUrl}
+          onChange={(e) => setWebUrl(e.target.value)}
             />
           </div>
           <div className="flex flex-row	 mb-4">
-            <label htmlFor="fname" className="  w-1/5 md:w-1/6  mb-2 font-bold">
+            <label htmlFor="overview" className="  w-1/5 md:w-1/6  mb-2 font-bold">
               Overview :
             </label>
             <textarea
               
-              name="fname"
-              id="fname"
+              name="overview"
+              id="overview"
               placeholder="Overview"
               className=" block w-1/3 h-32  px-4 py-2 border border-gray-300 rounded-md"
+ value={overview}
+          onChange={(e) => setOverview(e.target.value)}
             />
           </div>
           <div className="flex flex-row	 mb-4">
-            <label htmlFor="fname" className="  w-1/5 md:w-1/6  mb-2 font-bold">
+            <label htmlFor="features" className="  w-1/5 md:w-1/6  mb-2 font-bold">
               Features :
             </label>
             <textarea
             
-              name="fname"
-              id="fname"
+              name="features"
+              id="features"
               placeholder="Features"
               className=" block w-1/3 h-32  px-4 py-2 border border-gray-300 rounded-md"
+ value={features}
+          onChange={(e) => setFeatures(e.target.value)}
             />
           </div>
 
           <div className="flex flex-row items-center mb-4">
             <label
-              htmlFor="product-img"
+              htmlFor="product-imgs"
               className=" w-1/5 md:w-1/6 mr-4 font-bold"
             >
               <FontAwesomeIcon icon={faImage} /> Screenshots:
@@ -133,7 +207,7 @@ return(
             <div className="  flex sm:flex-row">
               <div className="relative w-40 h-40 bg-black rounded-md mr-6">
                 <label
-                  htmlFor="product-img"
+                  htmlFor="product-img1"
                   className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-75 cursor-pointer"
                 >
                   <FontAwesomeIcon
@@ -144,14 +218,15 @@ return(
                 </label>
                 <input
                   type="file"
-                  id="product-img"
-                  name="product-img"
+                  id="product-img1"
+                  name="product-img1"
                   className="hidden"
+
                 />
               </div>
               <div className="relative w-40 h-40 bg-black rounded-md mr-6">
                 <label
-                  htmlFor="product-img"
+                  htmlFor="product-img2"
                   className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-75 cursor-pointer"
                 >
                   <FontAwesomeIcon
@@ -162,16 +237,20 @@ return(
                 </label>
                 <input
                   type="file"
-                  id="product-img"
-                  name="product-img"
+                  id="product-img2"
+                  name="product-img2"
                   className="hidden"
+  onChange={(e) => handleScreenshotImageChange(0, e)} // Pass the index 0 for the first screenshot
+
                 />
               </div>
               <div className="relative w-40 h-40 bg-black rounded-md mr-6">
                 <label
-                  htmlFor="product-img"
+                  htmlFor="product-img3"
                   className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-75 cursor-pointer"
-                >
+  onChange={(e) => handleScreenshotImageChange(1, e)} // Pass the index 0 for the first screenshot
+                
+>
                   <FontAwesomeIcon
                     icon={faCloudUploadAlt}
                     className=" text-gray-300 mr-2"
@@ -180,34 +259,39 @@ return(
                 </label>
                 <input
                   type="file"
-                  id="product-img"
-                  name="product-img"
+                  id="product-img3"
+                  name="product-img3"
                   className="hidden"
+  onChange={(e) => handleScreenshotImageChange(2, e)} // Pass the index 0 for the first screenshot
+
                 />
               </div>
             </div>
           </div>
           <div className="flex flex-row	 mb-4">
-            <label htmlFor="fname" className="w-1/5 md:w-1/6 mb-2 font-bold">
+            <label htmlFor="vid-url" className="w-1/5 md:w-1/6 mb-2 font-bold">
               Video Url :
             </label>
             <input
               type="text"
-              name="fname"
-              id="fname"
+              name="vid-url"
+              id="vid-url"
               placeholder="Add url"
               className=" block w-1/3   px-4 py-2 border border-gray-300 rounded-md"
+ value={videoUrl}
+          onChange={(e) => setVideoUrl(e.target.value)}
             />
           </div>
           <div className="flex flex-row mb-4">
-            <label htmlFor="fname" className="w-1/5 md:w-1/6 mb-2 font-bold">
+            <label htmlFor="category" className="w-1/5 md:w-1/6 mb-2 font-bold">
               Category :
             </label>
             <select
-              name="fname"
-              id="fname"
+              name="category"
+              id="category"
               className="block w-1/3 px-4 py-2 border border-gray-300 rounded-md"
-              onChange={(e) => console.log(e.target.value)}
+ value={category}
+          onChange={(e) => setCategory(e.target.value)}
             >
               <option value="">--Select URL--</option>
               <option value="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
@@ -223,15 +307,17 @@ return(
           </div>
 
           <div className="flex flex-row	 mb-4">
-            <label htmlFor="fname" className="w-1/5 md:w-1/6 mb-2 font-bold">
+            <label htmlFor="tags" className="w-1/5 md:w-1/6 mb-2 font-bold">
               Tags :
             </label>
             <input
               type="text"
-              name="fname"
-              id="fname"
+              name="tags"
+              id="tags"
               placeholder="tags"
               className=" block w-1/3   px-4 py-2 border border-gray-300 rounded-md"
+ value={tags}
+          onChange={(e) => setTags(e.target.value)}
             />
           </div>
           <div className="flex  flex-row sm:justify-end mt-10 mb-10">

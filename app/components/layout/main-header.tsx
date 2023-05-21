@@ -120,7 +120,7 @@ const handleLoginSubmit = (user: UserType) => {
 
       {/*  Listen for authentication state changes
        */}
-      <header className="border-b md:flex md:items-center md:justify-between p-4 pb-0 shadow-lg md:pb-4">
+      <header className=" md:flex md:items-center md:justify-between p-4 pb-0  md:pb-4">
         {/* Logo text or image */}
         <div className="flex items-center justify-between mb-4 md:mb-0">
           <h1 className="leading-none text-2xl text-grey-darkest">
@@ -236,16 +236,17 @@ const handleLoginSubmit = (user: UserType) => {
 
         {/* END Search field */}
         {/* search */}
-
+<Link href="/add-product" prefetch={false}>
         <button
           type="button"
           className=" bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium  text-white text-sm px-4 py-2 text-center  dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900"
         >
-          <Link href="/add-product" prefetch={false}>
+          
             {" "}
             Add a Product{" "}
-          </Link>
+         
         </button>
+ </Link>
         {/* <form className="mb-4 md:mb-0 md:w-1/4">
           <label className="hidden" htmlFor="search-form">Search</label>
           <input className="bg-grey-lightest border-2 focus:border-orange p-2 rounded-lg shadow-inner w-full" placeholder="Search" type="text" />

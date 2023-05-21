@@ -9,7 +9,7 @@ const [tags, setTags] = useState('');
 Update the input fields in the first fieldset to bind their values to the respective state variables:
 jsx
 Copy code
-<input
+<input~
   type="text"
   name="fname"
   id="fname"

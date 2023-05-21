@@ -1,16 +1,59 @@
-
-import Breadcrumb from "../components/layout/breadcrumb";
+'use client'
+import Breadcrumb from "../../components/layout/breadcrumb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import TabSection from "../components/productpage/Tab";
+import TabSection from "../../components/productpage/Tab";
 import Image from "next/image";
+import { useRouter, useSearchParams ,usePathname} from "next/navigation";
+import { fetchObjectFromProducts } from "@/app/utils/dataApi";
+import { useState, useEffect } from "react";
 
-import { useRouter, useSearchParams } from "next/navigation";
-export default function ProductsPage() {
 
-  return (
+
+export default function ProductsDescriptionPage(props) {
+ const router = useRouter();
+  // const  productSlug  = useSearchParams(); 
+console.log("props:", props)
+  const pathname = usePathname();
+const {productSlug} = props.params
+console.log("productSlug:",productSlug)
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const unslugifiedProductName = unslugify(productSlug);
+        const response = await fetchObjectFromProducts(unslugifiedProductName, );
+        setProduct(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (productSlug) {
+      fetchProduct();
+    }
+  }, [productSlug]);
+
+  function unslugify(slug) {
+    // Replace hyphens with spaces and capitalize the first letter of each word
+    const words = slug.split('-');
+    const unslugified = words
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+
+    return unslugified;
+  }
+return (
     <main className="container mx-auto p-4  md:px-10 md:pr-10 mt-16 ">
       <Breadcrumb />
+{product && (
+        <div>
+          <h2>{product.name}</h2>
+          <p>{product.short_description}</p>
+          {/* Display other product details */}
+        </div>
+      )}
 <section className="sm:ml-10 se:ml-10 md:ml-0 ss:ml-20">
       <div className="text-gray-700 body-font mt-7">
         <div className="container sm:mx-auto flex sm:px-2 sm:py-2 md:flex-row sm:-ml-12 md:ml-0  flex-col sm:items-center">
@@ -117,3 +160,5 @@ export default function ProductsPage() {
     </main>
   );
 }
+
+
