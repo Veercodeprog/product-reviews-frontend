@@ -28,7 +28,7 @@ export const getAllCategoriesName = async () => {
 };
 
 
-export const fetchObjectFromProducts = async(suggestion)=>{
+export const fetchObjectFromProducts = async(suggestion:any)=>{
 try {
     const response = await axios.get(`${baseUrl}/getSearchProduct?suggestion=${suggestion}`);
     
