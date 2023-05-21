@@ -4,11 +4,15 @@ import FeaturedProductsList from "../../components/categorypage/featured-product
 import ProductCards from "../../components/categorypage/product-cards";
 import { fetchObjectFromCategories } from "@/app/utils/dataApi";
 import { useState, useEffect } from "react";
-
-export default function CategoryDescriptionPage(props) {
+interface Category {
+  name: string;
+  category_description: string;
+  emoji: string;
+}
+export default function CategoryDescriptionPage(props:any) {
 const {categorySlug} = props.params
 console.log("categorySlug:",categorySlug)
-  const [category, setCategory] = useState(null);
+const [category, setCategory] = useState<Category | null>(null);
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -26,11 +30,11 @@ console.log("categorySlug:",categorySlug)
     }
   }, [categorySlug]);
 
-  function unslugify(slug) {
+  function unslugify(slug:string) {
     // Replace hyphens with spaces and capitalize the first letter of each word
     const words = slug.split('-');
     const unslugified = words
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word:any) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 
     return unslugified;

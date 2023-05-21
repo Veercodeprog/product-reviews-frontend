@@ -26,7 +26,7 @@ const personalFormData = JSON.parse(personalProfileFormData);
     {Object.entries(personalFormData).map(([key, value]) => (
       <li key={key} className="flex items-center mb-2">
         <span className="font-medium mr-2">{key}:</span>
-        <span>{value}</span>
+        <span>{value as string}</span>
       </li>
     ))}
   </ul>
@@ -38,7 +38,7 @@ const personalFormData = JSON.parse(personalProfileFormData);
     {Object.entries(socialFormData).map(([key, value]) => (
       <li key={key} className="flex items-center mb-2">
         <span className="font-medium mr-2">{key}:</span>
-        <span>{value}</span>
+        <span>{value as string}</span>
       </li>
     ))}
   </ul>
