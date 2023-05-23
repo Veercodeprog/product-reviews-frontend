@@ -178,6 +178,14 @@ const handleLoginSubmit = (user: UserType) => {
                 products
               </Link>
             </li>
+<li className="md:ml-4">
+              <Link
+                className="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0"
+                href="/blog"
+              >
+                blog
+              </Link>
+            </li>
             {/* <li className="md:ml-4">
             <Link
               className="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0"

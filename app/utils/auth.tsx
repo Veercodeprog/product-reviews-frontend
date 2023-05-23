@@ -58,7 +58,7 @@ console.log("USER", user)
 console.log("complete Response1:", response.data); 
       console.log("complete user object google:", user);
 
-      if (response.data) {
+      if (response.data.exists) {
         console.log("User already registered");
         // Perform login with the existing user
     
@@ -79,6 +79,7 @@ console.log("complete Response1:", response.data);
       // const password = prompt("Please enter a password:");
       // console.log(fname,lname ,user.email,user.password)
 const email = user.email ?? "";
+
       handleShowPasswordForm(fname, lname, email);
       // handleSignup(fname, lname, user.email, password);
     }

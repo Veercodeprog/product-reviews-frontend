@@ -43,28 +43,21 @@ const [category, setCategory] = useState<Category | null>(null);
     <>
       <main className="container mx-auto p-4  md:px-20 mt-24 ">
         <Breadcrumb />
-{category && (
-        <div>
-          <h2>{category.name}</h2>
-          <p>{category.category_description}</p>
-          <h2>{category.emoji}</h2>
 
-          {/* Display other product details */}
-        </div>
-      )}
+
         <section className="text-gray-700 body-font">
           <div className="container mx-auto flex px-2 py-2 md:flex-row flex-col items-center">
             <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left md:mb-0 items-center text-center">
               <h2 className="page-headings ">Featured products</h2>
-
+{category && (
               <div className="para pb-5">
                 <p>
-                  Ready to supercharge your [category] skills? Check out our top
-                  picks! Experience the future of [category] with our carefully
+                  Ready to supercharge your {category.name } skills? Check out our top
+                  picks! Experience the future of {category.name } with our carefully
                   curated selection of the most innovative apps around.
                 </p>
               </div>
-
+    )}
               {/* <div className="flex justify-center">
               <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
               <button className="ml-4 inline-flex text-gray-700 bg-gray-200 border-0 py-2 px-6 focus:outline-none hover:bg-gray-300 rounded text-lg">Button</button>

@@ -23,11 +23,13 @@ export default function RootLayout({
   const searchParams = useSearchParams()
 
   const excludeHeader = pathname.startsWith('/admin')
+ const excludeHeader1 = pathname.startsWith('/blog')
 
   return (
     <html lang="en">
      
-      <body className={inter.className}> {!excludeHeader && <MainHeader />}{children}</body>
+      <body className={inter.className}>       {!(excludeHeader || excludeHeader1) && <MainHeader />}
+{children}</body>
     </html>
   )
 }
