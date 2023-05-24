@@ -2,7 +2,7 @@ import qs from "qs";
 const liveUrl = "https://strapi-backend-v6ln.onrender.com"
 export function getStrapiURL(path = "") {
   return `${
-     "http://localhost:1337"
+     "https://strapi-backend-v6ln.onrender.com"
   }${path}`;
 }
 
