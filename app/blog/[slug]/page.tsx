@@ -30,6 +30,13 @@ interface Article {
     content: string;
   };
 }
+interface SeoData {
+  metaTitle: string;
+  metaDescription: string;
+  shareImage: string;
+  article: boolean;
+}
+
 
 const Article = (props: any) => {
   const [article, setArticle] = useState<Article | null>(null);
@@ -68,7 +75,7 @@ const  formats  = article.attributes.author.data.attributes.picture
 // const srcset = imageUrls.join(", ");
 
 
-  const seo = {
+    const seo: SeoData = {
     metaTitle: article.attributes.title,
     metaDescription: article.attributes.description,
     shareImage: article.attributes.image,
