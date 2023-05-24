@@ -7,6 +7,7 @@ import Layout from "../../components/blog/layout";
 import { fetchAPI } from "@/app/utils/strapiApi";
 import { getStrapiMedia } from "@/app/utils/media";
 import { get } from "http";
+import { SeoData } from "../types";
 interface Article {
   attributes: {
     title: string;
@@ -30,12 +31,7 @@ interface Article {
     content: string;
   };
 }
-interface SeoData {
-  metaTitle: string;
-  metaDescription: string;
-  shareImage: string;
-  article: boolean;
-}
+
 
 
 const Article = (props: any) => {

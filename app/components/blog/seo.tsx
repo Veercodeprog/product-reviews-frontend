@@ -2,8 +2,8 @@ import Head from "next/head";
 import { useContext } from "react";
 import { GlobalContext } from "@/app/blog/_app";
 import { getStrapiMedia } from "@/app/utils/media";
-
-const Seo = ({ seo }:{ seo:any }) => {
+import { SeoData } from "@/app/blog/types";
+const Seo = ({ seo }:{ seo:SeoData }) => {
   const { defaultSeo, siteName } = useContext(GlobalContext);
   const seoWithDefaults = {
     ...defaultSeo,
