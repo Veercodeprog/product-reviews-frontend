@@ -6,10 +6,30 @@ import Articles from "../../app/components/blog/articles";
 import Seo from "../../app/components/blog/seo";
 import { fetchAPI } from "../../app/utils/strapiApi";
 
+interface Article {
+  attributes: {
+    image: string;
+    category: any; // Replace 'any' with the actual type of the 'category' property
+  };
+}
+
+interface Category {
+  // Define the properties of the Category object here
+}
+
+interface Homepage {
+  attributes: {
+    seo: any; // Replace 'any' with the actual type of the 'seo' property
+    hero: {
+      title: string;
+    };
+  };
+}
+
 const Blog = () => {
-  const [articles, setArticles] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [homepage, setHomepage] = useState(null);
+ const [articles, setArticles] = useState<Article[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [homepage, setHomepage] = useState<Homepage | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {

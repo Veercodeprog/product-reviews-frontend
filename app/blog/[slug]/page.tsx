@@ -7,8 +7,32 @@ import Layout from "../../components/blog/layout";
 import { fetchAPI } from "@/app/utils/strapiApi";
 import { getStrapiMedia } from "@/app/utils/media";
 import { get } from "http";
+interface Article {
+  attributes: {
+    title: string;
+    description: string;
+    image: string;
+    author: {
+      data: {
+        attributes: {
+          picture: {
+            data: {
+              attributes: {
+                alternativeText: string;
+              };
+            };
+          };
+          name: string;
+        };
+      };
+    };
+    published_at: string;
+    content: string;
+  };
+}
+
 const Article = (props: any) => {
-  const [article, setArticle] = useState(null);
+  const [article, setArticle] = useState<Article | null>(null);
   const [categories, setCategories] = useState(null);
   const { slug } = props.params;
   console.log(slug);
@@ -39,7 +63,7 @@ const Article = (props: any) => {
   console.log("image::", article);
 
  const image = article.attributes.image
-const { formats } = article.attributes.author.data.attributes.picture
+const  formats  = article.attributes.author.data.attributes.picture
 // const imageUrls = Object.values(formats).map((format) => format.url);
 // const srcset = imageUrls.join(", ");
 
@@ -65,11 +89,14 @@ const { formats } = article.attributes.author.data.attributes.picture
       </div>
       <div className="uk-section">
         <div className="uk-container uk-container-small">
-          <ReactMarkdown children={article.attributes.content} />
+         <ReactMarkdown>
+  {article.attributes.content}
+</ReactMarkdown>
+
           <hr className="uk-divider-small" />
           <div className="uk-grid-small uk-flex-left" data-uk-grid="true">
             <div>
-             {article.attributes.author.data && article.attributes.author.data.attributes.picture && (
+             {article.attributes?.author?.data && article.attributes.author.data.attributes.picture && (
               <img
                 src={getStrapiMedia(
                   article.attributes.author.data.attributes.picture.data.attributes                )}
