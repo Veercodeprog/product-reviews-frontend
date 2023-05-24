@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const Navbar = ({ categories }) => {
+const Navbar = ({ categories }: { categories :any}) => {
   return (
     <nav className="">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,7 +10,7 @@ const Navbar = ({ categories }) => {
           </div>
           <div className="flex items-center">
             <ul className="flex space-x-4">
-              {categories.map((category) => (
+              {categories.map((category:any) => (
                 <li key={category.id}>
                   <Link href={`/category/${category.attributes.slug}`}>
                     <span className="text-black hover:text-white">{category.attributes.name}</span>
