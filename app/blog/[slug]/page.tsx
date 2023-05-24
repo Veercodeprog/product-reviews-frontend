@@ -84,7 +84,7 @@ const  formats  = article.attributes.author.data.attributes.picture
         <h1 className= "">{article.attributes.title}</h1>
       </div>
       <div className="uk-section">
-        <div className="uk-container uk-container-small">
+        <div className="uk-container uk-container-small ">
          <ReactMarkdown>
   {article.attributes.content}
 </ReactMarkdown>
