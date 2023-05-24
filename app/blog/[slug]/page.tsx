@@ -2,12 +2,10 @@
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
-import Seo from "../../components/blog/seo";
 import Layout from "../../components/blog/layout";
 import { fetchAPI } from "@/app/utils/strapiApi";
 import { getStrapiMedia } from "@/app/utils/media";
 import { get } from "http";
-import { SeoData } from "../types";
 interface Article {
   attributes: {
     title: string;
@@ -71,16 +69,11 @@ const  formats  = article.attributes.author.data.attributes.picture
 // const srcset = imageUrls.join(", ");
 
 
-    const seo: SeoData = {
-    metaTitle: article.attributes.title,
-    metaDescription: article.attributes.description,
-    shareImage: article.attributes.image,
-    article: true,
-  };
+
 
   return (
     <Layout categories={categories}>
-      <Seo seo={seo} />
+    
       <div
         id="banner"
         className="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-padding uk-margin"

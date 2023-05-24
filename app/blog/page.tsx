@@ -3,7 +3,6 @@ import './blog.css'
 import React, { useEffect, useState } from "react";
 import Articles from "../../app/components/blog/articles";
  import Layout from "../components/blog/layout";
-import Seo from "../../app/components/blog/seo";
 import { fetchAPI } from "../../app/utils/strapiApi";
 
 interface Article {
@@ -19,7 +18,7 @@ interface Category {
 
 interface Homepage {
   attributes: {
-    seo: any; // Replace 'any' with the actual type of the 'seo' property
+ 
     hero: {
       title: string;
     };
@@ -64,7 +63,6 @@ const Blog = () => {
     <>
 <div className=" justify-center items-center ">
        <Layout categories={categories} >
-        <Seo seo={homepage.attributes.seo} />
         <div className="uk-section">
           <div className="uk-container uk-container-large">
             <h1>{homepage.attributes.hero.title}</h1>
