@@ -10,7 +10,7 @@ console
       <img
   src={imageUrl}
   alt={alternativeText || ""}
-  layout="responsive"
+  // layout="responsive"
 //   className="w-1/2 h-1/2"
   width={width}
   height={height}
