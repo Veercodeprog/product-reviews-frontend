@@ -7,8 +7,7 @@ const Articles = ({ articles }: { articles:any }) => {
   const rightArticles = articles.slice(leftArticlesCount, articles.length);
 
   return (
-    <div>
-
+<div className="flex items-center justify-center "> 
       <div className="uk-child-width-1-2@s" data-uk-grid="true">
         <div>
           {leftArticles.map((article:any, i:any) => {

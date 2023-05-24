@@ -61,16 +61,20 @@ const Blog = () => {
 
   return (
     <>
-<div className=" justify-center items-center ">
+
        <Layout categories={categories} >
-        <div className="uk-section">
-          <div className="uk-container uk-container-large">
-            <h1>{homepage.attributes.hero.title}</h1>
-            <Articles articles={articles} />
-          </div>
+  <div className="flex justify-center">
+    <div className="w-full max-w-3xl">
+      <div className="uk-section">
+        <div className="uk-container uk-container-large">
+          <h1>{homepage.attributes.hero.title}</h1>
+          <Articles articles={articles} />
         </div>
+      </div>
+    </div>
+  </div>
      </Layout> 
-</div>
+
     </>
   );
 };
