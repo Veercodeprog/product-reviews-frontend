@@ -16,7 +16,7 @@ filters: {
   },
  );
 console.log("articlesRes.data");
-     return articlesRes.data[0] , {revalidate: 3};
+     return articlesRes.data[0] ;
 
 
   
