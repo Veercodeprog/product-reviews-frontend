@@ -5,7 +5,7 @@ const nextConfig = {
     images: {
    loader: "default",
 
-        domains: ['strapi-backend-v6ln.onrender.com','dummyimage.com', 'images.unsplash.com', 'upload.wikimedia.org', "localhost"],
+        domains: ['res.cloudinary.com','strapi-backend-v6ln.onrender.com','dummyimage.com', 'images.unsplash.com', 'upload.wikimedia.org', "localhost"],
 
     },
 }

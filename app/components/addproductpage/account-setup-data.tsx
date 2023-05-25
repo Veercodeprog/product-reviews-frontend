@@ -18,7 +18,7 @@ const personalFormData = JSON.parse(personalProfileFormData);
     <>
 
 <div>
-      
+ 
 
 <div>
   <h3 className="text-lg font-bold">Personal Details</h3>
@@ -26,7 +26,24 @@ const personalFormData = JSON.parse(personalProfileFormData);
     {Object.entries(personalFormData).map(([key, value]) => (
       <li key={key} className="flex items-center mb-2">
         <span className="font-medium mr-2">{key}:</span>
-        <span>{value as string}</span>
+        {key === "productIcon" ? (
+          <img src={value} alt={key} className="w-40 h-20" />
+        ) : key === "screenshots" ? (
+          Array.isArray(value) ? (
+            value.map((imageUrl, index) => (
+              <img
+                key={index}
+                src={imageUrl}
+                alt={`Screenshot ${index + 1}`}
+                className="w-40 h-20 mx-3"
+              />
+            ))
+          ) : (
+            <img src={value} alt={key} className="w-20 h-10" />
+          )
+        ) : (
+          <span>{value as string}</span>
+        )}
       </li>
     ))}
   </ul>
@@ -38,11 +55,16 @@ const personalFormData = JSON.parse(personalProfileFormData);
     {Object.entries(socialFormData).map(([key, value]) => (
       <li key={key} className="flex items-center mb-2">
         <span className="font-medium mr-2">{key}:</span>
-        <span>{value as string}</span>
+        {key === "avatarImg" ? (
+          <img src={value} alt={key} className="w-40 h-20" />
+        ) : (
+          <span>{value as string}</span>
+        )}
       </li>
     ))}
   </ul>
 </div>
+
         {/* <p>Product Name: {personalFormData.productName}</p> */}
         {/* <p>Short Description: {personalFormData.shortDescription}</p> */}
       </div>
@@ -59,17 +81,18 @@ const personalFormData = JSON.parse(personalProfileFormData);
         <p>LinkedIn URL: {socialFormData.linkedinUrl}</p>
         <p>Twitter URL: {socialFormData.twitterUrl}</p> */}
       </div>
+          <div className="flex  flex-row sm:justify-end mt-10 mb-10">
       <button
         type="button"
         name="previous"
-        className="previous action-button px-6"
-        onClick={handlePrevious}
+ className="previous w-24 sm:w-32 bg-gray-500 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0 mr-8"        onClick={handlePrevious}
       >
         Previous
       </button>
-      <button type="submit" name="submit" className="submit action-button">
+      <button type="submit" name="submit"  className="next w-24  sm:w-32 bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0 mr-8">
         Submit
       </button>
+</div>
     </>
   );
 }

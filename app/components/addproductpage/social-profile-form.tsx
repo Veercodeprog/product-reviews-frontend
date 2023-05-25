@@ -91,7 +91,7 @@ return(
 					id="avatar-img"
 					name="avatar-img"
 					className="hidden"
-value={avatarImg}
+// value={avatarImg}
 onChange={handleAvatarImageChange}
 					/>
 				</label>

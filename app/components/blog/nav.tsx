@@ -6,7 +6,7 @@ const Navbar = ({ categories }: { categories :any}) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <h1 className="text-black text-lg font-bold">Strapi Blog</h1>
+            {/* <h1 className="text-black text-lg font-bold">Strapi Blog</h1> */}
           </div>
           <div className="flex items-center">
             <ul className="flex space-x-4">

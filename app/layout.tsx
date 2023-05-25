@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
      
-      <body className={inter.className}>       {!(excludeHeader || excludeHeader1) && <MainHeader />}
+      <body className={inter.className}>       {!(excludeHeader ) && <MainHeader />}
 {children}</body>
     </html>
   )
