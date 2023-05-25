@@ -27,7 +27,7 @@ const personalFormData = JSON.parse(personalProfileFormData);
       <li key={key} className="flex items-center mb-2">
         <span className="font-medium mr-2">{key}:</span>
         {key === "productIcon" ? (
-          <img src={value} alt={key} className="w-40 h-20" />
+          <img src={value as string} alt={key} className="w-40 h-20" />
         ) : key === "screenshots" ? (
           Array.isArray(value) ? (
             value.map((imageUrl, index) => (
@@ -39,7 +39,7 @@ const personalFormData = JSON.parse(personalProfileFormData);
               />
             ))
           ) : (
-            <img src={value} alt={key} className="w-20 h-10" />
+            <img src={value as string} alt={key} className="w-20 h-10" />
           )
         ) : (
           <span>{value as string}</span>
@@ -56,7 +56,7 @@ const personalFormData = JSON.parse(personalProfileFormData);
       <li key={key} className="flex items-center mb-2">
         <span className="font-medium mr-2">{key}:</span>
         {key === "avatarImg" ? (
-          <img src={value} alt={key} className="w-40 h-20" />
+          <img src={value as string} alt={key} className="w-40 h-20" />
         ) : (
           <span>{value as string}</span>
         )}
