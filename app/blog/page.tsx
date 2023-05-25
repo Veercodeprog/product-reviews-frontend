@@ -1,5 +1,4 @@
 import './blog.css'
-import React, { useEffect, useState } from "react";
 import Articles from "../../app/components/blog/articles";
  import Layout from "../components/blog/layout";
 import { fetchAPI } from "../../app/utils/strapiApi";
