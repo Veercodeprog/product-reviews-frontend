@@ -3,7 +3,7 @@ import Articles from "../../app/components/blog/articles";
 import Nav from "../components/blog/nav";
 import { fetchArticles, fetchCategories, fetchHomepage,preload } from '../utils/strapi/strapiPreloadData'; 
 
-export const revalidate = 10;
+// export const revalidate = 10;
 
 interface Article {
   attributes: {
