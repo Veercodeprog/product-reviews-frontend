@@ -1,9 +1,7 @@
 import './blog.css'
 import Articles from "../../app/components/blog/articles";
- import Layout from "../components/blog/layout";
-import { fetchAPI } from "../../app/utils/strapiApi";
+import Nav from "../components/blog/nav";
 import { fetchArticles, fetchCategories, fetchHomepage,preload } from '../utils/strapiPreloadData'; 
-import { cache } from 'react';
 
 //   import 'server-only';
 
@@ -92,7 +90,7 @@ const homepage = await homepageData;
   return (
     <>
 
-       <Layout categories={categories} >
+       <Nav categories={categories} />
   <div className="flex justify-center">
     <div className="w-full max-w-3xl">
       <div className="uk-section">
@@ -103,7 +101,7 @@ const homepage = await homepageData;
       </div>
     </div>
   </div>
-     </Layout> 
+
 
     </>
   );
