@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
-import Layout from "../../components/blog/layout";
+import {Layout} from "../../components/blog/layout";
 import { fetchAPI } from "@/app/utils/strapiApi";
 import { getStrapiMedia } from "@/app/utils/media";
 import { get } from "http";
