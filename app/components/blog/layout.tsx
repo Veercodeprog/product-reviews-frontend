@@ -7,4 +7,4 @@ const Layout = ({ children, categories }:{ children:any, categories:any}) => (
   </>
 );
 
-export default Layout;
+export default Layout;  

@@ -26,7 +26,7 @@ interface Homepage {
   };
 }
 
-const fetchArticles = cache(async () => {
+const fetchArticles = cache(async (): Promise<Article[]> => {
   try {
     const articlesRes = await preload("/articles", { populate: ["image", "category"] }, );
     return articlesRes.data;
@@ -36,7 +36,7 @@ const fetchArticles = cache(async () => {
   }
 });
 
-const fetchCategories = cache(async () => {
+const fetchCategories = cache(async (): Promise<Category[]> => {
   try {
     const categoriesRes = await preload("/categories", { populate: "*" });
     return categoriesRes.data;
@@ -46,7 +46,7 @@ const fetchCategories = cache(async () => {
   }
 });
 
-const fetchHomepage = cache(async () => {
+const fetchHomepage = cache(async (): Promise<Homepage> => {
   try {
     const homepageRes = await preload("/homepage", {
       populate: {
