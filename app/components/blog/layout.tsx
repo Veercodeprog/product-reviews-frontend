@@ -7,4 +7,10 @@ const Layout = ({ children, categories }:{ children:any, categories:any}) => (
   </>
 );
 
-export { Layout };  
+const BlogLayout = ({ children, categories }:{ children:any, categories:any}) => (
+  <Layout categories={categories}>
+    {children}
+  </Layout>
+);
+
+export default BlogLayout;  
