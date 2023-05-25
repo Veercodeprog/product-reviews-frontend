@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
 import Nav from "../../components/blog/nav";
-import { fetchAPI } from "@/app/utils/strapiApi";
-import { getStrapiMedia } from "@/app/utils/media";
+import { fetchCategories,fetchArticleDescription ,preload } from "@/app/utils/strapi/articleDescription";
+import { getStrapiMedia } from "@/app/utils/strapi/media";
 import { get } from "http";
 interface Article {
   attributes: {
@@ -32,34 +32,20 @@ interface Article {
 
 
 
-const Article = (props: any) => {
-  const [article, setArticle] = useState<Article | null>(null);
-  const [categories, setCategories] = useState(null);
+const Article = async(props: any) => {
+
   const { slug } = props.params;
+console.log("slug::", slug);
   console.log(slug);
+ preload(slug);
+ const articleData =  fetchArticleDescription(slug);
+  const categoryData =  fetchCategories();
+    
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // Fetch article data
-      const articleRes = await fetchAPI(`/articles?slug=${slug}`, {
-        populate: ["category", "author.picture", "image"], // Remove "image" from populate
-      });
-      const fetchedArticle = articleRes.data[0];
+      const article = await articleData;
+      const categories = await categoryData;
 
-      // Fetch categories data
-      const categoriesRes = await fetchAPI("/categories");
-      const fetchedCategories = categoriesRes.data;
 
-      setArticle(fetchedArticle);
-      setCategories(fetchedCategories);
-    };
-
-    fetchData();
-  }, [slug]);
-
-  if (!article || !categories) {
-    return <div>Loading...</div>;
-  }
 
   console.log("image::", article);
 

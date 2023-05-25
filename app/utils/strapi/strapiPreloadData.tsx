@@ -5,14 +5,13 @@ export const preload = () => {
   void fetchCategories();
   void fetchHomepage();
 };
-import { revalidateTag } from "next/cache";
-import { NextRequest, NextResponse  } from "next/server";
+
 export const fetchArticles = cache(async () => {
   try {
     const articlesRes = await fetchAPI("/articles", { populate: ["image", "category"] }, );
 
 
-    return (articlesRes.data);
+    return articlesRes.data;
   } catch (error) {
     console.error("Error fetching articles:", error);
     throw error;
