@@ -15,7 +15,7 @@ export function getStrapiURL(path = "") {
 // }
 export async function fetchAPI(path:any , urlParamsObject = {}, options = {}) {
   const mergedOptions = {
-
+ next: { revalidate: 65 } ,
     headers: {
       "Content-Type": "application/json",
   
