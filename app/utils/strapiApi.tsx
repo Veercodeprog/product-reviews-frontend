@@ -13,12 +13,16 @@ export function getStrapiURL(path = "") {
 // export function getStrapiURL(path = "") {
 //   return `${strapiUrl}${path}`;
 // }
-export async function fetchAPI(path:any , urlParamsObject = {}, options = {}) {
+export async function preload(path:any , urlParamsObject = {}, options = {}) {
   const mergedOptions = {
     headers: {
       "Content-Type": "application/json",
+
     },
     ...options,
+
+     // Set the revalidation interval to 10 seconds
+  
   };
 
   const queryString = qs.stringify(urlParamsObject);
@@ -27,7 +31,7 @@ export async function fetchAPI(path:any , urlParamsObject = {}, options = {}) {
   )}`;
 
   try {
-    const response = await fetch(requestUrl, mergedOptions);
+    const response = await fetch(requestUrl, mergedOptions, );
 
     if (!response.ok) {
       const errorText = `${response.status} ${response.statusText}`;
