@@ -37,7 +37,7 @@ const Article = async(props: any) => {
   const { slug } = props.params;
 console.log("slug::", slug);
   console.log(slug);
- preload(slug);
+//  preload(slug);
  const articleData =  fetchArticleDescription(slug);
   const categoryData =  fetchCategories();
     
