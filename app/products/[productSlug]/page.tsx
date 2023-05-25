@@ -20,25 +20,15 @@ interface Props {
 }
 
 
-export default function ProductsDescriptionPage(props: Props) {
+export default async function ProductsDescriptionPage(props: Props) {
   const { productSlug } = props.params;
-  const [product, setProduct] = useState<Product | undefined>(undefined);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
+ 
         const unslugifiedProductName = unslugify(productSlug);
-        const response = await fetchObjectFromProducts(unslugifiedProductName);
-        setProduct(response);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+        const fetchCurrentProduct: Promise<Product> =  fetchObjectFromProducts(unslugifiedProductName);
+        const product = await fetchCurrentProduct;
 
-    if (productSlug) {
-      fetchProduct();
-    }
-  }, [productSlug]);
+  
 
   function unslugify(slug: string) {
     // Replace hyphens with spaces and capitalize the first letter of each word

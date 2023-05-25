@@ -9,26 +9,15 @@ interface Category {
   category_description: string;
   emoji: string;
 }
-export default function CategoryDescriptionPage(props:any) {
+export default async function CategoryDescriptionPage(props:any) {
 const {categorySlug} = props.params
 console.log("categorySlug:",categorySlug)
-const [category, setCategory] = useState<Category | null>(null);
 
-  useEffect(() => {
-    const fetchCategory = async () => {
-      try {
+  
         const unslugifiedCategoryName = unslugify(categorySlug);
-        const response = await fetchObjectFromCategories(unslugifiedCategoryName, );
-        setCategory(response);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+        const response: Promise<Category> = await fetchObjectFromCategories(unslugifiedCategoryName, );
+        const category = await response;
 
-    if (categorySlug) {
-      fetchCategory();
-    }
-  }, [categorySlug]);
 
   function unslugify(slug:string) {
     // Replace hyphens with spaces and capitalize the first letter of each word

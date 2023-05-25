@@ -1,11 +1,12 @@
-'use client'
-import React, { useEffect, useState } from "react";
+
+// import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
 import Nav from "../../components/blog/nav";
 import { fetchCategories,fetchArticleDescription ,preload } from "@/app/utils/strapi/articleDescription";
 import { getStrapiMedia } from "@/app/utils/strapi/media";
 import { get } from "http";
+import moment from "moment";
 interface Article {
   attributes: {
     title: string;
@@ -31,23 +32,22 @@ interface Article {
 }
 
 
-
-const Article = async(props: any) => {
+export default async function Article(props: any  ) {
 
   const { slug } = props.params;
 console.log("slug::", slug);
-  console.log(slug);
-  preload(slug);
+  // console.log(slug);
+    preload(slug);
  const articleData =  fetchArticleDescription(slug);
   const categoryData =  fetchCategories();
     
 
-      const article = await articleData;
+      const article  = await articleData;
       const categories = await categoryData;
 
 
 
-  console.log("image::", article);
+  // console.log("image::", article);
 
  const image = article.attributes.image
 const  formats  = article.attributes.author.data.attributes.picture
@@ -102,9 +102,10 @@ className="w-auto h-auto"
                 By {article.attributes.author.data.attributes.name}
               </p>
               <p className="uk-text-meta uk-margin-remove-top">
-                <Moment format="MMM Do YYYY">
+{moment().format("MMM Do YYYY")}
+                {/* <Moment format="MMM Do YYYY"> */}
                   {article.attributes.published_at}
-                </Moment>
+                {/* </Moment> */}
               </p>
             </div>
           </div>
@@ -114,4 +115,3 @@ className="w-auto h-auto"
   );
 };
 
-export default Article;

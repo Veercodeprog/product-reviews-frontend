@@ -1,6 +1,8 @@
 import axios from "axios";
+import { cache } from "react";
+
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-export const getAllProductsName = async () => {
+export const getAllProductsName = cache(async () => {
 try {
  const response = await axios.get(`${baseUrl}/getAllProductName`);
 
@@ -12,8 +14,8 @@ try {
 console.error(error);
 }
 
-}
-export const getAllCategoriesName = async () => {
+})
+export const getAllCategoriesName = cache(async () => {
   try {
     const response = await axios.get(`${baseUrl}/getAllCategoryName`);
     
@@ -25,10 +27,11 @@ export const getAllCategoriesName = async () => {
     // Handle any errors here
     console.error("api error:",error);
   }
-};
+});
 
 
-export const fetchObjectFromProducts = async(suggestion:any)=>{
+
+export const fetchObjectFromProducts = cache(async(suggestion:any)=>{
 try {
     const response = await axios.get(`${baseUrl}/getSearchProduct?suggestion=${suggestion}`);
     
@@ -40,9 +43,9 @@ try {
     // Handle any errors here
     console.error("product api error:",error);
   }
-}
+})
 
-export const fetchObjectFromCategories = async(suggestion: any)=>{
+export const fetchObjectFromCategories = cache(async(suggestion: any)=>{
 try {
     const response = await axios.get(`${baseUrl}/getSearchCategory?suggestion=${suggestion}`);
     
@@ -54,4 +57,4 @@ try {
     // Handle any errors here
     console.error("category api error:",error);
   }
-}
+})
