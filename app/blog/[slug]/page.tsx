@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
-import BlogLayout from "../../components/blog/layout";
+import Layout from "../../components/blog/layout";
 import { fetchAPI } from "@/app/utils/strapiApi";
 import { getStrapiMedia } from "@/app/utils/media";
 import { get } from "http";
@@ -72,7 +72,7 @@ const  formats  = article.attributes.author.data.attributes.picture
 
 
   return (
-    <BlogLayout categories={categories}>
+    <Layout categories={categories}>
     
       <div
         id="banner"
@@ -123,7 +123,7 @@ className="w-auto h-auto"
           </div>
         </div>
       </div>
-    </BlogLayout>
+    </Layout>
   );
 };
 

@@ -1,7 +1,7 @@
 import './blog.css'
 import React, { useEffect, useState } from "react";
 import Articles from "../../app/components/blog/articles";
- import BlogLayout from "../components/blog/layout";
+ import Layout from "../components/blog/layout";
 import { fetchAPI } from "../../app/utils/strapiApi";
 import { fetchArticles, fetchCategories, fetchHomepage,preload } from '../utils/strapiPreloadData'; 
 import { cache } from 'react';
@@ -93,7 +93,7 @@ const homepage = await homepageData;
   return (
     <>
 
-       <BlogLayout categories={categories} >
+       <Layout categories={categories} >
   <div className="flex justify-center">
     <div className="w-full max-w-3xl">
       <div className="uk-section">
@@ -104,7 +104,7 @@ const homepage = await homepageData;
       </div>
     </div>
   </div>
-     </BlogLayout> 
+     </Layout> 
 
     </>
   );

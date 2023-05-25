@@ -1,16 +1,16 @@
 import Nav from "./nav";
 
-const Layout = ({ children, categories }:{ children:any, categories:any}) => (
+interface LayoutProps {
+  children: React.ReactNode;
+  categories: any; // Replace 'any' with the actual type of the 'categories' property
+}
+
+const Layout: React.FC<LayoutProps> = ({ children, categories }) => (
+
   <>
     <Nav categories={categories} />
     {children}
   </>
 );
 
-const BlogLayout = ({ children, categories }:{ children:any, categories:any}) => (
-  <Layout categories={categories}>
-    {children}
-  </Layout>
-);
-
-export default BlogLayout;  
+export default Layout;
