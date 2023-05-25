@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
 import Layout from "../../components/blog/layout";
-import { preload } from "@/app/utils/strapiApi";
+import { fetchAPI } from "@/app/utils/strapiApi";
 import { getStrapiMedia } from "@/app/utils/media";
 import { get } from "http";
 interface Article {
@@ -41,13 +41,13 @@ const Article = (props: any) => {
   useEffect(() => {
     const fetchData = async () => {
       // Fetch article data
-      const articleRes = await preload(`/articles?slug=${slug}`, {
+      const articleRes = await fetchAPI(`/articles?slug=${slug}`, {
         populate: ["category", "author.picture", "image"], // Remove "image" from populate
       });
       const fetchedArticle = articleRes.data[0];
 
       // Fetch categories data
-      const categoriesRes = await preload("/categories");
+      const categoriesRes = await fetchAPI("/categories");
       const fetchedCategories = categoriesRes.data;
 
       setArticle(fetchedArticle);

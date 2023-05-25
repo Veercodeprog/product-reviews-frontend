@@ -3,7 +3,7 @@ import PopularNowText from "./components/homepage/popular-now-text";
 import FeaturedArticleList from "./components/homepage/featured-articles/featured-article-list";
 import HomeButtonList from "./components/homepage/home-button-list";
 
-
+export const revalidate = 60;
 export default function Home() {
   return (
     <>

@@ -2,9 +2,11 @@ import './blog.css'
 import React, { useEffect, useState } from "react";
 import Articles from "../../app/components/blog/articles";
  import Layout from "../components/blog/layout";
-import { preload } from "../../app/utils/strapiApi";
+import { fetchAPI } from "../../app/utils/strapiApi";
+import { fetchArticles, fetchCategories, fetchHomepage,preload } from '../utils/strapiPreloadData'; 
 import { cache } from 'react';
-// import 'server-only';
+
+//   import 'server-only';
 
 interface Article {
   attributes: {
@@ -26,52 +28,60 @@ interface Homepage {
   };
 }
 
-const fetchArticles = cache(async (): Promise<Article[]> => {
-  try {
-    const articlesRes = await preload("/articles", { populate: ["image", "category"] }, );
-    return articlesRes.data;
-  } catch (error) {
-    console.error("Error fetching articles:", error);
-    throw error;
-  }
-});
+// const fetchArticles = cache(async () => {
+//   try {
+//     const articlesRes = await fetchAPI("/articles", { populate: ["image", "category"] }, );
+//     return articlesRes.data;
+//   } catch (error) {
+//     console.error("Error fetching articles:", error);
+//     throw error;
+//   }
+// });
 
-const fetchCategories = cache(async (): Promise<Category[]> => {
-  try {
-    const categoriesRes = await preload("/categories", { populate: "*" });
-    return categoriesRes.data;
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    throw error;
-  }
-});
+// const fetchCategories = cache(async () => {
+//   try {
+//     const categoriesRes = await fetchAPI("/categories", { populate: "*" });
+//     return categoriesRes.data;
+//   } catch (error) {
+//     console.error("Error fetching categories:", error);
+//     throw error;
+//   }
+// });
 
-const fetchHomepage = cache(async (): Promise<Homepage> => {
-  try {
-    const homepageRes = await preload("/homepage", {
-      populate: {
-        hero: "*",
-        seo: { populate: "*" },
-      },
-    });
-    return homepageRes.data;
-  } catch (error) {
-    console.error("Error fetching homepage:", error);
-    throw error;
-  }
-});
+// const fetchHomepage = cache(async () => {
+//   try {
+//     const homepageRes = await fetchAPI("/homepage", {
+//       populate: {
+//         hero: "*",
+//         seo: { populate: "*" },
+//       },
+//     });
+//     return homepageRes.data;
+//   } catch (error) {
+//     console.error("Error fetching homepage:", error);
+//     throw error;
+//   }
+// });
+// export const preload = () => {
+//   void fetchArticles();
+//   void fetchCategories();
+//   void fetchHomepage();
+// };
 
 
 
 export default async function Blog () {
 
+ preload(); // Start fetching the data eagerly using the preload function
 
-const articleData = fetchArticles();
-const categoryData = fetchCategories();
-const homepageData = fetchHomepage();
+  const articleData = fetchArticles();
+  const categoryData = fetchCategories();
+  const homepageData = fetchHomepage();
 
 const articles = await articleData;
-const [categories, homepage] = await Promise.all([categoryData, homepageData]);
+const categories = await categoryData;
+const homepage = await homepageData;
+// const [categories, homepage] = await Promise.all([categoryData, homepageData]);
 
 
   // if (!data) {
@@ -88,7 +98,7 @@ const [categories, homepage] = await Promise.all([categoryData, homepageData]);
     <div className="w-full max-w-3xl">
       <div className="uk-section">
         <div className="uk-container uk-container-large">
-          {/* <h1>{homepage.attributes.hero.title}</h1> */}
+          <h1>{homepage.attributes.hero.title}</h1>
           <Articles articles={articles} />
         </div>
       </div>
