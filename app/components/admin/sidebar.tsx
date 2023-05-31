@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { customSignOutUser } from "@/app/utils/api";
+
 export default function AdminSidebar() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [show, setShow] = useState(true);
