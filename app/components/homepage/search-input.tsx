@@ -40,8 +40,10 @@ export default function SearchInput() {
     try {
       const response = await getAllCategoriesName();
       const categories = response;
-      console.log("categories:", response);
-      setCategories(response);
+      console.log("categories name:", response);
+    const categoryNames = response.map(category => category.name);
+    console.log("category names:", categoryNames);
+      setCategories(categoryNames);
     } catch (error) {
       console.error(error);
     }

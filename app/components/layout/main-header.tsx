@@ -1,11 +1,12 @@
 import { Fragment } from "react";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-
+import SessionManager from "@/app/utils/session";
 // import { NavLink, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalLogin from "../auth/Login";
 import ModalSignup from "../auth/Signup";
+import { signOutUser } from "@/app/utils/auth";
 // import { , getCurrentUser,handleLogout } from "@/app/utils/api";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/app/utils/firebase";
@@ -15,9 +16,9 @@ import { auth } from "@/app/utils/firebase";
 
 // import { parseCookies } from "nookies";
 
-import { customSignOutUser } from "@/app/utils/api";
+import { customSignOutUser } from "@/app/utils/auth";
 
-import { handleLogin } from "@/app/utils/api";
+import { handleLogin } from "@/app/utils/auth";
 
 import {
   faMagnifyingGlass,
@@ -27,9 +28,9 @@ import {
 
  type UserType = {
   id: number;
-  username: string;
+  name: string;
   role: string;
-  firstName: string;
+  email: string;
   // Add other properties as needed
 };
 function MainHeader() {
@@ -37,7 +38,7 @@ function MainHeader() {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
 const [user, setUser] = useState<UserType | null>(null);
-
+const [isLoading, setLoading] = useState(true);
   // function setToken(userToken) {
   //   sessionStorage.setItem('token', JSON.stringify(userToken));
   // }
@@ -47,33 +48,35 @@ const [user, setUser] = useState<UserType | null>(null);
   //   const userToken = JSON.parse(tokenString);
   //   return userToken?.token
   // }
-  useEffect(() => {
-    // Retrieve user data from local storage
-    const storedUser = localStorage.getItem("user");
-console.log("stored",storedUser)
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
+ 
+  // const updateUser = (userInfo:any ) => {
+  //   // Update the user state
+  //   setUser(userInfo);
 
-      // Check if the stored user is still valid
-      if (
-        parsedUser.expirationDate &&
-        new Date() > new Date(parsedUser.expirationDate)
-      ) {
-        // User session has expired, clear the stored user
+  // };
+console.log('userInfo:', user);
+  // useEffect(() => {
+  //   // ...other code
 
-        localStorage.removeItem("user");
-        setUser(null);
-      } else {
-        // Set the stored user as the current user
-        setUser(parsedUser);
-      }
-    }
-  }, []);
+  //   const unsubscribe = onAuthStateChanged(auth, async (user) => {
+  //     if (user) {
+  //       // ...update user information using the updateUser function
+  //       updateUser({ displayName, email, role: claims.role });
+  //     } else {
+  //       // ...clear the user information
+  //       updateUser(null);
+  //     }
+  //   });
+
+  //   // ...return cleanup function
+
+  // }, [updateUser]);
 
   const handleLogout = async () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     await customSignOutUser();
+signOutUser();
     setUser(null);
     try {
       await signOut(auth);
@@ -102,6 +105,7 @@ const handleLoginSubmit = (user: UserType) => {
     // Update the user state
     setUser(user);
   };
+console.log('user:', user);
 
   //  const handleLogout = () => {
   //     try {
@@ -117,20 +121,25 @@ const handleLoginSubmit = (user: UserType) => {
   };
   return (
     <Fragment>
-      {/* <SessionManager updateUser={setUser} />    */}
+<SessionManager updateUser={setUser} setLoading={setLoading} />
 
       {/*  Listen for authentication state changes
        */}
-      <header className=" md:flex md:items-center md:justify-between p-4 pb-0  md:pb-4">
+      {isLoading ? (
+        <div>   </div>
+      ) : (
+      // <header className=" sticky top-0 bg-white  md:flex md:items-center md:justify-between p-4 pb-0  md:pb-4">
+    <header className="sticky top-0 bg-white  p-4 pb-0 md:flex md:items-center md:justify-between z-10"> 
+
         {/* Logo text or image */}
         <div className="flex items-center justify-between mb-4 md:mb-0">
           <h1 className="leading-none text-2xl text-grey-darkest">
             {user ? (
               <>
-                {" "}
+                
                 <p className="no-underline text-grey-darkest hover:text-black">
                   Welcome,{" "}
-                  {user.firstName }
+                 {user.claims.name }
                 </p>
               </>
             ) : (
@@ -263,6 +272,7 @@ const handleLoginSubmit = (user: UserType) => {
         </form> */}
         {/* END Global navigation */}
       </header>
+      )}
     </Fragment>
   );
 }

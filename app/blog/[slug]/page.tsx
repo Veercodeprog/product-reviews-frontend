@@ -1,5 +1,6 @@
 
 // import React, { useEffect, useState } from "react";
+import 'server-only'
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
 import Nav from "../../components/blog/nav";
@@ -108,6 +109,56 @@ className="w-auto h-auto"
                 {/* </Moment> */}
               </p>
             </div>
+
+<div className="comments-container mb-30">
+  <h1 className="text-2xl font-semibold mb-6">Comments <a href="http://creaticode.com" className="text-blue-500"></a></h1>
+  <ul id="comments-list" className="comments-list">
+    <li>
+      <div className="comment-main-level">
+     
+        <div className="comment-avatar w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow">
+          <img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt="" />
+        </div>
+      
+        <div className="w-1/2 comment-box ml-20 border border-gray-300 rounded shadow">
+          <div className="comment-head bg-gray-100 py-2 px-3 border-b border-gray-300 flex items-center justify-between">
+            <h6 className="comment-name by-author text-base font-semibold text-gray-800"><a href="http://creaticode.com/blog" className="text-blue-500">Agustin Ortiz</a></h6>
+            <span className="text-gray-500 text-sm">hace 20 minutos</span>
+            <i className="fa fa-reply"></i>
+            <i className="fa fa-heart"></i>
+          </div>
+          <div className="comment-content p-3 text-base text-gray-600">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+ 
+      <div className="comment-main-level">
+ 
+        <div className="comment-avatar w-12 h-12 rounded-full overflow-hidden">
+          <img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt="" />
+        </div>
+       
+        <div className="comment-box ml-36 border border-gray-300 rounded shadow">
+          <div className="comment-head bg-gray-100 py-2 px-3 border-b border-gray-300 flex items-center justify-between">
+            <h6 className="comment-name text-base font-semibold text-gray-800"><a href="http://creaticode.com/blog" className="text-blue-500">Lorena Rojero</a></h6>
+            <span className="text-gray-500 text-sm">hace 10 minutos</span>
+            <i className="fa fa-reply"></i>
+            <i className="fa fa-heart"></i>
+          </div>
+          <div className="comment-content p-3 text-base text-gray-600">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+
           </div>
         </div>
       </div>

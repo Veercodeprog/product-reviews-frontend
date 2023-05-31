@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { handleSignup } from "@/app/utils/api";
+import { handleSignup } from "@/app/utils/auth";
 interface ModalLoginProps {
   onClose: () => void;
   onSubmit: (user: any) => void;
@@ -13,6 +13,8 @@ const ModalSignup = ({ onClose, onSubmit }: ModalLoginProps) => {
 
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
+  setError(""); // Clear error when input changes
+
   };
 
   const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,36 +29,71 @@ const ModalSignup = ({ onClose, onSubmit }: ModalLoginProps) => {
     setPassword(event.target.value);
   };
 
-  const buttonSignup = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
 
-    // Add your signup logic here
-    try {
-      const result=  await handleSignup(firstName, lastName , email, password );
-console.log("sign up user test",result)
-if (result.user) {
-        onSubmit(result.user);
-      }
-      if (result.user.role == "admin") {
-        console.log("ADMIN USER");
-      }
+const buttonSignup = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+
+  // Add your signup logic here
+  try {
+    const result = await handleSignup(firstName, lastName, email, password);
+    console.log("sign up user test", result);
+
+    if (result) {
+      // User signup was successful
+      // if (result.user) {
+      //   onSubmit(result.user);
+      // }
+      // const { role } = result.data;
+
+      // if (role=== "admin") {
+      //   console.log("ADMIN USER");
+      // }
       onClose();
-    } catch (error) {
-      console.error("Signup failed", error);
-      setError("Error occurred during signup");
+    } else {
+      // User already exists or custom claims couldn't be set
+      setError("User already exists");
     }
-  };
+  } catch (error) {
+    console.error("Signup failed", error);
+    setError("Error occurred during signup");
+  }
+};
+
+//   const buttonSignup = async (event: React.FormEvent<HTMLFormElement>) => {
+//     event.preventDefault();
+
+//     // Add your signup logic here
+//     try {
+//       const result=  await handleSignup(firstName, lastName , email, password );
+// console.log("sign up user test",result)
+// if (result.user) {
+//         onSubmit(result.user);
+//       }
+//       if (result.user.role == "admin") {
+//         console.log("ADMIN USER");
+//       }
+//       onClose();
+//     } catch (error) {
+//       console.error("Signup failed", error);
+//       setError("Error occurred during signup");
+//     }
+//   };
 
   return (
     <div className="fixed z-10 inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative bg-white rounded-lg shadow-lg p-8 w-96">
+
+
         <span
           className="absolute top-0 right-0 p-2 text-gray-500 hover:text-gray-700 cursor-pointer"
           onClick={onClose}
         >
           &times;
+
         </span>
+ {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={buttonSignup}>
+
           <div className="mb-4">
             <label
               className="block text-gray-700 font-bold mb-2"

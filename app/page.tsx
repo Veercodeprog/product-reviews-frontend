@@ -2,9 +2,14 @@ import SearchInput from "./components/homepage/search-input";
 import PopularNowText from "./components/homepage/popular-now-text";
 import FeaturedArticleList from "./components/homepage/featured-articles/featured-article-list";
 import HomeButtonList from "./components/homepage/home-button-list";
-
+import FeaturedWeekList from "./components/homepage/featured-week/featured-week-list";
+import { preload, fetchArticles } from "./utils/strapi/strapiPreloadData";
 export const revalidate = 60;
-export default function Home() {
+export default async function Home() {
+preload(); // Start fetching the data eagerly using the preload function
+
+  const articleData = fetchArticles();
+const articles = await articleData;
   return (
     <>
       <main className="">
@@ -23,11 +28,11 @@ export default function Home() {
             <div className="featured-week--section mt-10">
               <p className="small--sub--headings">Featured This Week</p>
 
-              <FeaturedArticleList />
+              <FeaturedWeekList />
             </div>
             <div className="featured-article--section">
               <p className="small--sub--headings">Featured Articles</p>
-              <FeaturedArticleList />
+              <FeaturedArticleList articles={articles} />
             </div>
           </div>
         </div>

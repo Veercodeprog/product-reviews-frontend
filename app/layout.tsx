@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import './globals.css'
 import { Inter } from 'next/font/google'
 
-
+import Footer from './components/layout/footer'
 import MainHeader from './components/layout/main-header'
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,6 +19,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -28,9 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en">
      
-      <body className={inter.className}>       {!(excludeHeader ) && <MainHeader />}
-{children}</body>
+      <body className={inter.className} >       {!(excludeHeader ) && <MainHeader />}
+{children}
+  {!(excludeHeader ) && <Footer />}
+</body>
     </html>
   )
 }
+
+
 
