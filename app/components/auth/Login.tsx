@@ -52,12 +52,10 @@ const ModalLogin = ({ onClose, onSubmit }: ModalLoginProps) => {
     event.preventDefault();
     try {
       const result = await handleSignup(firstName, lastName, user, pwd);
-      if (result.user) {
-        onSubmit(result.user);
-      }
-      if (result.user.role == "admin") {
-        console.log("ADMIN USER");
-      }
+      // if (result.user) {
+      //   onSubmit(result.user);
+      // }
+     
       onClose();
     } catch (error) {
       console.error("Signup failed", error);
