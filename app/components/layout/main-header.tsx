@@ -26,11 +26,14 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
- type UserType = {
-  id: number;
-  name: string;
-  role: string;
-  email: string;
+type UserType = {
+  claims: {
+    id: number;
+    name: string;
+    role: string;
+    email: string;
+  };
+  uid: string;
   // Add other properties as needed
 };
 function MainHeader() {
