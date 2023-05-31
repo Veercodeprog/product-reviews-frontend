@@ -17,17 +17,17 @@ const SessionManagerContext = createContext<SessionManagerContextProps>({ user: 
 
 
 
-export  function SessionManagerProvider({children}) {
-  const [isLoading, setLoading] = useState(true);
-const [user, setUser] = useState(null);
-  return (
-    <SessionManagerContext.Provider value={{ user, setUser, isLoading, setLoading}}>
-      {/* <SessionManager /> */}
-{children}
+// export  function SessionManagerProvider({children}) {
+//   const [isLoading, setLoading] = useState(true);
+// const [user, setUser] = useState(null);
+//   return (
+//     <SessionManagerContext.Provider value={{ user, setUser, isLoading, setLoading}}>
+//       {/* <SessionManager /> */}
+// {children}
       
-    </SessionManagerContext.Provider>
-  );
-}
+//     </SessionManagerContext.Provider>
+//   );
+// }
 
 
 
@@ -61,7 +61,7 @@ const [user, setUser] = useState(null);
 // };
 
 
-const SessionManager = ({ updateUser, setLoading }) => {
+const SessionManager = ({ updateUser, setLoading }: { updateUser: any, setLoading:any }) => {
   useEffect(() => {
  setLoading(true); 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
