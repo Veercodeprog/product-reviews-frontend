@@ -1,7 +1,7 @@
 export default function Footer(){
 return(
 
-<footer className="fixed bottom-0 left-0 w-full bg-black text-white ">
+<div  className="fixed bottom-0 left-0 w-full bg-black text-white ">
   <div className="container">
     <div className="row">
       <div className="col-md-12">
@@ -11,7 +11,7 @@ return(
       </div>
     </div>
   </div>
-</footer>
+</div>
 
 
   )
