@@ -2,6 +2,8 @@ import SessionManager from "@/app/utils/session";
 import { useState } from "react";
 
 import { AddProductToDb } from "@/app/utils/postDataApi";
+
+
 type UserType = {
   claims: {
     id: number;

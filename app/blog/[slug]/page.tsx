@@ -202,7 +202,7 @@ className="w-auto h-auto"
           </div>
           <div className="flex-grow-1 ms-2 ms-sm-3 w-full">
             <form>
-              <textarea className="w-full form-control py-0 px-1 border-0" rows="1" placeholder="Start writing..." style={{ resize: "none" }}></textarea>
+              <textarea className="w-full form-control py-0 px-1 border-0"  placeholder="Start writing..." style={{ resize: "none" }}></textarea>
             </form>
           </div>
         </div>

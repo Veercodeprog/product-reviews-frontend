@@ -5,9 +5,17 @@ import AdminSidebar from "../components/admin/sidebar";
 import SessionManager from "../utils/session";
 
 interface UserType {
-  // Define your user properties here
+  claims: {
+    name: string;
+    picture: string;
+    role: string;
+    iss: string;
+    email: string;
+    // Add any other properties you need
+  };
+  uid: string;
+  // Add any other properties you need
 }
-
 
 
 export default  function AdminPage() {
@@ -22,7 +30,7 @@ const [isLoading, setLoading] = useState(true);
         <div> </div>
       ) : (
         <>
-          {user && user.role === 'admin' ? (
+          {user && user.claims.role === 'admin' ? (
             <div className="flex h-screen">
               {/* Left Side */}
               <AdminSidebar />
@@ -30,7 +38,7 @@ const [isLoading, setLoading] = useState(true);
               {/* Right Side */}
               <div className="w-5/6 h-full">
                 {/* Content for the right side goes here */}
-                <h1>Welcome, {user.role}</h1>
+                <h1>Welcome, {user.claims.role}</h1>
               </div>
             </div>
           ) : (
