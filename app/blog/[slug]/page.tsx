@@ -110,52 +110,107 @@ className="w-auto h-auto"
               </p>
             </div>
 
-<div className="comments-container mb-30">
-  <h1 className="text-2xl font-semibold mb-6">Comments <a href="http://creaticode.com" className="text-blue-500"></a></h1>
-  <ul id="comments-list" className="comments-list">
-    <li>
-      <div className="comment-main-level">
-     
-        <div className="comment-avatar w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow">
-          <img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt="" />
-        </div>
-      
-        <div className="w-1/2 comment-box ml-20 border border-gray-300 rounded shadow">
-          <div className="comment-head bg-gray-100 py-2 px-3 border-b border-gray-300 flex items-center justify-between">
-            <h6 className="comment-name by-author text-base font-semibold text-gray-800"><a href="http://creaticode.com/blog" className="text-blue-500">Agustin Ortiz</a></h6>
-            <span className="text-gray-500 text-sm">hace 20 minutos</span>
-            <i className="fa fa-reply"></i>
-            <i className="fa fa-heart"></i>
+<div className="flex items-center justify-center h-screen">
+  <div className="container">
+    <div className="row justify-content-center mb-4">
+      <div className="col-lg-8">
+        <h5>2 Comments</h5>
+      </div>
+    </div>
+    <div className="row justify-content-center mb-4">
+      <div className="col-lg-8">
+        <div className="comments">
+          <div className="comment flex mb-4">
+            <div className="flex-shrink-0">
+              <div className="avatar avatar-sm rounded-circle">
+                <img className="avatar-img" src="https://randomuser.me/api/portraits/men/32.jpg" alt="" />
+              </div>
+            </div>
+            <div className="flex-grow-1 ms-2 ms-sm-3">
+              <div className="comment-meta flex items-baseline">
+                <h6 className="me-2">Jordan Singer</h6>
+                <span className="text-muted">2d</span>
+              </div>
+              <div className="comment-body">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non minima ipsum at amet doloremque qui magni, placeat deserunt pariatur itaque laudantium impedit aliquam eligendi repellendus excepturi quibusdam nobis esse accusantium.
+              </div>
+
+              <div className="comment-replies bg-light p-3 mt-3 rounded">
+                <h6 className="comment-replies-title mb-4 text-muted text-uppercase">2 replies</h6>
+
+                <div className="reply flex mb-4">
+                  <div className="flex-shrink-0">
+                    <div className="avatar avatar-sm rounded-circle">
+                      <img className="avatar-img" src="https://images.unsplash.com/photo-1501325087108-ae3ee3fad52f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=f7f448c2a70154ef85786cf3e4581e4b" alt="" />
+                    </div>
+                  </div>
+                  <div className="flex-grow-1 ms-2 ms-sm-3">
+                    <div className="reply-meta flex items-baseline">
+                      <h6 className="mb-0 me-2">Brandon Smith</h6>
+                      <span className="text-muted">2d</span>
+                    </div>
+                    <div className="reply-body">
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    </div>
+                  </div>
+                </div>
+                <div className="reply flex">
+                  <div className="flex-shrink-0">
+                    <div className="avatar avatar-sm rounded-circle">
+                      <img className="avatar-img" src="https://randomuser.me/api/portraits/men/4.jpg" alt="" />
+                    </div>
+                  </div>
+                  <div className="flex-grow-1 ms-2 ms-sm-3">
+                    <div className="reply-meta flex items-baseline">
+                      <h6 className="mb-0 me-2">James Parsons</h6>
+                      <span className="text-muted">1d</span>
+                    </div>
+                    <div className="reply-body">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolore sed eos sapiente, praesentium.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="comment-content p-3 text-base text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+          <div className="comment flex">
+            <div className="flex-shrink-0">
+              <div className="avatar avatar-sm rounded-circle">
+                <img className="avatar-img" src="https://randomuser.me/api/portraits/women/63.jpg" alt="" />
+              </div>
+            </div>
+            <div className="flex-shrink-1 ms-2 ms-sm-3">
+              <div className="comment-meta flex">
+                <h6 className="me-2">Jenna Roberts</h6>
+                <span className="text-muted">4d</span>
+              </div>
+              <div className="comment-body">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto laborum in corrupti dolorum, quas delectus nobis porro accusantium molestias sequi.
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </li>
-    <li>
- 
-      <div className="comment-main-level">
- 
-        <div className="comment-avatar w-12 h-12 rounded-full overflow-hidden">
-          <img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt="" />
-        </div>
-       
-        <div className="comment-box ml-36 border border-gray-300 rounded shadow">
-          <div className="comment-head bg-gray-100 py-2 px-3 border-b border-gray-300 flex items-center justify-between">
-            <h6 className="comment-name text-base font-semibold text-gray-800"><a href="http://creaticode.com/blog" className="text-blue-500">Lorena Rojero</a></h6>
-            <span className="text-gray-500 text-sm">hace 10 minutos</span>
-            <i className="fa fa-reply"></i>
-            <i className="fa fa-heart"></i>
+    </div>
+    <div className="row justify-content-center">
+      <div className="col-lg-8">
+        <div className="comment-form flex items-center">
+          <div className="flex-shrink-0">
+            <div className="avatar avatar-sm rounded-circle">
+              <img className="avatar-img" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200" alt="" />
+            </div>
           </div>
-          <div className="comment-content p-3 text-base text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+          <div className="flex-grow-1 ms-2 ms-sm-3">
+            <form>
+              <textarea className="form-control py-0 px-1 border-0" rows="1" placeholder="Start writing..." style={{ resize: "none" }}></textarea>
+            </form>
           </div>
         </div>
       </div>
-    </li>
-  </ul>
+    </div>
+  </div>
 </div>
+
 
 
 
