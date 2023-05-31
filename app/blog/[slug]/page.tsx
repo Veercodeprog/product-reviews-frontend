@@ -110,7 +110,7 @@ className="w-auto h-auto"
               </p>
             </div>
 
-<div className="flex items-center justify-center h-screen">
+<div className="flex items-center justify-center h-screen -mt-20">
   <div className="container">
     <div className="row justify-content-center mb-4">
       <div className="col-lg-8">
@@ -123,7 +123,7 @@ className="w-auto h-auto"
           <div className="comment flex mb-4">
             <div className="flex-shrink-0">
               <div className="avatar avatar-sm rounded-circle">
-                <img className="avatar-img" src="https://randomuser.me/api/portraits/men/32.jpg" alt="" />
+                <img className="avatar-img w-8 h-8" src="https://randomuser.me/api/portraits/men/32.jpg" alt="" />
               </div>
             </div>
             <div className="flex-grow-1 ms-2 ms-sm-3">
@@ -141,7 +141,7 @@ className="w-auto h-auto"
                 <div className="reply flex mb-4">
                   <div className="flex-shrink-0">
                     <div className="avatar avatar-sm rounded-circle">
-                      <img className="avatar-img" src="https://images.unsplash.com/photo-1501325087108-ae3ee3fad52f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=f7f448c2a70154ef85786cf3e4581e4b" alt="" />
+                      <img className="avatar-img w-8 h-8" src="https://images.unsplash.com/photo-1501325087108-ae3ee3fad52f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=f7f448c2a70154ef85786cf3e4581e4b" alt="" />
                     </div>
                   </div>
                   <div className="flex-grow-1 ms-2 ms-sm-3">
@@ -157,7 +157,7 @@ className="w-auto h-auto"
                 <div className="reply flex">
                   <div className="flex-shrink-0">
                     <div className="avatar avatar-sm rounded-circle">
-                      <img className="avatar-img" src="https://randomuser.me/api/portraits/men/4.jpg" alt="" />
+                      <img className="avatar-img w-8 h-8" src="https://randomuser.me/api/portraits/men/4.jpg" alt="" />
                     </div>
                   </div>
                   <div className="flex-grow-1 ms-2 ms-sm-3">
@@ -176,7 +176,7 @@ className="w-auto h-auto"
           <div className="comment flex">
             <div className="flex-shrink-0">
               <div className="avatar avatar-sm rounded-circle">
-                <img className="avatar-img" src="https://randomuser.me/api/portraits/women/63.jpg" alt="" />
+                <img className="avatar-img w-8 h-8" src="https://randomuser.me/api/portraits/women/63.jpg" alt="" />
               </div>
             </div>
             <div className="flex-shrink-1 ms-2 ms-sm-3">
@@ -197,12 +197,12 @@ className="w-auto h-auto"
         <div className="comment-form flex items-center">
           <div className="flex-shrink-0">
             <div className="avatar avatar-sm rounded-circle">
-              <img className="avatar-img" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200" alt="" />
+              <img className="avatar-img w-8 h-8" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200" alt="" />
             </div>
           </div>
-          <div className="flex-grow-1 ms-2 ms-sm-3">
+          <div className="flex-grow-1 ms-2 ms-sm-3 w-full">
             <form>
-              <textarea className="form-control py-0 px-1 border-0" rows="1" placeholder="Start writing..." style={{ resize: "none" }}></textarea>
+              <textarea className="w-full form-control py-0 px-1 border-0" rows="1" placeholder="Start writing..." style={{ resize: "none" }}></textarea>
             </form>
           </div>
         </div>
