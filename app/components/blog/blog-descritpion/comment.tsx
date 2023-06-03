@@ -46,7 +46,7 @@ const Comment = ({ comment, comments, article_id }: { comment: any; comments: an
     event.preventDefault();
     if (user) {
       const { claims } = user;
-console.log("claims.name:",claims.name || '');
+console.log("claims.name:",claims.name );
       // const blog_id = props.articleId;
       const commentData = {
         content: commentContent,
