@@ -15,7 +15,7 @@ type UserType = {
   uid: string;
   // Add other properties as needed
 };
-interface Comment {
+interface Comments {
   id: string; // Add the 'id' property
   content: string;
   related: {
@@ -39,7 +39,7 @@ export default function Comments(props: any) {
 
 
 
-const [comments, setComments] = useState<Comment[]>([]);
+const [comments, setComments] = useState<Comments[]>([]);
   const [postCommentMessage, setPostCommentMessage] = useState(""); // State variable to store the error message
 
   const article_id = props.articleId;
