@@ -78,6 +78,10 @@ export default async function Blog () {
 const articles = await articleData;
 const categories = await categoryData;
 const homepage = await homepageData;
+
+
+
+
 // const [categories, homepage] = await Promise.all([categoryData, homepageData]);
 
 
@@ -91,6 +95,7 @@ const homepage = await homepageData;
     <>
 
        <Nav categories={categories} />
+<p className=' text-5xl'>hiiiii{articles.attributes}</p>
   <div className="flex justify-center">
     <div className="w-full max-w-3xl">
       <div className="uk-section">

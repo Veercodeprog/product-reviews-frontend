@@ -2,6 +2,9 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const nextConfig = {
+experimental: {
+    serverActions: true,
+  },
     images: {
    loader: "default",
 

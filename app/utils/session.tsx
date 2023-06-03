@@ -4,15 +4,18 @@ import { useEffect } from 'react';
 import { onAuthStateChanged, getIdTokenResult,signOut } from 'firebase/auth';
 import { auth } from './firebase';
 
- 
+ import axios from 'axios';
 import { createContext, useContext, useState } from 'react';
- 
+ const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 interface SessionManagerContextProps {
   user: any | undefined;
   isLoading: boolean;
 }
 
 const SessionManagerContext = createContext<SessionManagerContextProps>({ user: undefined, isLoading: true });
+
+
 
 
 
@@ -60,10 +63,13 @@ const SessionManagerContext = createContext<SessionManagerContextProps>({ user: 
 //   return null; // Return null as a placeholder since we don't need to render anything
 // };
 
+// How does the client send the authentication information?
+// Cookies. Browsers send cookies automatically with each request, after the cookie has been set. Cookies are vulnerable to XSRF.
 
 const SessionManager = ({ updateUser, setLoading }: { updateUser: any, setLoading:any }) => {
   useEffect(() => {
  setLoading(true); 
+ 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         getIdTokenResult(user)
@@ -95,6 +101,57 @@ return null;
 
  export default SessionManager;
 
+
+
+export const SessionManagerCookie = ({ updateUser, setLoading }: { updateUser: any, setLoading: any }) => {
+  useEffect(() => {
+    setLoading(true);
+
+    const checkSession = async () => {
+      try {
+        // Make a request to the backend to check if the session is valid
+        const response = await axios.get(`${baseUrl}/checkSession`, { withCredentials: true });
+
+        // Extract user data from the response
+        const { claims, uid } = response.data;
+
+        const userData = {
+          claims,
+          uid
+        };
+
+        updateUser(userData);
+        setLoading(false); // Set loading to false after user data is retrieved
+      } catch (error) {
+        // If the session is invalid or the cookie is not present, log out the user
+        await signOut(auth);
+        updateUser(null);
+        setLoading(false); // Set loading to false if no user is authenticated
+      }
+    };
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        getIdTokenResult(user)
+          .then(() => {
+            // User is authenticated in Firebase, check the session in the backend
+            checkSession();
+          })
+          .catch((error) => {
+            console.error("Error getting token result", error);
+            setLoading(false); // Set loading to false even if an error occurs
+          });
+      } else {
+        // User is not authenticated in Firebase, log out the user
+        checkSession();
+      }
+    });
+
+    return () => unsubscribe();
+  }, [updateUser, setLoading]);
+
+  return null;
+};
 // const SessionManager =  ({ updateUser }) => {
 //   useEffect(() => {
 //     // Listen for authentication state changes

@@ -5,7 +5,7 @@ export const preload = (slug:any) => {
  void fetchCategories();
 };
 
-export const fetchArticleDescription = cache(async (slug:any) => {
+export const fetchArticleDescription = async (slug:any) => {
   try {
     const articlesRes = await fetchAPI(`/articles?slug=${slug}`, {
         populate: ["category", "author.picture", "image"] ,
@@ -24,7 +24,7 @@ console.log("articlesRes.data");
     console.error("Error fetching articles:", error);
     throw error;
   }
-});
+};
 
 export const fetchCategories = cache(async () => {
   try {

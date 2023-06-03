@@ -40,58 +40,67 @@ type User = {
   role: string;
   // other properties...
 };
-
+// /api/auth/local/register
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
-export const signInWithGoogle = async (
-  event: React.MouseEvent,
-  handleShowPasswordForm: (fname: string, lname: string, email: string) => void
-) => {
-  event.preventDefault();
-  try {
-    await setPersistence(auth, browserLocalPersistence);
-    const result = await signInWithPopup(auth, provider);
-    const { user } = result;
-    const { email, displayName, uid } = user;
-    const userToken = await result.user.getIdToken();
-    const tokenResult = await getIdTokenResult(result.user);
-    const customClaims = tokenResult.claims;
-    if (!customClaims.role) {
-      const response = await axios.post(`${baseUrl}/setCustomClaims`, { uid });
-      console.log("role not present:");
-    } else {
-      console.log("Custom claims role:", customClaims.role);
-    }
-    const userTokenResult = await result.user.getIdTokenResult();
-
-    console.log("Custom claims:", customClaims);
-
-    // const csrfToken = getCookie("csrfToken");
-    // console.log("csrfToken:", csrfToken);
-    const response = await axios.post(
-      `${baseUrl}/sessionLogin`,
-      { idToken: userToken },
-
-      {
-        withCredentials: true,
+  export const signInWithGoogle = async (
+    event: React.MouseEvent,
+    handleShowPasswordForm: (fname: string, lname: string, email: string) => void
+  ) => {
+    event.preventDefault();
+    try {
+      await setPersistence(auth, browserLocalPersistence);
+      const result = await signInWithPopup(auth, provider);
+      const { user } = result;
+      const { email, displayName, uid } = user;
+      const userToken = await result.user.getIdToken();
+      const tokenResult = await getIdTokenResult(result.user);
+      const customClaims = tokenResult.claims;
+      if (!customClaims.role) {
+        const response = await axios.post(`${baseUrl}/setCustomClaims`, { uid });
+        console.log("role not present:");
+      } else {
+        console.log("Custom claims role:", customClaims.role);
       }
-    );
-    if (customClaims && customClaims.role === "admin") {
-      // Redirect to admin page if the 'admin' custom claim is true
-      // window.location.assign("/admin");
-    } else {
-      // Redirect to regular user profile page\
-      console.log("Custom claims:", customClaims.auth_time);
+      const userTokenResult = await result.user.getIdTokenResult();
 
-      // window.location.assign('/');
+      console.log("Custom claims:", customClaims);
+
+      // const csrfToken = getCookie("csrfToken");
+      // console.log("csrfToken:", csrfToken);
+      const responseCookie = await axios.post(
+        `${baseUrl}/sessionLogin`,
+        { idToken: userToken },
+
+        {
+          withCredentials: true,
+        }
+      );
+// const { data } = responseCookie;  // se the cookie in auth headers for the backend requests and then backend to verify if user authenticated or not
+// const { sessionCookie } = data;
+ // already set though
+      if (customClaims && customClaims.role === "admin") {
+        // Redirect to admin page if the 'admin' custom claim is true
+        // window.location.assign("/admin");
+      } else {
+        // Redirect to regular user profile page\
+        console.log("Custom claims:", customClaims.auth_time);
+
+        // window.location.assign('/');
+      }
+
+      return customClaims;
+    } catch (error) {
+      console.error("Login failed", error);
     }
+  };
 
-    return customClaims;
-  } catch (error) {
-    console.error("Login failed", error);
-  }
-};
+
+
+
+
+
 
 // onAuthStateChanged(auth, (user) => {
 //   if (user) {
@@ -271,13 +280,17 @@ export const handleSignup = async (
 //   }
 // };
 
+
 export const signOutUser = async () => {
   try {
     await signOut(auth);
-    console.log("User signed out");
+    console.log('User signed out');
+    document.cookie = 'apiauth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+    await axios.post(`${baseUrl}/logout`);
     // handleAuthentication(null); // Pass null to indicate user signed out
   } catch (error) {
-    console.error("Sign out failed", error);
+    console.error('Sign out failed', error);
   }
 };
 
@@ -336,12 +349,15 @@ export const getCurrentUserClaims = async () => {
 };
 
 
-export const customSignOutUser = async () => {
-  try {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+
+
+
+// export const customSignOutUser = async () => {
+//   try {
+//     localStorage.removeItem("user");
+//     localStorage.removeItem("token");
     
-  } catch (error) {
-    console.error("Sign out failed", error);
-  }
-};
+//   } catch (error) {
+//     console.error("Sign out failed", error);
+//   }
+// };

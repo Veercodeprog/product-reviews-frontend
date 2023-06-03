@@ -1,12 +1,12 @@
-'use client'
+import "server-only"
 import { hydrateRoot } from 'react-dom/client';
 
-import { usePathname, useSearchParams } from 'next/navigation'
+
 import './globals.css'
 import { Inter } from 'next/font/google'
-
-import Footer from './components/layout/footer'
-import MainHeader from './components/layout/main-header'
+import { Providers } from './utils/providers';
+// import Footer from './components/layout/footer'
+// import MainHeader from './components/layout/main-header'
 const inter = Inter({ subsets: ['latin'] })
 
 // export const metadata = {
@@ -20,18 +20,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+//   const pathname = usePathname()
+//   const searchParams = useSearchParams()
 
-  const excludeHeader = pathname.startsWith('/admin')
- const excludeHeader1 = pathname.startsWith('/blog')
+//   const excludeHeader = pathname.startsWith('/admin')
+//  const excludeHeader1 = pathname.startsWith('/blog')
 
   return (
     <html lang="en">
      
-      <body className={inter.className} >       {!(excludeHeader ) && <MainHeader />}
-{children}
-  {!(excludeHeader ) && <Footer />}
+      <body className={inter.className} >       
+{/* {!(excludeHeader ) && <MainHeader />} */}
+ <Providers>{children}</Providers>
+
+  {/* {!(excludeHeader ) && <Footer />} */}
 </body>
     </html>
   )

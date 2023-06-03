@@ -8,8 +8,13 @@ const Articles = ({ articles }: { articles:any }) => {
 
   return (
 <div className="flex items-center justify-center "> 
+{/* {articles.map((article:any) => {
+{article.attributes.slug}
+})} */}
+
       <div className="uk-child-width-1-2@s" data-uk-grid="true">
         <div>
+
           {leftArticles.map((article:any, i:any) => {
             return (
               <Card
