@@ -19,15 +19,22 @@ interface Comment {
   updatedAt: string;
   reports: any[];
 }
-interface User {
-  claims: {any}
-uid:any
-}
+
+type UserType = {
+  claims: {
+    id: number;
+    name: string;
+    role: string;
+    email: string;
+  };
+  uid: string;
+  // Add other properties as needed
+};
 
 import { getAllArticleComments } from "@/app/utils/comments";
 
 const Comment = ({ comment, comments, article_id }: { comment: any; comments: any,article_id:any }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setLoading] = useState(true);//    const [comments, setComments] = useState<Comment[]>([]);
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyContent, setReplyContent] = useState("");
