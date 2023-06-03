@@ -15,14 +15,22 @@ type UserType = {
   uid: string;
   // Add other properties as needed
 };
-// interface Comment {
-//   comment: {
-//     related: {
-//       parentId: string | null;
-//     };
-//   };
-//   // Add other properties as needed
-// }
+interface Comment {
+  id: string; // Add the 'id' property
+  content: string;
+  related: {
+    blogId: string;
+    parentId: string | null;
+    authorUser: string;
+  };
+  blocked: any;
+  blockedThread: any;
+  blockReason: any;
+  approvalStatus: string;
+  createdAt: string;
+  updatedAt: string;
+  reports: any[];
+}
 
 
 export default function Comments(props: any) {
