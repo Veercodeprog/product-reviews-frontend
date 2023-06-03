@@ -26,7 +26,7 @@ type UserType = {
 
 
 export default function Comments(props: any) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setLoading] = useState(true);
 
 

@@ -34,7 +34,7 @@ type UserType = {
 import { getAllArticleComments } from "@/app/utils/comments";
 
 const Comment = ({ comment, comments, article_id }: { comment: any; comments: any,article_id:any }) => {
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserType >();
   const [isLoading, setLoading] = useState(true);//    const [comments, setComments] = useState<Comment[]>([]);
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyContent, setReplyContent] = useState("");
