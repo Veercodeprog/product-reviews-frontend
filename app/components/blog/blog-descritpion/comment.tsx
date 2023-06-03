@@ -20,7 +20,7 @@ interface Comment {
   reports: any[];
 }
 interface User {
-  claims: any
+  claims: {any}
 uid:any
 }
 
