@@ -24,8 +24,8 @@ uid:any
 
 import { getAllArticleComments } from "@/app/utils/comments";
 
-const Comment = ({ comment, comments }: { comment: any; comments: any }) => {
-  const [user, setUser] = useState(null);
+const Comment = ({ comment, comments, article_id }: { comment: any; comments: any,article_id:any }) => {
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setLoading] = useState(true);//    const [comments, setComments] = useState<Comment[]>([]);
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyContent, setReplyContent] = useState("");
@@ -37,7 +37,7 @@ const Comment = ({ comment, comments }: { comment: any; comments: any }) => {
     event.preventDefault();
     if (user) {
       const { claims } = user;
-console.log("claims.name:",claims.name);
+console.log("claims.name:",claims.name || '');
       // const blog_id = props.articleId;
       const commentData = {
         content: commentContent,

@@ -112,6 +112,7 @@ console.log("claims.name:",claims.name);
                   key={comment.id}
                   comment={comment}
                   comments={comments}
+                   article_id={article_id}
                />
               ))}
               {/* <div className="comment flex mb-4">
