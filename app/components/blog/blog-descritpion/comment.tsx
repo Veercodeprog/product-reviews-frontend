@@ -2,6 +2,26 @@ import React, { useEffect, useState } from "react";
 import CommentForm from "./commentform";
 import SessionManager from "@/app/utils/session";
 // Assuming you have a function called 'getAllArticleComments' to fetch comments from the API
+interface Comment {
+  content: string;
+  related: {
+    blogId: string;
+    parentId: string | null;
+    authorUser: string;
+  };
+  blocked: any;
+  blockedThread: any;
+  blockReason: any;
+  approvalStatus: string;
+  createdAt: string;
+  updatedAt: string;
+  reports: any[];
+}
+interface User {
+  claims: any
+uid:any
+}
+
 import { getAllArticleComments } from "@/app/utils/comments";
 
 const Comment = ({ comment, comments }: { comment: any; comments: any }) => {

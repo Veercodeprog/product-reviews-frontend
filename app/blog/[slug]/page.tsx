@@ -4,7 +4,6 @@
 import { useContext } from 'react';
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
-import { postComment } from "@/app/utils/strapi/commentsRename";
 import { checkAuthState } from "@/app/utils/sessionnew";
 import Nav from "../../components/blog/nav";
 import Comments from '@/app/components/blog/blog-descritpion/comments';
