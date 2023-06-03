@@ -32,14 +32,23 @@ export const checkAuthState = async () => {
 };
 
 interface SessionManagerContextProps {
-  user: any | undefined;
+  user: {
+    claims: {
+      id: number;
+      name: string;
+      role: string;
+      email: string;
+    };
+    uid: string;
+  } | null;
   isLoading: boolean;
 }
 
 export const SessionManagerContext = createContext<SessionManagerContextProps>({
-  user: undefined,
+  user: null,
   isLoading: true,
 });
+
 
 export function SessionManagerProvider({
   children,
