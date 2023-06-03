@@ -128,7 +128,7 @@ export default async function ArticleDescription(props: any) {
 
 
           </div>
-<div className="uk-width-expand mb-10">
+<div className=" -ml-20 mb-10">
 <Comments articleId= {article.id} />
          </div>
         </div>

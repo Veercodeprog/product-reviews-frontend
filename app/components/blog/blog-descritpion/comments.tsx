@@ -90,7 +90,7 @@ console.log("claims.name:",claims.name);
   const rootComments = comments?.filter((c:any) => !c.data.comment.related.parentId);
 
   return (
-    <div className="flex items-center justify-center h-screen -mt-20">
+    <div className="flex items-center justify-center h-screen mt-5 mb-40">
       <SessionManager setLoading={setLoading} updateUser={setUser} />
       <div className="container">
         {postCommentMessage && (
@@ -186,7 +186,7 @@ console.log("claims.name:",claims.name);
                   </div>
                 </div>
               </div> */}
-              <div className="comment flex">
+              {/* <div className="comment flex">
                 <div className="flex-shrink-0">
                   <div className="avatar avatar-sm rounded-circle">
                     <img
@@ -207,7 +207,7 @@ console.log("claims.name:",claims.name);
                     accusantium molestias sequi.
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
