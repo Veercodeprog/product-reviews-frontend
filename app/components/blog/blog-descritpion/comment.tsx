@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import CommentForm from "./commentform";
 import SessionManager from "@/app/utils/session";
+import { postCommentFirestore } from "@/app/utils/comments";
+
 // Assuming you have a function called 'getAllArticleComments' to fetch comments from the API
 interface Comment {
   content: string;
