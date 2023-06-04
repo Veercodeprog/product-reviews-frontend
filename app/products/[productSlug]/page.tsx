@@ -109,7 +109,7 @@ export default async function ProductsDescriptionPage(props: Props) {
         </div>
       </section>
      <TabSection />
-<div className="reviews">
+<div className=" reviews">
 <Reviews product={product} />
 </div>
      

@@ -109,7 +109,7 @@ useEffect(() => {
 <div className="comments-container " ref={commentsContainerRef}>
   {/* Existing code */}
 
-    <div className="ml-16 sm:ml-0 comments-section  ">
+    <div className="ml-32 sm:ml-0 comments-section  ">
 
     <div className="flex items-center justify-center h-screen ">
       <SessionManager setLoading={setLoading} updateUser={setUser} />
