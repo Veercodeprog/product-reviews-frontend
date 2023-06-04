@@ -1,48 +1,33 @@
 "use client";
 
-import { onAuthStateChanged, getIdTokenResult, signOut } from "firebase/auth";
+import { onAuthStateChanged, getIdTokenResult } from "firebase/auth";
 import { auth } from "./firebase";
+import { createContext, useEffect, useContext, useState } from "react";
+
 interface User {
   uid: string;
+  emailVerified: boolean;
+  isAnonymous: boolean;
+  metadata: any;
+  providerData: any;
+  // Add other properties as needed
 }
-import { createContext, useEffect, useContext, useState } from "react";
-export const checkAuthState = async () => {
-  try {
-    const user:User | null = await new Promise((resolve, reject) => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        resolve(user);
-        unsubscribe();
-      });
-    });
 
-    if (user) {
-      const tokenResult = await getIdTokenResult(user);
-      const { claims } = tokenResult;
-      const { uid } = user;
-      const response = {
-        claims,
-        uid,
-      };
-      return response;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error("Error checking auth state:", error);
-    return null;
-  }
-};
+// interface Claims {
+//   id: number;
+//   name: string;
+//   role: string;
+//   email: string;
+//   // Add other properties as needed
+// }
+
+interface AuthResponse {
+  claims: any;
+  uid: string;
+}
 
 interface SessionManagerContextProps {
-  user: {
-    claims: {
-      id: number;
-      name: string;
-      role: string;
-      email: string;
-    };
-    uid: string;
-  } | null;
+  user: User | null;
   isLoading: boolean;
 }
 
@@ -51,14 +36,13 @@ export const SessionManagerContext = createContext<SessionManagerContextProps>({
   isLoading: true,
 });
 
-
 export function SessionManagerProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const [isLoading, setLoading] = useState(true);
-  const [user, setUser] = useState<any | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -69,11 +53,11 @@ export function SessionManagerProvider({
           .then((tokenResult) => {
             const { claims } = tokenResult;
             const { uid } = user;
-            const response = {
+            const response: AuthResponse = {
               claims,
               uid,
             };
-            setUser(response);
+            setUser(user);
             setLoading(false); // Set loading to false after user data is retrieved
           })
           .catch((error) => {
@@ -89,7 +73,6 @@ export function SessionManagerProvider({
     return () => unsubscribe();
   }, []);
 
-
   return (
     <SessionManagerContext.Provider value={{ user, isLoading }}>
       {children}
@@ -101,8 +84,8 @@ const SessionManagerNew = ({
   updateUser,
   setLoading,
 }: {
-  updateUser: any;
-  setLoading: any;
+  updateUser: (user: User | null) => void;
+  setLoading: (loading: boolean) => void;
 }) => {
   useEffect(() => {
     setLoading(true);
@@ -112,11 +95,11 @@ const SessionManagerNew = ({
           .then((tokenResult) => {
             const { claims } = tokenResult;
             const { uid } = user;
-            const response = {
+            const response: AuthResponse = {
               claims,
               uid,
             };
-            updateUser(response);
+            updateUser(user);
             setLoading(false); // Set loading to false after user data is retrieved
           })
           .catch((error) => {
@@ -131,6 +114,7 @@ const SessionManagerNew = ({
 
     return () => unsubscribe();
   }, [updateUser, setLoading]);
+
   return null;
 };
 
