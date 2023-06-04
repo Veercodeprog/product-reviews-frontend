@@ -1,10 +1,10 @@
 // import exp from "constants";
 import React, { useState } from "react";
-const CommentForm = ({ handlePostComment }:{ handlePostComment:any }) => {
+const CommentForm = ({ handlePostComment, parentCommentId }:{ handlePostComment:any, parentCommentId:any }) => {
   const [commentContent, setCommentContent] = useState("");
 const handleSubmit = (event:any) => {
     event.preventDefault();
-    handlePostComment(event, commentContent);
+    handlePostComment(event, commentContent, parentCommentId);
   };
 
   return (

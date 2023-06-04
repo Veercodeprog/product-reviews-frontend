@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect , useRef} from "react";
 import SessionManager from "@/app/utils/session";
 import CommentForm from "./commentform";
 import { postCommentFirestore } from "@/app/utils/comments";
@@ -37,6 +37,7 @@ export default function Comments(props: any) {
   const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setLoading] = useState(true);
 
+const commentsContainerRef = useRef<HTMLDivElement | null>(null)!;
 
 
 const [comments, setComments] = useState<Comments[]>([]);
@@ -44,7 +45,7 @@ const [comments, setComments] = useState<Comments[]>([]);
 
   const article_id = props.articleId;
   // console.log("article_id:", article_id);
-  const handlePostComment = async (event: any,commentContent:any) => {
+  const handlePostComment = async (event: any,commentContent:any,  parentCommentId?: string) => {
     event.preventDefault();
     if (user) {
       const { claims } = user;
@@ -55,7 +56,7 @@ console.log("claims.name:",claims.name);
 
         related: {
           blogId: article_id,
-          parentId: null,
+          parentId: parentCommentId,
           authorUser: claims.name,
         },
         blocked: null,
@@ -83,6 +84,13 @@ console.log("claims.name:",claims.name);
       alert("Please login to comment.");
     }
   };
+useEffect(() => {
+  commentsContainerRef.current?.scrollTo({
+    top: commentsContainerRef.current.scrollHeight,
+    behavior: 'smooth',
+  });
+}, [comments]);
+
 
   useEffect(() => {
     getAllArticleComments(article_id)
@@ -98,7 +106,12 @@ console.log("claims.name:",claims.name);
   const rootComments = comments?.filter((c:any) => !c.data.comment.related.parentId);
 
   return (
-    <div className="flex items-center justify-center h-screen mt-5 mb-40">
+<div className="comments-container " ref={commentsContainerRef}>
+  {/* Existing code */}
+
+    <div className="ml-16 sm:ml-0 comments-section  ">
+
+    <div className="flex items-center justify-center h-screen ">
       <SessionManager setLoading={setLoading} updateUser={setUser} />
       <div className="container">
         {postCommentMessage && (
@@ -107,125 +120,41 @@ console.log("claims.name:",claims.name);
 
         <div className="row justify-content-center mb-4">
           <div className="col-lg-8">
-            <h5>Number of  Comments</h5>
-            <div>Article ID: {props.articleId}</div>
+            {/* <h5>Number of  Comments</h5>
+            <div>Article ID: {props.articleId}</div> */}
           </div>
         </div>
         <div className="row justify-content-center mb-4">
           <div className="col-lg-8">
-            <div className="comments">
+            <div className="comments max-h-96 overflow-y-auto">
   {rootComments.map((comment) => (
 
                 <Comment
                   key={comment.id}
                   comment={comment}
+                 parentCommentId={comment.id}
                   comments={comments}
                    article_id={article_id}
+                     handlePostComment={handlePostComment} // Pass the handlePostComment function as a prop
+
                />
               ))}
-              {/* <div className="comment flex mb-4">
-                <div className="flex-shrink-0">
-                  <div className="avatar avatar-sm rounded-circle">
-                    <img
-                      className="avatar-img w-8 h-8"
-                      src="https://randomuser.me/api/portraits/men/32.jpg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div className="flex-grow-1 ms-2 ms-sm-3">
-                  <div className="comment-meta flex items-baseline">
-                    <h6 className="me-2">Jordan Singer</h6>
-                    <span className="text-muted">2d</span>
-                  </div>
-                  <div className="comment-body">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Non minima ipsum at amet doloremque qui magni, placeat
-                    deserunt pariatur itaque laudantium impedit aliquam eligendi
-                    repellendus excepturi quibusdam nobis esse accusantium.
-                  </div>
-
-                  <div className="comment-replies bg-light p-3 mt-3 rounded">
-                    <h6 className="comment-replies-title mb-4 text-muted text-uppercase">
-                      2 replies
-                    </h6>
-
-                    <div className="reply flex mb-4">
-                      <div className="flex-shrink-0">
-                        <div className="avatar avatar-sm rounded-circle">
-                          <img
-                            className="avatar-img w-8 h-8"
-                            src="https://images.unsplash.com/photo-1501325087108-ae3ee3fad52f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=f7f448c2a70154ef85786cf3e4581e4b"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      <div className="flex-grow-1 ms-2 ms-sm-3">
-                        <div className="reply-meta flex items-baseline">
-                          <h6 className="mb-0 me-2">Brandon Smith</h6>
-                          <span className="text-muted">2d</span>
-                        </div>
-                        <div className="reply-body">
-                          Lorem ipsum dolor sit, amet consectetur adipisicing
-                          elit.
-                        </div>
-                      </div>
-                    </div>
-                    <div className="reply flex">
-                      <div className="flex-shrink-0">
-                        <div className="avatar avatar-sm rounded-circle">
-                          <img
-                            className="avatar-img w-8 h-8"
-                            src="https://randomuser.me/api/portraits/men/4.jpg"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      <div className="flex-grow-1 ms-2 ms-sm-3">
-                        <div className="reply-meta flex items-baseline">
-                          <h6 className="mb-0 me-2">James Parsons</h6>
-                          <span className="text-muted">1d</span>
-                        </div>
-                        <div className="reply-body">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit. Distinctio dolore sed eos sapiente, praesentium.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="comment flex">
-                <div className="flex-shrink-0">
-                  <div className="avatar avatar-sm rounded-circle">
-                    <img
-                      className="avatar-img w-8 h-8"
-                      src="https://randomuser.me/api/portraits/women/63.jpg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div className="flex-shrink-1 ms-2 ms-sm-3">
-                  <div className="comment-meta flex">
-                    <h6 className="me-2">Jenna Roberts</h6>
-                    <span className="text-muted">4d</span>
-                  </div>
-                  <div className="comment-body">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Iusto laborum in corrupti dolorum, quas delectus nobis porro
-                    accusantium molestias sequi.
-                  </div>
-                </div>
-              </div> */}
+           
+           
             </div>
           </div>
         </div>
+  <div className=" mb-32">
         <div className="row justify-content-center">
           <div className="col-lg-8">
-            <CommentForm handlePostComment={handlePostComment} />
+            <CommentForm           
+ handlePostComment={handlePostComment} parentCommentId={null} />
           </div>
         </div>
+</div>
       </div>
     </div>
+</div>
+</div>
   );
 }

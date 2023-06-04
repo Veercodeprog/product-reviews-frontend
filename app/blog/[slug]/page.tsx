@@ -70,7 +70,7 @@ export default async function ArticleDescription(props: any) {
   setLoading={handleSetLoading}
 />      */}
 
-
+<div className=" ">
  <Nav categories={categories} />
 <p className=' text-5xl'>hiiiii{article.id}</p>
       <div
@@ -125,14 +125,16 @@ export default async function ArticleDescription(props: any) {
               </p>
             </div>
 
-
-          </div>
-<div className=" -ml-20 mb-10">
+<div className=" -ml-20 ">
 <Comments articleId= {article.id} />
          </div>
+          </div>
+
         </div>
 
       </div>
+</div>
+
 
     </>
   );
