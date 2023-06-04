@@ -1,3 +1,4 @@
+"use client"
 import { Fragment } from "react";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
