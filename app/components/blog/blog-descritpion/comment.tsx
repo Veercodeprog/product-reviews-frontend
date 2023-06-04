@@ -71,7 +71,9 @@ setShowReplyForm(true);
   const childComments = comments.filter(
     (c: any) => c.data.comment.related.parentId === comment.id
   );
- 
+  const recentChildComments = childComments.slice(-2); // Get the recent 2 child comments
+
+  const showAllChildComments = childComments.length > 2; 
   return (
  <div className="comment mb-4">
     <div className="comment flex mb-4">

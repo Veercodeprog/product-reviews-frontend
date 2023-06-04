@@ -72,3 +72,7 @@ console.error(error.response);
     throw new Error("Failed to add product to the database");
   }
 };
+
+export const productReviews = async () => {
+
+}
