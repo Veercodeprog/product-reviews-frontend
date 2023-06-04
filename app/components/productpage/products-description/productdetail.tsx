@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 import { getAllReviewByProduct } from "@/app/utils/postDataApi";
 export default function ProductDetail({ product }: { product: any }) {
-const [reviews, setReviews] = useState();
+const [reviews, setReviews] = useState<any[]>([]);
  useEffect(() => {
     getAllReviewByProduct(product.product_id)
       .then((reviewsData) => {
@@ -38,7 +38,7 @@ const [reviews, setReviews] = useState();
                 <div className="card--stats md:mr-0 sm:mr-60 se:mr-60 ">
                   <FontAwesomeIcon icon={regularHeart} className="items-start  mx-8" />
                   
-                  <span className="gray mr-2">{reviews?.length}</span>
+<span className="gray mr-2">{reviews && reviews.length}</span>
                   <span className="gray">Reviews</span>
                 </div>
  

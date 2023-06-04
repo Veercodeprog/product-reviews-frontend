@@ -26,12 +26,12 @@ export default function Reviews(props: any) {
 
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
-const [reviews, setReviews] = useState([]);
+const [reviews, setReviews] = useState<any[]>([]);
 console.log("props:", props.product.product_id);
 
  useEffect(() => {
     getAllReviewByProduct(props.product.product_id)
-      .then((reviewsData) => {
+      .then((reviewsData:any) => {
         setReviews(reviewsData);
         if (reviewsData.length > 0) {
           fetchUserClaimsForReviews(reviewsData);
@@ -53,7 +53,7 @@ console.log("reviews:", reviews);
         text: reviewText,
       };
 
-const result = await addProductReviews(reviewData);
+const result:any = await addProductReviews(reviewData);
       console.log("reviewData:", result);
     fetchUserClaimsForReviews([...reviews, result]);
 
