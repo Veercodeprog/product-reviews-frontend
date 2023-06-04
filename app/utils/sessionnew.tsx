@@ -13,13 +13,7 @@ interface User {
   // Add other properties as needed
 }
 
-// interface Claims {
-//   id: number;
-//   name: string;
-//   role: string;
-//   email: string;
-//   // Add other properties as needed
-// }
+//new build
 
 interface AuthResponse {
   claims: any;
