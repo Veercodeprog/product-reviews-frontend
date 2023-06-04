@@ -4,9 +4,9 @@ import { hydrateRoot } from 'react-dom/client';
 
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { Providers } from './utils/providers';
-// import Footer from './components/layout/footer'
-// import MainHeader from './components/layout/main-header'
+
+import Footer from './components/layout/footer'
+import MainHeader from './components/layout/main-header'
 const inter = Inter({ subsets: ['latin'] })
 
 // export const metadata = {
@@ -31,8 +31,9 @@ export default function RootLayout({
      
       <body className={inter.className} >       
 {/* {!(excludeHeader ) && <MainHeader />} */}
- <Providers>{children}</Providers>
-
+<MainHeader />
+{children}
+<Footer />
   {/* {!(excludeHeader ) && <Footer />} */}
 </body>
     </html>
