@@ -348,6 +348,27 @@ export const getCurrentUserClaims = async () => {
   return null;
 };
 
+export const fetchUserClaims = async (userId: string) => {
+  try {
+
+
+    // Fetch the user object
+  const response = await axios.post(
+      `${baseUrl}/fetchUserClaimsByUid`,
+      { userId },
+
+   
+    );
+
+    // Fetch the ID token result to access custom claims
+   const customClaims = response.data;
+
+  return { ...customClaims, name: customClaims.name };
+  } catch (error) {
+    console.error("Failed to fetch user claims", error);
+    throw error;
+  }
+};
 
 
 

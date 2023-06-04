@@ -1,9 +1,10 @@
 import 'server-only'
+import ProductDetail from '@/app/components/productpage/products-description/productdetail';
 import Breadcrumb from "../../components/layout/breadcrumb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
 import TabSection from "../../components/productpage/Tab";
-import Image from "next/image";
+import { getAllReviewByProduct } from '@/app/utils/postDataApi';
 import { fetchObjectFromProducts } from "@/app/utils/dataApi";
 import Reviews from '@/app/components/productpage/products-description/reviews';
 interface Product {
@@ -27,7 +28,8 @@ export default async function ProductsDescriptionPage(props: Props) {
         const fetchCurrentProduct: Promise<Product> =  fetchObjectFromProducts(unslugifiedProductName);
         const product = await fetchCurrentProduct;
 
-  
+
+  const reviews = await getAllReviewByProduct(product.product_id);
 
   function unslugify(slug: string) {
     // Replace hyphens with spaces and capitalize the first letter of each word
@@ -58,60 +60,10 @@ export default async function ProductsDescriptionPage(props: Props) {
       <div className="text-gray-700 body-font mt-7">
         <div className="container sm:mx-auto flex sm:px-2 sm:py-2 md:flex-row sm:-ml-12 md:ml-0  flex-col sm:items-center">
           <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left md:mb-0 items-center text-center">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center">
-              <Image
-                src="https://dummyimage.com/200x150/000/fff.jpg"
-                width={200} height={150}
-                alt="..."
-                className="mr-8"
-              />
-              <div className="flex flex-col sm:flex-col mt-7 ">
+<ProductDetail product={product} />
 
-<div className="flex-shrink-0">
 
-                <h2 className="page-headings text-left mb-2 whitespace-nowrap">
-                  {product.name}
-                </h2>
-</div>
-                <p className="card-text para leading-tight">
-                  {product.short_description}
-                </p>
-                <div className="card--stats md:mr-0 sm:mr-60 se:mr-60 ">
-                  <FontAwesomeIcon icon={faHeart} className="items-start  mx-8" />
-                  
-                  <span className="gray mr-2">37</span>
-                  <span className="gray">Reviews</span>
-                </div>
- 
-                <div
-                  className="text-left flex items-center sm:items-end my-3 "
-                  role="group"
-                  aria-label="Tools"
-                >
-                  <button
-                    type="button"
-                    className="  bg-white text-gray-700 border border-gray-300 rounded-full font-medium px-3  md:mr-2 mb-2 w-auto h-6 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-900 dark:focus:ring-gray-700"
-                    style={{ lineHeight: "0.8" }}
-                  >
-                    Blogging
-                  </button>
-                  <button
-                    type="button"
-                    className="bg-white text-gray-700 border border-gray-300 rounded-full font-medium px-3 mr-2 mb-2 w-auto h-6 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-900 dark:focus:ring-gray-700"
-                    style={{ lineHeight: "0.8" }}
-                  >
-                    Blogging
-                  </button>
-                  <button
-                    type="button"
-                    className="bg-white text-gray-700 border border-gray-300 rounded-full font-medium px-3 mr-2 mb-2 w-auto h-6 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-900 dark:focus:ring-gray-700"
-                    style={{ lineHeight: "0.8" }}
-                  >
-                    All
-                  </button>
-                </div>
-              </div>
-            </div>
+           
 
             {/* <div className="flex justify-center">
               <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
