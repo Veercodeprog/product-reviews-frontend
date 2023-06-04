@@ -7,6 +7,7 @@ import TabSection from "../../components/productpage/Tab";
 import { getAllReviewByProduct } from '@/app/utils/postDataApi';
 import { fetchObjectFromProducts } from "@/app/utils/dataApi";
 import Reviews from '@/app/components/productpage/products-description/reviews';
+
 interface Product {
   name: string;
   short_description?: string;
@@ -29,7 +30,6 @@ export default async function ProductsDescriptionPage(props: Props) {
         const product = await fetchCurrentProduct;
 
 
-  const reviews = await getAllReviewByProduct(product.product_id);
 
   function unslugify(slug: string) {
     // Replace hyphens with spaces and capitalize the first letter of each word
