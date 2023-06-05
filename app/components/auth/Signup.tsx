@@ -39,15 +39,7 @@ const buttonSignup = async (event: React.FormEvent<HTMLFormElement>) => {
     console.log("sign up user test", result);
 
     if (result) {
-      // User signup was successful
-      // if (result.user) {
-      //   onSubmit(result.user);
-      // }
-      // const { role } = result.data;
-
-      // if (role=== "admin") {
-      //   console.log("ADMIN USER");
-      // }
+ 
       onClose();
     } else {
       // User already exists or custom claims couldn't be set
@@ -59,25 +51,6 @@ const buttonSignup = async (event: React.FormEvent<HTMLFormElement>) => {
   }
 };
 
-//   const buttonSignup = async (event: React.FormEvent<HTMLFormElement>) => {
-//     event.preventDefault();
-
-//     // Add your signup logic here
-//     try {
-//       const result=  await handleSignup(firstName, lastName , email, password );
-// console.log("sign up user test",result)
-// if (result.user) {
-//         onSubmit(result.user);
-//       }
-//       if (result.user.role == "admin") {
-//         console.log("ADMIN USER");
-//       }
-//       onClose();
-//     } catch (error) {
-//       console.error("Signup failed", error);
-//       setError("Error occurred during signup");
-//     }
-//   };
 
   return (
     <div className="fixed z-10 inset-0 flex items-center justify-center bg-black bg-opacity-50">

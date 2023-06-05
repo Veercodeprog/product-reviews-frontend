@@ -44,13 +44,11 @@ const [comments, setComments] = useState<Comments[]>([]);
   const [postCommentMessage, setPostCommentMessage] = useState(""); // State variable to store the error message
 
   const article_id = props.articleId;
-  // console.log("article_id:", article_id);
   const handlePostComment = async (event: any,commentContent:any,  parentCommentId?: string) => {
     event.preventDefault();
     if (user) {
       const { claims } = user;
-console.log("claims.name:",claims.name);
-      // const blog_id = props.articleId;
+
       const commentData = {
         content: commentContent,
 
@@ -101,7 +99,7 @@ useEffect(() => {
         console.error("Error getting comments:", error);
       });
   }, [article_id]);
-  console.log("comments:", comments);
+
   
   const rootComments = comments?.filter((c:any) => !c.data.comment.related.parentId);
 

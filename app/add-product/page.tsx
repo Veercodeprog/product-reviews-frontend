@@ -13,7 +13,6 @@ function AddProductPage() {
   const handleClick = (e: unknown) => {
     (e as React.MouseEvent).preventDefault();
     setCurrentStep(currentStep + 1);
-    console.log("Form submitted:", personalFormData, socialProfileData);
   };
 
   const handlePrevious = (e: React.MouseEvent<HTMLButtonElement>) => {

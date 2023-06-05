@@ -47,13 +47,13 @@ const Tab = (props: TabProps) => {
     // </a>
   );
 };
-export default function TabSection(){
+export default function TabSection(props: any){
  const [activeTab, setActiveTab] = useState(tabs[0].id);
 
  function handleTabClick(id: string) {
   setActiveTab(id);
 }
-
+// console.log("tab",props.product)
 
   const tabsContent = tabs.map((tab) => (
     <Tab key={tab.id} tab={tab} toggle={() => handleTabClick(tab.id)} />
@@ -76,7 +76,7 @@ return(
               className={`tab-pane ${activeTab === "tab1" ? "active" : ""}`}
             >
               {/* Tab 1 content  */}
-<OverviewTab />
+<OverviewTab product = {props.product}/>
             </div>
             <div
               id="tab2"
@@ -94,6 +94,7 @@ return(
               id="tab4"
               className={`tab-pane ${activeTab === "tab4" ? "active" : ""}`}
             >
+<ReviewTab product = {props.product}/>
               Reviews Content
             </div>
           </div>

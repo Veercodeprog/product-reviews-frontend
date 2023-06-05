@@ -15,9 +15,10 @@ const [reviews, setReviews] = useState<any[]>([]);
       .catch((error) => {
         console.error("Error getting reviews:", error);
       });
-  }, [product.product_id]);
+  }, []);
   return (
  <div className="flex flex-col sm:flex-row items-start sm:items-center">
+
               <img
                 src="https://dummyimage.com/200x150/000/fff.jpg"
                 width={200} height={150}

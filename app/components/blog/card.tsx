@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import ImageNext from "./image";
 const Card = ({ article }: { article: any }) => {
-// console.log("article.attributes.image::",article.attributes)
   return (
     <Link href={`/blog/${article.attributes.slug}`}>
       <span className="uk-link-reset">

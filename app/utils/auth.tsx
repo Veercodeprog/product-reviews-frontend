@@ -24,15 +24,7 @@ import {
 import { auth } from "./firebase";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-// setPersistence(auth, browserLocalPersistence)
-//   .then(() => {
-//     // Session persistence successfully set
-//     console.log("Session persistence set");
-//   })
-//   .catch((error) => {
-//     // Failed to set session persistence
-//     console.error("Failed to set session persistence", error);
-//   });
+
 type User = {
   id: string;
   name: string;
@@ -65,7 +57,7 @@ provider.setCustomParameters({ prompt: "select_account" });
       }
       const userTokenResult = await result.user.getIdTokenResult();
 
-      console.log("Custom claims:", customClaims);
+    
 
       // const csrfToken = getCookie("csrfToken");
       // console.log("csrfToken:", csrfToken);
@@ -143,8 +135,8 @@ export const handleLogin = async (email: string, password: string) => {
 
     // Access the custom claims from the token result
     const customClaims = tokenResult.claims;
-    console.log("Custom claims:", customClaims);
 
+console.log("customClaims:", customClaims);
     // Send the ID token to the session login endpoint for session creation with CSRF protection
     // const csrfToken = getCookie("csrfToken");
     // console.log("csrfToken:", csrfToken);
@@ -212,13 +204,13 @@ export const handleSignup = async (
       // const role = customClaims?.user || null;
 
       // Log the custom claims and role
-      console.log("Custom claims:", customClaims);
+   
 
       const role = customClaims.role;
       console.log("Role:", role);
-      console.log("Custom claims:", customClaims);
+    
 
-      console.log("signup successful", userCredential);
+      console.log("signup successful");
     } catch (error) {
       // Handle error if user already exists and custom claims couldn't be set
       console.error("Failed to set custom claims:", error);
@@ -300,9 +292,7 @@ const handleAuthentication = (customClaims: any) => {
     const { name, role, email } = customClaims;
 
     // Perform actions for a logged-in user
-    console.log("Name:", name);
-    console.log("Role:", role);
-    console.log("Email:", email);
+   
 
     // Update the user information or perform any other necessary actions
     // updateUser({ displayName, email, role });
@@ -338,7 +328,7 @@ export const getCurrentUserClaims = async () => {
   if (currentUser) {
     try {
       const idTokenResult = await currentUser.getIdTokenResult();
-      console.log("idTokenResult", idTokenResult);
+ 
       return idTokenResult.claims;
     } catch (error) {
       console.error('Error retrieving current user claims:', error);

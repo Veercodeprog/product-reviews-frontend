@@ -1,9 +1,13 @@
-function ReviewTab() {
+import Reviews from "./products-description/reviews"
+
+function ReviewTab(props) {
 
 return(
 <>
 <section className="mb-20">
-
+<div className=" reviews">
+<Reviews product={props.product} />
+</div>
 </section>
 </>
 )

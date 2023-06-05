@@ -11,7 +11,7 @@ interface Category {
 }
 export default async function CategoryDescriptionPage(props:any) {
 const {categorySlug} = props.params
-console.log("categorySlug:",categorySlug)
+
 
   
         const unslugifiedCategoryName = unslugify(categorySlug);

@@ -102,7 +102,7 @@ function MainHeader() {
     // Update the user state
     setUser(user);
   };
-  console.log("user:", user);
+
 
   //  const handleLogout = () => {
   //     try {

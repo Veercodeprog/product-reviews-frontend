@@ -68,13 +68,7 @@ const ModalLogin = ({ onClose, onSubmit }: ModalLoginProps) => {
     try {
       const result = await handleLogin(user, pwd);
 
-      // if (result.user) {
-      //   onSubmit(result.user);
-      // }
-      // if (result.user.role == "admin") {
-      //   router.push("/admin");
-      //   console.log("ADMIN USER");
-      // }
+  
       onClose();
     } catch (error) {
       console.error("Login failed", error);

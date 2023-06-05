@@ -6,6 +6,7 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 import SessionManager from "@/app/utils/session";
 import { getAllReviewByProduct } from "@/app/utils/postDataApi";
+import moment from "moment";
 import { fetchUserClaims } from "@/app/utils/auth";
 type UserType = {
   claims: {
@@ -27,7 +28,7 @@ export default function Reviews(props: any) {
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
 const [reviews, setReviews] = useState<any[]>([]);
-console.log("props:", props.product.product_id);
+
 
  useEffect(() => {
     getAllReviewByProduct(props.product.product_id)
@@ -79,6 +80,7 @@ const result:any = await addProductReviews(reviewData);
         try {
           const claims = await fetchUserClaims(review.user_id);
             const userWithClaims = { ...review, claims: { ...claims, name: claims.name } };
+console.log("userWithClaims:", userWithClaims);
         return userWithClaims;
       } catch (error) {
           console.error("Failed to fetch user claims for review", error);
@@ -92,33 +94,43 @@ const result:any = await addProductReviews(reviewData);
   return (
     <>
       <SessionManager updateUser={setUser} setLoading={setLoading} />
-      <div className="max-w-3xl mx-auto p-4 justify-start">
+      <div className="w-full px-20">
        
         <h1 className="text-2xl font-bold mb-4">Reviews</h1>
-  {reviews.map((review: any) => (
-          <div key={review.review_id} className="bg-gray-100 rounded-lg shadow p-4 my-5">
-            {/* Render the review data */}
-        <p>User: {review.claims?.name || null}</p>
-     
-            <p> {review.comment}</p>
- 
-              <div className="star-rating">
- <p>
-              Rating:{" "}
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <FontAwesomeIcon
-                    key={star}
-                    icon={star <= review.rating ? solidStar : regularStar}
-                    className={`star ${star <= review.rating ? "solid" : ""}`}
-                    style={{ fontSize: "24px" }}
-                  />
-                ))}
-</p>
-              </div>
-          
-          </div>
-        ))}
-      
+
+
+{reviews.map((review: any) => (
+  <div key={review.review_id} className="flex items-center rounded-lg  p-4 my-5">
+    {/* User Profile Image */}
+    <div className="rounded-full overflow-hidden h-12 w-12 flex-shrink-0">
+      <img
+        className="h-full w-full object-cover"
+        src={review.claims?.profileImage || "default-profile-image.jpg"}
+        alt="User Profile"
+      />
+    </div>
+    <div className="ml-12">
+      {/* Render the review data */}
+      <p>User: {review.claims?.name || null}</p>
+<p></p>
+      <p>{review.comment}</p>
+      <div className="star-rating">
+        <p>
+          Rating:{" "}
+          {[1, 2, 3, 4, 5].map((star) => (
+            <FontAwesomeIcon
+              key={star}
+              icon={star <= review.rating ? solidStar : regularStar}
+              className={`star ${star <= review.rating ? "solid" : ""}`}
+              style={{ fontSize: "24px" }}
+            />
+          ))}
+        </p>
+      </div>
+    </div>
+  </div>
+))}
+
 
 
 

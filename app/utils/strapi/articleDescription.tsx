@@ -15,7 +15,7 @@ filters: {
     },
   },
  );
-console.log("articlesRes.data");
+
      return articlesRes.data[0] ;
 
 

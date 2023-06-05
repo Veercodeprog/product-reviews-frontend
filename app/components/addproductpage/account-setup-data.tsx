@@ -44,7 +44,7 @@ function AccountSetup({
 
       try {
         const result = await AddProductToDb(product, uid);
-        console.log("result:", result);
+
         setMessage(result.message);
       } catch (error) {
         alert("product add failed" + error);
@@ -59,8 +59,7 @@ function AccountSetup({
   };
 
   // ...
-  console.log("personalFormData:");
-  console.log("socialFormData:");
+
   const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onNext(e);
