@@ -31,7 +31,7 @@ const [reviews, setReviews] = useState<any[]>([]);
 
 
  useEffect(() => {
-    getAllReviewByProduct(props.product.product_id)
+    getAllReviewByProduct(props.product?.product_id)
       .then((reviewsData:any) => {
         setReviews(reviewsData);
         if (reviewsData.length > 0) {
@@ -41,7 +41,7 @@ const [reviews, setReviews] = useState<any[]>([]);
       .catch((error) => {
         console.error("Error getting reviews:", error);
       });
-  }, [props.product.product_id]);
+  }, [props.product?.product_id]);
 
 console.log("reviews:", reviews);
   const handleReviewSubmit = async(event: any) => {
