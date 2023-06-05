@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import { AddProductToDb } from "@/app/utils/postDataApi";
 
-
 type UserType = {
   claims: {
     id: number;
@@ -29,27 +28,24 @@ function AccountSetup({
 
   const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setLoading] = useState(true);
-const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = async(event: any) => {
+  const handleSubmit = async (event: any) => {
     event?.preventDefault();
 
     if (user) {
       console.log("user logged in alrastbjd:", user.uid);
       const { uid } = user;
-      
+
       event.preventDefault();
       const product = {
         ...personalFormData,
       };
-   
+
       try {
-     
-
-        const result = await  AddProductToDb(product, uid);
-console.log('result:', result); 
-      setMessage(result.message); 
-
+        const result = await AddProductToDb(product, uid);
+        console.log("result:", result);
+        setMessage(result.message);
       } catch (error) {
         alert("product add failed" + error);
         // Handle the error as needed
@@ -79,12 +75,9 @@ console.log('result:', result);
   return (
     <>
       <SessionManager updateUser={setUser} setLoading={setLoading} />
-    {message && <p className="text-green-500 text-xl mb-10">{message}</p>}
+      {message && <p className="text-green-500 text-xl mb-10">{message}</p>}
       <div>
         <div>
-
-  
-
           <h3 className="text-lg font-bold">Personal Details</h3>
           <ul className="mt-4">
             {Object.entries(personalFormData).map(
@@ -93,7 +86,9 @@ console.log('result:', result);
                   const { id, name } = value;
                   return (
                     <li key={key} className="flex items-center mb-2 ">
-                      <span className="font-medium mr-2 w-40 h-20">Category:</span>
+                      <span className="font-medium mr-2 w-40 h-20">
+                        Category:
+                      </span>
                       <span className="w-40 h-20">{`${name} (${id})`}</span>
                     </li>
                   );

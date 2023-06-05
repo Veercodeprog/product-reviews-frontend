@@ -1,9 +1,8 @@
-import Image from "next/image";
+
 
 import FeaturedArticleItem from "./featured-article-item";
 export default function FeaturedArticleList({ articles }: { articles:any }) {
 
- console.log("articles::",articles)
 
  const articleCount = 4;
 

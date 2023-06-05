@@ -1,9 +1,9 @@
-'use client'
+import "server-only"
 import Breadcrumb from "../../components/layout/breadcrumb";
 import FeaturedProductsList from "../../components/categorypage/featured-products-list";
 import ProductCards from "../../components/categorypage/product-cards";
 import { fetchObjectFromCategories } from "@/app/utils/dataApi";
-import { useState, useEffect } from "react";
+
 interface Category {
   name: string;
   category_description: string;
@@ -15,7 +15,8 @@ console.log("categorySlug:",categorySlug)
 
   
         const unslugifiedCategoryName = unslugify(categorySlug);
-        const response: Promise<Category> = await fetchObjectFromCategories(unslugifiedCategoryName, );
+        const response: Promise<Category> =  fetchObjectFromCategories(unslugifiedCategoryName, );
+
         const category = await response;
 
 

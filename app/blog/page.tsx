@@ -1,7 +1,12 @@
-import './blog.css'
+import "./blog.css";
 import Articles from "../../app/components/blog/articles";
 import Nav from "../components/blog/nav";
-import { fetchArticles, fetchCategories, fetchHomepage,preload } from '../utils/strapi/strapiPreloadData'; 
+import {
+  fetchArticles,
+  fetchCategories,
+  fetchHomepage,
+  preload,
+} from "../utils/strapi/strapiPreloadData";
 
 // export const revalidate = 10;
 
@@ -18,7 +23,6 @@ interface Category {
 
 interface Homepage {
   attributes: {
- 
     hero: {
       title: string;
     };
@@ -65,50 +69,30 @@ interface Homepage {
 //   void fetchHomepage();
 // };
 
-
-
-export default async function Blog () {
-
- preload(); // Start fetching the data eagerly using the preload function
+export default async function Blog() {
+  preload(); // Start fetching the data eagerly using the preload function
 
   const articleData = fetchArticles();
   const categoryData = fetchCategories();
   const homepageData = fetchHomepage();
 
-const articles = await articleData;
-const categories = await categoryData;
-const homepage = await homepageData;
-
-
-
-
-// const [categories, homepage] = await Promise.all([categoryData, homepageData]);
-
-
-  // if (!data) {
-  //   return <div>Loading...</div>;
-  // }
-
- 
-
+  const articles = await articleData;
+  const categories = await categoryData;
+  const homepage = await homepageData;
   return (
     <>
-
-       <Nav categories={categories} />
-<p className=' text-5xl'>hiiiii{articles.attributes}</p>
-  <div className="flex justify-center">
-    <div className="w-full max-w-3xl">
-      <div className="uk-section">
-        <div className="uk-container uk-container-large">
-          <h1>{homepage.attributes.hero.title}</h1>
-          <Articles articles={articles} />
+      <Nav categories={categories} />
+      <p className=" text-5xl">hiiiii{articles.attributes}</p>
+      <div className="flex justify-center">
+        <div className="w-full max-w-3xl">
+          <div className="uk-section">
+            <div className="uk-container uk-container-large">
+              <h1>{homepage.attributes.hero.title}</h1>
+              <Articles articles={articles} />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-
-
     </>
   );
-};
-
+}

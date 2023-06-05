@@ -1,5 +1,5 @@
-// import React, { useEffect, useState } from "react";
-// import "server-only";
+
+ import "server-only";
 
 import { useContext } from 'react';
 import Moment from "react-moment";
@@ -55,22 +55,16 @@ export default async function ArticleDescription(props: any) {
   const article = await articleData;
   const categories = await categoryData;
 
-  console.log("article_id::", article);
-
-  const image = article.attributes.image;
+const image = article.attributes.image;
   const formats = article.attributes.author.data.attributes.picture;
 
 
 
 
   return (
-    <>
-{/* <SessionManager
-  updateUser={handleUpdateUser}
-  setLoading={handleSetLoading}
-/>      */}
+<>
 
-<div className=" ">
+<div className="cl ">
  <Nav categories={categories} />
 <p className=' text-5xl'>hiiiii{article.id}</p>
       <div
