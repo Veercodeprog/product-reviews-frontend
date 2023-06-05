@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 	import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { getAllReviewByProduct } from "@/app/utils/postDataApi";
-export default function ProductDetail({ product }: { product: any }) {
+export default function ProductDetail(props:any) {
 const [reviews, setReviews] = useState<any[]>([]);
  useEffect(() => {
-    getAllReviewByProduct(product.product_id)
+    getAllReviewByProduct(props.product.product_id)
       .then((reviewsData) => {
         setReviews(reviewsData);
      
@@ -15,7 +15,7 @@ const [reviews, setReviews] = useState<any[]>([]);
       .catch((error) => {
         console.error("Error getting reviews:", error);
       });
-  }, []);
+  }, [props.product.product_id]);
   return (
  <div className="flex flex-col sm:flex-row items-start sm:items-center">
 
@@ -30,11 +30,11 @@ const [reviews, setReviews] = useState<any[]>([]);
 <div className="flex-shrink-0">
 
                 <h2 className="page-headings text-left mb-2 whitespace-nowrap">
-                  {product.name}
+                  {props.product.name}
                 </h2>
 </div>
                 <p className="card-text para leading-tight">
-                  {product.short_description}
+                  {props.product.short_description}
                 </p>
                 <div className="card--stats md:mr-0 sm:mr-60 se:mr-60 ">
                   <FontAwesomeIcon icon={regularHeart} className="items-start  mx-8" />
