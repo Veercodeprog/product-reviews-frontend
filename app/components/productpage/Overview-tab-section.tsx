@@ -9,7 +9,7 @@ import images from "../../../data/images";
 import ReactPlayer from "react-player";
 
 
-function OverviewTab(Props) {
+function OverviewTab(props:any) {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef(null);
 
@@ -22,7 +22,7 @@ function OverviewTab(Props) {
       setCurrentIndex(currentIndex - 1);
     }
   };
-const handlePlayVideo = (event) => {
+const handlePlayVideo = (event:any) => {
   event.stopPropagation();
   setIsVideoPlaying(true);
 };

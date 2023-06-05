@@ -1,6 +1,6 @@
 import Reviews from "./products-description/reviews"
 
-function ReviewTab(props) {
+function ReviewTab(props:any) {
 
 return(
 <>
