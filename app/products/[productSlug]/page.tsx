@@ -9,10 +9,22 @@ import { fetchObjectFromProducts } from "@/app/utils/dataApi";
 import Reviews from '@/app/components/productpage/products-description/reviews';
 
 interface Product {
+  product_id: number;
   name: string;
   short_description?: string;
-  // Define other product properties here
+  icon?: string;
+  website_url?: string;
+  overview?: string;
+  features?: string;
+  tags?: string;
+  images?: string;
+  video_url?: string;
+  user_id?: string;
+  category_id: number;
+
+
 }
+
 
 interface Props {
   params: {
