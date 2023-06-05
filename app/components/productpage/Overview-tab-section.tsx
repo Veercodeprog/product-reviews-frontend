@@ -26,7 +26,14 @@ const handlePlayVideo = (event:any) => {
   event.stopPropagation();
   setIsVideoPlaying(true);
 };
+const getYoutubeVideoId = (url: string) => {
+  const match = url.match(
+    /(\?v=|\/embed\/|\/\d\/|\/vi\/|youtu\.be\/|\/embed\/|\/v\/|\/e\/|\/watch\?v=|\/\d+\/|\/vi\/|\/e\/|\/embed\/|youtu\.be\/|\/v\/|\/e\/|\/watch\?v=)([^#\\&\\?\/]*)/
+  );
+  return match ? match[2] : null;
+};
 
+const youtubeVideoId = getYoutubeVideoId(videoUrl);
 return (
   <section className="mb-20">
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,30 +55,18 @@ return (
                 )[2]}/0.jpg`}
                 alt="Video Thumbnail"
               /> */}
- <iframe
+   {youtubeVideoId ? (
+                <iframe
                   title="YouTube Video"
-                   width={200}
-                    height={150}
-                                       className="w-full h-48 object-cover object-center mb-10"
-
-                  src={`https://www.youtube.com/embed/${videoUrl.match(
-                    /(\?v=|\/embed\/|\/\d\/|\/vi\/|youtu\.be\/|\/embed\/|\/v\/|\/e\/|\/watch\?v=|\/\d+\/|\/vi\/|\/e\/|\/embed\/|youtu\.be\/|\/v\/|\/e\/|\/watch\?v=)([^#\\&\\?\/]*)/
-                  )[2]}`}
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
-                ></iframe>
-              {!isVideoPlaying && (
-                <button
-                  className="absolute inset-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50"
-                  onClick={handlePlayVideo}
-                >
-                  <FontAwesomeIcon
-                    icon={faPlay}
-                    size="3x"
-                    className="text-white"
-                  />
-                </button>
+                  width={200}
+                  height={150}
+                  className="w-full h-48 object-cover object-center mb-10"
+                  src={`https://www.youtube.com/embed/${youtubeVideoId}`}
+                />
+              ) : (
+                <p>Invalid YouTube video URL</p>
               )}
+         
               {/* {isVideoPlaying && (
                 <iframe
                   title="YouTube Video"
