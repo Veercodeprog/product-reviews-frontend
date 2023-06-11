@@ -31,7 +31,7 @@ export default function RootLayout({
      
       <body className={inter.className} >       
 {/* {!(excludeHeader ) && <MainHeader />} */}
-<Providers children />
+<Providers  />
 {children}
 
 

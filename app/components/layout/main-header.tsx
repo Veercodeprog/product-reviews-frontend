@@ -198,14 +198,14 @@ function MainHeader() {
               Blog
             </Link>
           </li> */}
-              <li className="md:ml-4">
+              {/* <li className="md:ml-4">
                 <Link
                   className="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0"
                   href="/about"
                 >
                   About
                 </Link>
-              </li>
+              </li> */}
               <>
                 {user ? (
                   <>
