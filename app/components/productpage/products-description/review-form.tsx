@@ -16,7 +16,7 @@ const handleSubmit = (event:any) => {
     setRating(selectedRating);
   };
 return (
-  <form className="mt-4 mb-20" onSubmit={handleSubmit}>
+  <form className="mt-4 mb-8" onSubmit={handleSubmit}>
           <h2 className="text-lg font-semibold mb-2">Add a Review</h2>
           <div className="flex space-x-4">
             <div className="flex-shrink-0">
@@ -58,7 +58,7 @@ return (
 
               <button
                 type="submit"
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+                className=" bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium  text-white text-sm px-4 py-2 text-center  dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900"
               >
                 Submit
               </button>

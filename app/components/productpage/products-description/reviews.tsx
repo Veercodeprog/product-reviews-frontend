@@ -21,20 +21,18 @@ type UserType = {
   // Add other properties as needed
 };
 
-
-
 export default function Reviews(props: any) {
   const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setLoading] = useState(false);
 
   // const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
-const [reviews, setReviews] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<any[]>([]);
 
-const product_id = props.product?.product_id;
- useEffect(() => {
+  const product_id = props.product?.product_id;
+  useEffect(() => {
     getAllReviewByProduct(props.product?.product_id)
-      .then((reviewsData:any) => {
+      .then((reviewsData: any) => {
         setReviews(reviewsData);
         if (reviewsData.length > 0) {
           fetchUserClaimsForReviews(reviewsData);
@@ -45,8 +43,13 @@ const product_id = props.product?.product_id;
       });
   }, [props.product?.product_id]);
 
-// console.log("reviews:", reviews);
-  const handleReviewSubmit = async(event: any,reviewText:any,parentReviewId: number ,rating:any) => {
+  // console.log("reviews:", reviews);
+  const handleReviewSubmit = async (
+    event: any,
+    reviewText: any,
+    parentReviewId: number,
+    rating: any
+  ) => {
     event.preventDefault();
     if (user) {
       const reviewData = {
@@ -55,18 +58,18 @@ const product_id = props.product?.product_id;
         rating: rating,
         text: reviewText,
         parent_review_id: parentReviewId,
-approvalStatus: "APPROVED",
-  createdAt: new Date().toISOString(),
+        approvalStatus: "APPROVED",
+        createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
 
-const result:any = await addProductReviews(reviewData);
+      const result: any = await addProductReviews(reviewData);
       console.log("reviewData:", result);
-    fetchUserClaimsForReviews([...reviews, result]);
+      fetchUserClaimsForReviews([...reviews, result]);
 
- setReviews([...reviews, result]);
-//  setReviewText("");
-    // setRating(0);
+      setReviews([...reviews, result]);
+      //  setReviewText("");
+      // setRating(0);
       // Call the onPostReview callback with the review data
     } else {
       // User is not logged in, display a message to prompt login
@@ -76,17 +79,18 @@ const result:any = await addProductReviews(reviewData);
     }
   };
 
-
-
   const fetchUserClaimsForReviews = async (reviewsData: any[]) => {
     const reviewsWithClaims = await Promise.all(
       reviewsData.map(async (review: any) => {
         try {
           const claims = await fetchUserClaims(review.user_id);
-            const userWithClaims = { ...review, claims: { ...claims, name: claims.name } };
-// console.log("userWithClaims:", userWithClaims);
-        return userWithClaims;
-      } catch (error) {
+          const userWithClaims = {
+            ...review,
+            claims: { ...claims, name: claims.name },
+          };
+          // console.log("userWithClaims:", userWithClaims);
+          return userWithClaims;
+        } catch (error) {
           console.error("Failed to fetch user claims for review", error);
           return review;
         }
@@ -94,37 +98,31 @@ const result:any = await addProductReviews(reviewData);
     );
     setReviews(reviewsWithClaims);
   };
-
-  const rootReviews = reviews?.filter((r:any) => !r.parentId);
+console.log("reviews:", reviews);
+  const rootReviews = reviews?.filter((r: any) => !r.parentId);
   return (
     <>
       <SessionManager updateUser={setUser} setLoading={setLoading} />
       <div className="w-full px-20">
-       
-        <h1 className="text-2xl font-bold mb-4">Reviews</h1>
+        <h1 className="text-2xl font-bold mb-4"></h1>
 
-
-{rootReviews && rootReviews.map((review: any) => (
-     <Review
-                  key={review.review_id}
-                  review={review}
-                 parentReviewId={review.review_id}
-                  reviews={reviews}
-                   productId={product_id}
-                     handlePostReview={handleReviewSubmit} 
-               />
-
-
-
-))}
-
-
-
+        {rootReviews &&
+          rootReviews.map((review: any) => (
+            <Review
+              key={review.review_id}
+              review={review}
+              parentReviewId={review.review_id}
+              reviews={reviews}
+              productId={product_id}
+              handlePostReview={handleReviewSubmit}
+            />
+          ))}
 
         {/* Comment form */}
-      <ReviewForm           
- handleReviewSubmit={handleReviewSubmit} parentReviewId={null}  />
-      
+        <ReviewForm
+          handleReviewSubmit={handleReviewSubmit}
+          parentReviewId={null}
+        />
       </div>
     </>
   );
