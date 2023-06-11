@@ -72,7 +72,7 @@ function AddProductPage() {
     <div className="flex flex-col items-center mt-10">
       <h2 className="page-headings text-left mb-8">Add a Product</h2>
       <div className="flex items-center w-3/4 sm:w-1/2  mb-4">
-        {renderCircle(1, "Personal Details")}
+        {renderCircle(1, "Product Details")}
         <div
           className={`flex-1 h-1 ${
             currentStep >= 2 ? "bg-purple-800" : "bg-gray-300"
@@ -80,14 +80,14 @@ function AddProductPage() {
           style={{ marginTop: "-0.5rem" }}
         />
 
-        {renderCircle(2, "Social Profiles")}
+        {renderCircle(2, "Team Details")}
         <div
           className={`flex-1 h-1 ${
             currentStep >= 3 ? "bg-purple-800" : "bg-gray-300"
           } mb-4 mt-2  -mx-5`}
           style={{ marginTop: "-0.5rem" }}
         />
-        {renderCircle(3, "Account Setup")}
+        {renderCircle(3, "Submit")}
       </div>
       <form
         id="msform"

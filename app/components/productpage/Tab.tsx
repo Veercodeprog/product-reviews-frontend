@@ -8,7 +8,7 @@ import FeaturesTab from "./Features-tab-section";
 const tabs = [
   { id: "tab1", title: "Overview" },
   { id: "tab2", title: "Features" },
-  { id: "tab3", title: "Founders" },
+  { id: "tab3", title: "Team" },
   { id: "tab4", title: "Reviews" },
 ];
 
@@ -79,10 +79,32 @@ export default function TabSection(props: any) {
               ref={contentRefs.current[tabs.indexOf(tab)]}
               className={`${activeTab === tab.id ? "active" : ""}`}
             >
-              {tab.id === "tab1" && <OverviewTab product={props.product} />}
-              {tab.id === "tab2" && <FeaturesTab />}
-              {tab.id === "tab3" && "Founders Content"}
-              {tab.id === "tab4" && <ReviewTab product={props.product} />}
+
+      {tab.id === "tab1" && (
+  <>
+    <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
+    <OverviewTab />
+  </>
+)}
+
+              {tab.id === "tab2" && 
+  <>
+    <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
+<FeaturesTab />
+</>
+}
+              {tab.id === "tab3" && 
+  <>
+    <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
+<FoundersTab />
+</>
+}
+              {tab.id === "tab4" && 
+  <>
+    <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
+<ReviewTab product={props.product} />
+</>
+}
             </div>
           ))}
         </div>
