@@ -8,7 +8,7 @@ import MainHeader from "../components/layout/main-header";
 import Footer from "../components/layout/footer";
 import SessionManager from './session';
 
-export function Providers() {
+export function Providers({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -18,7 +18,7 @@ export function Providers() {
   return (
     <div>
       {!excludeHeader && <MainHeader />}
-    
+      {children}
       {!excludeHeader && <Footer />}
     </div>
   );
