@@ -1,7 +1,7 @@
 import SessionManager from "@/app/utils/session";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { AddProductToDb } from "@/app/utils/postDataApi";
+import { AddProductToDb, addProductFounder } from "@/app/utils/postDataApi";
 
 type UserType = {
   claims: {
@@ -28,27 +28,29 @@ function AccountSetup({
 
   const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setLoading] = useState(true);
-  const [message, setMessage] = useState("");
+  const [addProductMessage, setAddProductMessage] = useState("");
+const [addFounderMessage, setAddFounderMessage] = useState("");
+  const personalFormData = personalProfileFormData;
+  const socialFormData = socialProfileFormData;
 
-  const handleSubmit = async (event: any) => {
-    event?.preventDefault();
+  const handleProductSubmit = async () => {
 
     if (user) {
-      console.log("user logged in alrastbjd:", user.uid);
+      // console.log("user logged in alrastbjd:", user.uid);
       const { uid } = user;
 
-      event.preventDefault();
-      const product = {
-        ...personalFormData,
-      };
+   
+      //  const {  ...product } = personalProfileFormData;
 
       try {
-        const result = await AddProductToDb(product, uid);
+        const result = await AddProductToDb(personalFormData, uid);
 
-        setMessage(result.message);
+        setAddProductMessage(result.message);
+console.log("result.productId",result)
+        return result.productId;
       } catch (error) {
         alert("product add failed" + error);
-        // Handle the error as needed
+        // Handle the error as neededP
       }
     } else {
       // User is not logged in, display a message to prompt login
@@ -57,6 +59,37 @@ function AccountSetup({
       // or show a modal with login options
     }
   };
+console.log("socialFormData",socialFormData)
+  const handleFounderSubmit = async (productId:number) => {
+
+    if (user) {
+      const { uid } = user;
+      try {
+        const result = await addProductFounder(
+          socialFormData,
+          productId,
+          uid
+        );
+
+        setAddFounderMessage(result.message);
+      } catch (error) {
+        alert("Founder not added " + error);
+        // Handle the error as needed
+      }
+    } else {
+      // User is not logged in, display a message to prompt login
+      alert("Please login to add a founder.");
+      // You can also redirect the user to the login page
+      // or show a modal with login options
+    }
+  };
+const handleSubmit = async (event:any) => {
+event.preventDefault();
+  const addedProductId = await handleProductSubmit();
+
+  await handleFounderSubmit(addedProductId);
+
+};
 
   // ...
 
@@ -69,12 +102,12 @@ function AccountSetup({
     e.preventDefault();
     onPrevious(e);
   };
-  const personalFormData = JSON.parse(personalProfileFormData);
-  const socialFormData = JSON.parse(socialProfileFormData);
+
   return (
     <>
       <SessionManager updateUser={setUser} setLoading={setLoading} />
-      {message && <p className="text-green-500 text-xl mb-10">{message}</p>}
+      {addProductMessage && <p className="text-green-500 text-xl mb-10">{addProductMessage}</p>}
+      {addFounderMessage && <p className="text-green-500 text-xl mb-10">{addFounderMessage}</p>}
       <div>
         <div>
           <h3 className="text-lg font-bold">Personal Details</h3>
@@ -93,6 +126,9 @@ function AccountSetup({
                   );
                 }
 
+                if (key === "productIconFile" || key === "screenshotFiles") {
+                  return null;
+                }
                 return (
                   <li key={key} className="flex items-center mb-7">
                     <span className="font-medium mr-2 w-40 h-20">{key}:</span>
@@ -137,7 +173,7 @@ function AccountSetup({
                 <span className="font-medium mr-2 w-40 h-20">{key}:</span>
                 {key === "avatarImg" ? (
                   <img src={value as string} alt={key} className="w-40 h-20" />
-                ) : (
+                ) : key === "avatarImgFile" ? null : ( // Return null for avatarImgFile
                   <span className="w-40 h-20">{value as string}</span>
                 )}
               </li>

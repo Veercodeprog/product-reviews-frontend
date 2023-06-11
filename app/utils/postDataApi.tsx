@@ -3,54 +3,67 @@ import { signOutUser } from "./auth";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+const uploadImagesToCloudinary = async (files: any) => {
+  const uploadedImageUrls = [];
+
+  for (const file of files) {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "product_rev");
+      formData.append("folder", "product-reviews-app");
+
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/dnd0u1l0f/image/upload",
+        formData
+      );
+
+      const imageUrl = response.data.secure_url;
+      uploadedImageUrls.push(imageUrl);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  }
+
+  return uploadedImageUrls;
+};
+
 export const AddProductToDb = async (product: any, uid: any) => {
   try {
     const {
       productName,
       shortDescription,
-      productIcon,
+      productIconFile,
       webUrl,
       overview,
       features,
-      screenshots,
+      screenshotFiles,
       videoUrl,
       category,
       tags,
     } = product;
-    const iconFile = await fetch(productIcon);
-    const iconBlob = await iconFile.blob();
-    const iconFileObj = new File([iconBlob], "icon.png");
 
-    // Convert the screenshots blob URLs to files
-    const screenshotFiles = await Promise.all(
-      screenshots.map(async (screenshotUrl: any) => {
-        const screenshotFile = await fetch(screenshotUrl);
-        const screenshotBlob = await screenshotFile.blob();
-        return new File([screenshotBlob], "screenshot.png");
-      })
-    );
-
-    const formData = new FormData();
-    formData.append("name", productName);
-    formData.append("short_description", shortDescription);
-    formData.append("icon", iconFileObj, "icon.png");
-    // Assuming productIcon is a File object
-
-    // Append other fields to the formData as needed
-    formData.append("webUrl", webUrl);
-    formData.append("overview", overview);
-    formData.append("features", features);
-    screenshotFiles.forEach((file, index) => {
-      formData.append("screenshots_images", file, `screenshot_${index}.png`);
-    });
-    formData.append("video_url", videoUrl);
-    formData.append("user_id", uid);
-    formData.append("category_id", category.id);
-    formData.append("tags", tags);
-
-    const response = await axios.post(`${baseUrl}/addProduct`, formData, {
+    const productIcon = await uploadImagesToCloudinary([productIconFile]);
+    const screenshots = await uploadImagesToCloudinary(screenshotFiles);
+    console.log("productIcon", productIcon);
+    console.log("screenshots", screenshots);
+    const requestData = {
+      name: productName,
+      short_description: shortDescription,
+      icon: productIcon,
+      webUrl: webUrl,
+      overview: overview,
+      features: features,
+      screenshots_images: screenshots,
+      video_url: videoUrl,
+      user_id: uid,
+      category_id: category.id,
+      tags: tags,
+    };
+  
+    const response = await axios.post(`${baseUrl}/addProduct`, requestData, {
       headers: {
-        "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+        "Content-Type": "application/json",
       },
     });
 
@@ -59,6 +72,55 @@ export const AddProductToDb = async (product: any, uid: any) => {
     console.error(error.message);
     console.error(error.response);
     throw new Error("Failed to add product to the database");
+  }
+};
+
+export const addProductFounder = async (
+  socialDetails: any,
+  productId: any,
+  uid: any
+) => {
+console.log("socialDetails",socialDetails)
+  try {
+    const {
+      avatarImgFile,
+      bio,
+      fname,
+      lname,
+      linkedinUrl,
+      msg,
+      role,
+      twitterUrl,
+      workEmail,
+    } = socialDetails;
+
+    const name = fname + " " + lname;
+    const socialLinks = linkedinUrl + " ," + twitterUrl;
+    const avatarUrl = await uploadImagesToCloudinary([avatarImgFile]);
+
+    const requestData = {
+      team_memeber_id: uid,
+      product_id: productId,
+      profile_pic: avatarUrl,
+      name: name,
+      role: role,
+      bio: bio,
+      message: msg,
+      work_email: workEmail,
+      social_links: socialLinks,
+    };
+
+    const response = await axios.post(`${baseUrl}/addProductFounder`, requestData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+console.log("add Founder response",response.data)
+    return response.data;
+  } catch (error: any) {
+    console.error(error.message);
+    console.error(error.response);
+    throw new Error("Failed to add Founder of the Product");
   }
 };
 
@@ -83,11 +145,57 @@ export const addProductReviews = async (reviewData: any) => {
 
 export const getAllReviewByProduct = async (productId: any) => {
   try {
-      const response = await axios.get(`${baseUrl}/getAllReviewByProduct?product_id=${productId}`);
+    const response = await axios.get(
+      `${baseUrl}/getAllReviewByProduct?product_id=${productId}`
+    );
 
     return response.data;
   } catch (error) {
-    console.error('Error getting comments:', error);
+    console.error("Error getting comments:", error);
+  }
+
+  return null;
+};
+
+export const addProductLikes = async (userId: string, productId: number) => {
+  try {
+    const response = await axios.post(`${baseUrl}/addProductLikes`, {
+      userId,
+      productId,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error Liking product:", error);
+  }
+
+  return null;
+};
+
+export const removeProductLikes = async (userId: string, productId: number) => {
+  try {
+    const response = await axios.post(`${baseUrl}/removeProductLikes`, {
+      userId,
+      productId,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error remove liking :", error);
+  }
+
+  return null;
+};
+
+export const getAllLikesByProduct = async (productId: number) => {
+  try {
+    const response = await axios.get(
+      `${baseUrl}/productLikes?product_id=${productId}`
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error getting number likes:", error);
   }
 
   return null;

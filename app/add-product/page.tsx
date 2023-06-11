@@ -30,16 +30,16 @@ function AddProductPage() {
     setCurrentStep(currentStep + 1);
   };
 
-  function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const imgBox = document.querySelector(".image-box") as HTMLElement;
-      imgBox.style.backgroundImage = `url(${e.target?.result})`;
-    };
-    reader.readAsDataURL(file);
-  }
+  // function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
+  //   const file = event.target.files?.[0];
+  //   if (!file) return;
+  //   const reader = new FileReader();
+  //   reader.onload = (e) => {
+  //     const imgBox = document.querySelector(".image-box") as HTMLElement;
+  //     imgBox.style.backgroundImage = `url(${e.target?.result})`;
+  //   };
+  //   reader.readAsDataURL(file);
+  // }
   const renderCircle = (stepNum: number, formName: string) => {
     const isActive = currentStep === stepNum;
 
@@ -115,8 +115,8 @@ function AddProductPage() {
         <h3 className="fs-subtitle">Create your account</h3> */}
 
           <AccountSetup
-          personalProfileFormData={JSON.stringify(personalFormData)}
-          socialProfileFormData={JSON.stringify(socialProfileData)}
+          personalProfileFormData={personalFormData}
+          socialProfileFormData={socialProfileData}
             onNext={handleClick}
             onPrevious={handlePrevious}
           />

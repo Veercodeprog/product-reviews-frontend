@@ -1,8 +1,9 @@
 import { faImage, faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAllCategoriesName } from "@/app/utils/dataApi";
- function PersonalDetailsForm({
+import axios from "axios";
+function PersonalDetailsForm({
   onNext,
   onPrevious,
 }: {
@@ -19,8 +20,14 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
   const [screenshots, setScreenshots] = useState<string[]>([]);
   const [videoUrl, setVideoUrl] = useState("");
   const [tags, setTags] = useState("");
-  const [category, setCategory] = useState<{ id: string; name: string } | null>(null);
+  const [category, setCategory] = useState<{ id: string; name: string } | null>(
+    null
+  );
+
   const [categories, setCategories] = useState<any[]>([]); // Use proper type for categories state
+const [screenshotFiles, setScreenshotFiles] = useState<File[]>([]);
+const [productIconFile, setProductIconFile] = useState<File | null>(null);
+const [formErrors, setFormErrors] = useState<any>({});
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -31,12 +38,12 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
     fetchCategories();
   }, []);
 
-  //   const categoriesData =  getAllCategoriesName();
-  //   // setCategories(categoriesData);
-  // const categories = await categoriesData
-
-  // const [productName, setProductName] = useState('');
-  //   const [shortDescription, setShortDescription] = useState('');
+//   const uploadImage =(files)=>{
+// const formData = new FormData();
+// formData.append("file", files[0]);
+// formData.append("upload_preset", "product_rev");
+// axios.post("https://api.cloudinary.com/v1_1/dnd0u1l0f/image/upload", formData).then((res)=>{
+// }
   const handleProductIconImageChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -45,8 +52,12 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
     if (file) {
       // Perform any necessary operations on the file (e.g., extracting file name, URL, etc.)
       const fileURL = URL.createObjectURL(file);
-
       setProductIcon(fileURL);
+
+    setProductIconFile(file);
+
+// console.log("fileURL:", fileURL);
+ 
     }
   };
 
@@ -62,41 +73,116 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
 
       // Create a copy of the screenshots array
       const updatedScreenshots = [...screenshots];
+   const updatedScreenshotsFiles = [...screenshotFiles];
 
-      // Update the specific screenshot image at the given index
-      updatedScreenshots[index] = fileURL;
+      updatedScreenshots[index] = fileURL; // Set the updated screenshots array in the state
+    updatedScreenshotsFiles[index] = file; // Set the updated screenshot files array in the state
 
-      // Set the updated screenshots array in the state
       setScreenshots(updatedScreenshots);
+    setScreenshotFiles(updatedScreenshotsFiles);
+
     }
   };
 
+const validateForm = () => {
+  const errors: any = {};
+
+  // Validate productName field
+  if (!productName) {
+    errors.productName = "Product Name is required";
+  }
+
+  // Validate shortDescription field
+  if (!shortDescription) {
+    errors.shortDescription = "Short Description is required";
+  }
+
+  // Validate productIcon field
+  if (!productIcon) {
+    errors.productIcon = "Product Icon is required";
+  }
+
+  // Validate webUrl field
+  if (!webUrl) {
+    errors.webUrl = "Website URL is required";
+  }
+
+  // Validate overview field
+  if (!overview) {
+    errors.overview = "Overview is required";
+  }
+
+  // Validate features field
+  if (!features) {
+    errors.features = "Features is required";
+  }
+
+  // Validate screenshots fields
+  if (screenshots.length === 0) {
+    errors.screenshots = "At least one screenshot is required";
+  }
+
+  // Validate videoUrl field
+  if (!videoUrl) {
+    errors.videoUrl = "Video URL is required";
+  }
+
+  // Validate category field
+  if (!category) {
+    errors.category = "Category is required";
+  }
+
+  // Validate tags field
+  if (!tags) {
+    errors.tags = "Tags is required";
+  }
+
+  return errors;
+};
+
+
   const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+// console.log("screenshotFiles:", screenshotFiles);
+// console.log("screrenshots :", screenshots);
+ const errors = validateForm();
 
-       if (category) {
+  // Set the form errors
+  setFormErrors(errors);
+
+  // Check if there are any errors
+  if (Object.keys(errors).length === 0) {
+    if (category) {
       const { id, name } = category;
-  
-    const personalFormData = {
-      productName,
-      shortDescription,
-      productIcon: productIcon ? productIcon.toString() : "", // Convert to string if necessary
-      webUrl,
-      overview,
-      features,
-      screenshots,
-      videoUrl,
-       category: {
-          id  ,
+     
+      // console.log("productIconFile on submit:", productIconFile);
+      // console.log("screenshotFiles on submit:", screenshotFiles);
+
+      const personalFormData = {
+        productName,
+        shortDescription,
+        productIcon,
+        productIconFile,
+        webUrl,
+        overview,
+        features,
+        screenshots,
+        screenshotFiles,
+        videoUrl,
+        category: {
+          id,
           name,
         },
-      tags,
-    };
- 
-    // setPersonalFormData(personalFormData);
-    // handlePersonalDetailsNext(personalData);
-    onNext(e, personalFormData);
-       }
+        tags,
+      };
+
+      //  const iconFileObj = productIconFile;
+
+      // Use the screenshots File objects directly
+
+      onNext(e, personalFormData, productIconFile, screenshotFiles);
+    }
+  }
   };
 
   const handlePrevious = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -106,7 +192,10 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
 
   return (
     <>
+{formErrors.productName && <p className="text-red-500 mb-4">{formErrors.productName}</p>}
+
       <div className="flex flex-row	 mb-4">
+
         <label htmlFor="fname" className=" w-1/5 md:w-1/6  mb-2 font-bold">
           Product Name :
         </label>
@@ -120,6 +209,7 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
           onChange={(e) => setProductName(e.target.value)}
         />
       </div>
+      {formErrors.shortDescription && <p className="text-red-500 mb-4">{formErrors.shortDescription}</p>}
       <div className="flex flex-row mb-4">
         <label htmlFor="lname" className=" w-1/5 md:w-1/6   mb-2 font-bold">
           Short Description :
@@ -153,7 +243,7 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
           onChange={handleProductIconImageChange}
         />
       </div> */}
-
+      {formErrors.productIcon && <p className="text-red-500 mb-4">{formErrors.productIcon}</p>}
       <div className="flex flex-row items-center mb-4">
         <label htmlFor="product-img" className=" w-1/5 md:w-1/6mr-4 font-bold">
           <FontAwesomeIcon icon={faImage} /> Product Icon:
@@ -175,11 +265,18 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
             id="product-img"
             name="product-img"
             className="hidden"
-         onChange={handleProductIconImageChange}
+            onChange={handleProductIconImageChange}
           />
+          {productIcon && (
+            <img
+              src={productIcon}
+              alt="Product Icon"
+              className="w-full h-full rounded-md"
+            />
+          )}
         </div>
       </div>
-
+      {formErrors.webUrl && <p className="text-red-500 mb-4">{formErrors.webUrl}</p>}
       <div className="flex flex-row	 mb-4">
         <label htmlFor="url" className="  w-1/5 md:w-1/6  mb-2 font-bold">
           Website Url :
@@ -194,6 +291,7 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
           onChange={(e) => setWebUrl(e.target.value)}
         />
       </div>
+      {formErrors.overview && <p className="text-red-500 mb-4">{formErrors.overview}</p>}
       <div className="flex flex-row	 mb-4">
         <label htmlFor="overview" className="  w-1/5 md:w-1/6  mb-2 font-bold">
           Overview :
@@ -207,6 +305,7 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
           onChange={(e) => setOverview(e.target.value)}
         />
       </div>
+      {formErrors.features && <p className="text-red-500 mb-4">{formErrors.features}</p>}
       <div className="flex flex-row	 mb-4">
         <label htmlFor="features" className="  w-1/5 md:w-1/6  mb-2 font-bold">
           Features :
@@ -229,26 +328,38 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
           <FontAwesomeIcon icon={faImage} /> Screenshots:
         </label>
         <div className="  flex sm:flex-row">
-          <div className="relative w-40 h-40 bg-black rounded-md mr-6">
-            <label
-              htmlFor="product-img1"
-              className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-75 cursor-pointer"
+          {[0, 1, 2].map((index) => (
+            <div
+              className="relative w-40 h-40 bg-black rounded-md mr-6"
+              key={index}
             >
-              <FontAwesomeIcon
-                icon={faCloudUploadAlt}
-                className=" text-gray-300 mr-2"
+              <label
+                htmlFor={`product-img${index + 1}`}
+                className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-75 cursor-pointer"
+              >
+                <FontAwesomeIcon
+                  icon={faCloudUploadAlt}
+                  className="text-gray-300 mr-2"
+                />
+                Upload Image
+              </label>
+              <input
+                type="file"
+                id={`product-img${index + 1}`}
+                name={`product-img${index + 1}`}
+                className="hidden"
+                onChange={(e) => handleScreenshotImageChange(index, e)}
               />
-              Upload Image
-            </label>
-            <input
-              type="file"
-              id="product-img1"
-              name="product-img1"
-              className="hidden"
-              onChange={(e) => handleScreenshotImageChange(0, e)} // Pass the index 0 for the first screenshot
-            />
-          </div>
-          <div className="relative w-40 h-40 bg-black rounded-md mr-6">
+              {screenshots[index] && (
+                <img
+                  src={screenshots[index]}
+                  alt={`Screenshot ${index + 1}`}
+                  className="w-full h-full rounded-md"
+                />
+              )}
+            </div>
+          ))}
+          {/* <div className="relative w-40 h-40 bg-black rounded-md mr-6">
             <label
               htmlFor="product-img2"
               className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-75 cursor-pointer"
@@ -266,8 +377,8 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
               className="hidden"
               onChange={(e) => handleScreenshotImageChange(1, e)} // Pass the index 0 for the first screenshot
             />
-          </div>
-          <div className="relative w-40 h-40 bg-black rounded-md mr-6">
+          </div> */}
+          {/* <div className="relative w-40 h-40 bg-black rounded-md mr-6">
             <label
               htmlFor="product-img3"
               className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-75 cursor-pointer"
@@ -285,9 +396,10 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
               className="hidden"
               onChange={(e) => handleScreenshotImageChange(2, e)} // Pass the index 0 for the first screenshot
             />
-          </div>
+          </div> */}
         </div>
       </div>
+      {formErrors.videoUrl && <p className="text-red-500 mb-4">{formErrors.videoUrl}</p>}
       <div className="flex flex-row	 mb-4">
         <label htmlFor="vid-url" className="w-1/5 md:w-1/6 mb-2 font-bold">
           Video Url :
@@ -302,6 +414,7 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
           onChange={(e) => setVideoUrl(e.target.value)}
         />
       </div>
+      {formErrors.category && <p className="text-red-500 mb-4">{formErrors.category}</p>}
       <div className="flex flex-row mb-4">
         <label htmlFor="category" className="w-1/5 md:w-1/6 mb-2 font-bold">
           Category :
@@ -310,14 +423,14 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
           name="category"
           id="category"
           className="block w-1/3 px-4 py-2 border border-gray-300 rounded-md"
-  value={category ? `${category.id}|${category.name}` : ""}
-        onChange={(e) => {
-          const [categoryId, categoryName] = e.target.value.split("|");
-          setCategory({
-            id: categoryId,
-            name: categoryName,
-          });
-        }}
+          value={category ? `${category.id}|${category.name}` : ""}
+          onChange={(e) => {
+            const [categoryId, categoryName] = e.target.value.split("|");
+            setCategory({
+              id: categoryId,
+              name: categoryName,
+            });
+          }}
         >
           <option value="">--Select Category--</option>
           {categories.map((category: any) => (
@@ -330,7 +443,7 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
           ))}
         </select>
       </div>
-
+      {formErrors.tags && <p className="text-red-500 mb-4">{formErrors.tags}</p>}
       <div className="flex flex-row	 mb-4">
         <label htmlFor="tags" className="w-1/5 md:w-1/6 mb-2 font-bold">
           Tags :
@@ -345,6 +458,7 @@ import { getAllCategoriesName } from "@/app/utils/dataApi";
           onChange={(e) => setTags(e.target.value)}
         />
       </div>
+     
       <div className="flex  flex-row sm:justify-end mt-10 mb-10">
         <button
           type="button"

@@ -1,22 +1,24 @@
-'use client';
-import { useState, useEffect } from "react";
+'use client'
+import { useState, useRef } from "react";
 import OverviewTab from "./Overview-tab-section";
 import ReviewTab from "./Reviews-tab-section";
 import FoundersTab from "./Founders-tab-section";
 import FeaturesTab from "./Features-tab-section";
+
 const tabs = [
   { id: "tab1", title: "Overview" },
   { id: "tab2", title: "Features" },
   { id: "tab3", title: "Founders" },
   { id: "tab4", title: "Reviews" },
 ];
+
 type TabProps = {
   tab: {
     id: string;
-title: string;
+    title: string;
     // other properties of the tab object
   };
- toggle: (id: string) => void;
+  toggle: (id: string) => void;
 };
 
 const Tab = (props: TabProps) => {
@@ -25,9 +27,9 @@ const Tab = (props: TabProps) => {
   return (
     <a
       href={`#${props.tab.id}`}
-      className={`tab ${
+      className={`my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent ${
         isActive ? "active" : ""
-      } my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent    `}
+      }`}
       onClick={(e) => {
         e.preventDefault();
         props.toggle(props.tab.id);
@@ -35,70 +37,55 @@ const Tab = (props: TabProps) => {
     >
       {props.tab.title}
     </a>
-    // <a
-    //   href={`#${props.tab.id}`}
-    //   className={`tab ${isActive ? "active" : ""}`}
-    //   onClick={(e) => {
-    //     e.preventDefault();
-    //     props.toggle(props.tab.id);
-    //   }}
-    // >
-    //   {props.tab.title}
-    // </a>
   );
 };
-export default function TabSection(props: any){
- const [activeTab, setActiveTab] = useState(tabs[0].id);
 
- function handleTabClick(id: string) {
-  setActiveTab(id);
-}
-// console.log("tab",props.product)
+export default function TabSection(props: any) {
+  const [activeTab, setActiveTab] = useState(tabs[0].id);
+  const contentRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  contentRefs.current = tabs.map(() => useRef<HTMLDivElement | null>(null));
+
+  const handleTabClick = (id: string) => {
+    setActiveTab(id);
+    const ref = contentRefs.current.find((ref) => ref?.current?.id === id);
+    if (ref?.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const tabsContent = tabs.map((tab) => (
-    <Tab key={tab.id} tab={tab} toggle={() => handleTabClick(tab.id)} />
+    <Tab key={tab.id} tab={tab} toggle={handleTabClick} />
   ));
-return(
- <section>
-        <div className="">
-          <ul
-            className=" mt-o mb-5 flex list-none flex-row flex-wrap border-b-0 pl-0"
-            role="tablist"
-            data-te-nav-ref
-          >
-            {tabsContent}
-          </ul>
+
+  return (
+    <section>
+      <div className="">
+        <ul
+          className=" mt-o mb-5 flex list-none flex-row flex-wrap border-b-0 pl-0"
+          role="tablist"
+          data-te-nav-ref
+        >
+          {tabsContent}
+        </ul>
+      </div>
+      <div className="tab-container">
+        <div className="tab-content" style={{ maxHeight: "400px", overflowY: "scroll" }}>
+          {tabs.map((tab) => (
+            <div
+              key={tab.id}
+              id={tab.id}
+              ref={contentRefs.current[tabs.indexOf(tab)]}
+              className={`${activeTab === tab.id ? "active" : ""}`}
+            >
+              {tab.id === "tab1" && <OverviewTab product={props.product} />}
+              {tab.id === "tab2" && <FeaturesTab />}
+              {tab.id === "tab3" && "Founders Content"}
+              {tab.id === "tab4" && <ReviewTab product={props.product} />}
+            </div>
+          ))}
         </div>
-        <div className="tab-container">
-          <div className="tab-content">
-            <div
-              id="tab1"
-              className={`tab-pane ${activeTab === "tab1" ? "active" : ""}`}
-            >
-              {/* Tab 1 content  */}
-<OverviewTab product = {props.product}/>
-            </div>
-            <div
-              id="tab2"
-              className={`tab-pane ${activeTab === "tab2" ? "active" : ""}`}
-            >
-           <FeaturesTab />
-            </div>
-            <div
-              id="tab3"
-              className={`tab-pane ${activeTab === "tab3" ? "active" : ""}`}
-            >
-             Founders Content
-            </div>
-            <div
-              id="tab4"
-              className={`tab-pane ${activeTab === "tab4" ? "active" : ""}`}
-            >
-<ReviewTab product = {props.product}/>
-              Reviews Content
-            </div>
-          </div>
-        </div>
-      </section>
-)
+      </div>
+    </section>
+  );
 }

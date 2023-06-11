@@ -27,6 +27,7 @@ export default function CategoryPage() {
             </div> */}
             </div>
             <FeaturedProductsList />
+
           </div>
         </section>
         <section>

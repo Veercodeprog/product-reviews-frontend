@@ -1,3 +1,4 @@
+'use client';
 import { useState , useRef} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +12,7 @@ import ReactPlayer from "react-player";
 
 function OverviewTab(props:any) {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
   const videoRef = useRef(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,7 +37,7 @@ const getYoutubeVideoId = (url: string) => {
 
 const youtubeVideoId = getYoutubeVideoId(videoUrl);
 return (
-  <section className="mb-20">
+  <section className="mb-20" >
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-2xl font-bold">Image Gallery</h2>

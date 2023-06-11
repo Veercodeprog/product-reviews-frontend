@@ -1,8 +1,8 @@
-function FoundersTab() {
+function FoundersTab(props:any) {
 
 return(
 <>
-<div className="mb-20">
+<div className="mb-20" >
 
 </div>
 </>

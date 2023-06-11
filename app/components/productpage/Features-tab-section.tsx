@@ -1,4 +1,5 @@
-function FeaturesTab() {
+function FeaturesTab(props:any) {
+
 
 return(
 <>

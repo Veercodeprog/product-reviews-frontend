@@ -59,7 +59,7 @@ const Comment = ({
 
   const handleReply = () => {
 if(showReplyForm){
-    setShowReplyForm(false);
+    setShowReplyForm(!showReplyForm);
 
 }else{
 setShowReplyForm(true);

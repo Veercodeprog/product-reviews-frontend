@@ -1,4 +1,4 @@
-
+"use client"
 import Breadcrumb from "../components/layout/breadcrumb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +11,7 @@ export default function ProductsPage() {
   return (
     <main className="container mx-auto p-4  md:px-10 md:pr-10 mt-16 ">
       <Breadcrumb />
+hi
 <section className="sm:ml-10 se:ml-10 md:ml-0 ss:ml-20">
       <div className="text-gray-700 body-font mt-7">
         <div className="container sm:mx-auto flex sm:px-2 sm:py-2 md:flex-row sm:-ml-12 md:ml-0  flex-col sm:items-center">

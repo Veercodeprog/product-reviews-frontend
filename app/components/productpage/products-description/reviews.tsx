@@ -8,6 +8,8 @@ import SessionManager from "@/app/utils/session";
 import { getAllReviewByProduct } from "@/app/utils/postDataApi";
 import moment from "moment";
 import { fetchUserClaims } from "@/app/utils/auth";
+import ReviewForm from "./review-form";
+import Review from "./review";
 type UserType = {
   claims: {
     id: number;
@@ -25,11 +27,11 @@ export default function Reviews(props: any) {
   const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setLoading] = useState(false);
 
-  const [reviewText, setReviewText] = useState("");
+  // const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
 const [reviews, setReviews] = useState<any[]>([]);
 
-
+const product_id = props.product?.product_id;
  useEffect(() => {
     getAllReviewByProduct(props.product?.product_id)
       .then((reviewsData:any) => {
@@ -43,8 +45,8 @@ const [reviews, setReviews] = useState<any[]>([]);
       });
   }, [props.product?.product_id]);
 
-console.log("reviews:", reviews);
-  const handleReviewSubmit = async(event: any) => {
+// console.log("reviews:", reviews);
+  const handleReviewSubmit = async(event: any,reviewText:any,parentReviewId: number ,rating:any) => {
     event.preventDefault();
     if (user) {
       const reviewData = {
@@ -52,6 +54,10 @@ console.log("reviews:", reviews);
         product_id: props.product.product_id,
         rating: rating,
         text: reviewText,
+        parent_review_id: parentReviewId,
+approvalStatus: "APPROVED",
+  createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
 
 const result:any = await addProductReviews(reviewData);
@@ -59,8 +65,8 @@ const result:any = await addProductReviews(reviewData);
     fetchUserClaimsForReviews([...reviews, result]);
 
  setReviews([...reviews, result]);
- setReviewText("");
-    setRating(0);
+//  setReviewText("");
+    // setRating(0);
       // Call the onPostReview callback with the review data
     } else {
       // User is not logged in, display a message to prompt login
@@ -69,9 +75,7 @@ const result:any = await addProductReviews(reviewData);
       // or show a modal with login options
     }
   };
-  const handleStarClick = (selectedRating: number) => {
-    setRating(selectedRating);
-  };
+
 
 
   const fetchUserClaimsForReviews = async (reviewsData: any[]) => {
@@ -80,7 +84,7 @@ const result:any = await addProductReviews(reviewData);
         try {
           const claims = await fetchUserClaims(review.user_id);
             const userWithClaims = { ...review, claims: { ...claims, name: claims.name } };
-console.log("userWithClaims:", userWithClaims);
+// console.log("userWithClaims:", userWithClaims);
         return userWithClaims;
       } catch (error) {
           console.error("Failed to fetch user claims for review", error);
@@ -91,6 +95,7 @@ console.log("userWithClaims:", userWithClaims);
     setReviews(reviewsWithClaims);
   };
 
+  const rootReviews = reviews?.filter((r:any) => !r.parentId);
   return (
     <>
       <SessionManager updateUser={setUser} setLoading={setLoading} />
@@ -99,91 +104,27 @@ console.log("userWithClaims:", userWithClaims);
         <h1 className="text-2xl font-bold mb-4">Reviews</h1>
 
 
-{reviews.map((review: any) => (
-  <div key={review.review_id} className="flex items-center rounded-lg  p-4 my-5">
-    {/* User Profile Image */}
-    <div className="rounded-full overflow-hidden h-12 w-12 flex-shrink-0">
-      <img
-        className="h-full w-full object-cover"
-        src={review.claims?.profileImage || "default-profile-image.jpg"}
-        alt="User Profile"
-      />
-    </div>
-    <div className="ml-12">
-      {/* Render the review data */}
-      <p>User: {review.claims?.name || null}</p>
-<p></p>
-      <p>{review.comment}</p>
-      <div className="star-rating">
-        <p>
-          Rating:{" "}
-          {[1, 2, 3, 4, 5].map((star) => (
-            <FontAwesomeIcon
-              key={star}
-              icon={star <= review.rating ? solidStar : regularStar}
-              className={`star ${star <= review.rating ? "solid" : ""}`}
-              style={{ fontSize: "24px" }}
-            />
-          ))}
-        </p>
-      </div>
-    </div>
-  </div>
+{rootReviews && rootReviews.map((review: any) => (
+     <Review
+                  key={review.review_id}
+                  review={review}
+                 parentReviewId={review.review_id}
+                  reviews={reviews}
+                   productId={product_id}
+                     handlePostReview={handleReviewSubmit} 
+               />
+
+
+
 ))}
 
 
 
 
         {/* Comment form */}
-        <form className="mt-4 mb-20" onSubmit={handleReviewSubmit}>
-          <h2 className="text-lg font-semibold mb-2">Add a Review</h2>
-          <div className="flex space-x-4">
-            <div className="flex-shrink-0">
-              <img
-                className="w-12 h-12 rounded-full"
-                src="https://via.placeholder.com/50"
-                alt="User Avatar"
-              />
-            </div>
-            <div className="flex-grow">
-              <textarea
-                className="w-full h-20 p-2 border border-gray-300 rounded"
-                placeholder="Write your comment..."
-                value={reviewText}
-                onChange={(event) => setReviewText(event.target.value)}
-              />
-              {/* Star rating component */}
-              <div className="star-rating">
-                {/* {[1, 2, 3, 4, 5].map((star) => (
-                <span
-                  key={star}
-                  className={`star ${star <= rating ? "selected" : ""}`}
-                  onClick={() => handleStarClick(star)}
-                >
-                  ★
-                </span>
-              ))} */}
-
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <FontAwesomeIcon
-                    key={star}
-                    icon={star <= rating ? solidStar : regularStar}
-                    className={`star ${star <= rating ? "solid" : ""}`}
-                    onClick={() => handleStarClick(star)}
-                    style={{ fontSize: "24px" }} // Adjust the size as per your requirement
-                  />
-                ))}
-              </div>
-
-              <button
-                type="submit"
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </form>
+      <ReviewForm           
+ handleReviewSubmit={handleReviewSubmit} parentReviewId={null}  />
+      
       </div>
     </>
   );
