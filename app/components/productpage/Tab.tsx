@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef } from "react";
+import { useState, useRef,RefObject } from "react";
 import OverviewTab from "./Overview-tab-section";
 import ReviewTab from "./Reviews-tab-section";
 import FoundersTab from "./Founders-tab-section";
@@ -42,11 +42,12 @@ const Tab = (props: TabProps) => {
 
 export default function TabSection(props: any) {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
-  const contentRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const contentRefs = useRef<(any | null)[]>([]);
 
-  contentRefs.current = tabs.map(() => useRef<HTMLDivElement | null>(null));
-
-  const handleTabClick = (id: string) => {
+if (contentRefs.current.length === 0) {
+    contentRefs.current = tabs.map(() => useRef<HTMLDivElement | null>(null));
+  }
+ const handleTabClick = (id: string) => {
     setActiveTab(id);
     const ref = contentRefs.current.find((ref) => ref?.current?.id === id);
     if (ref?.current) {
