@@ -1,6 +1,5 @@
 'use client';
 import {  useEffect, useState } from "react";
-import { getServerSession } from "next-auth";
 import AdminSidebar from "../components/admin/sidebar";
 import SessionManager from "../utils/session";
 
