@@ -12,6 +12,7 @@ export default function FeaturedArticleList({ articles }: { articles:any }) {
 return(
 <>
 
+
    
 
        <div className="featured-article-list">

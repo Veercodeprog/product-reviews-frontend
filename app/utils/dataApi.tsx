@@ -58,3 +58,17 @@ try {
     console.error("category api error:",error);
   }
 })
+
+export const getAllPopularNowAdmin = async () => {
+try {
+    const response = await axios.get(`${baseUrl}/getAllPopularNowAdmin`);
+    
+   console.log(response.data); // Example: log the category to the console
+    
+    return response.data;// You can return the category or perform additional operations as needed
+    
+  } catch (error) {
+    // Handle any errors here
+    console.error("api error:",error);
+  }
+}

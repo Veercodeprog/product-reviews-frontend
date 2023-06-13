@@ -1,4 +1,4 @@
-export default function ProductsAdmin() {
+export default function ProductCategory() {
 
 return (
 

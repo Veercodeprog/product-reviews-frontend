@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAuth, getIdToken } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 import {
   signInWithEmailAndPassword,
@@ -24,7 +25,6 @@ import {
 import { auth } from "./firebase";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-
 type User = {
   id: string;
   name: string;
@@ -36,63 +36,51 @@ type User = {
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
-  export const signInWithGoogle = async (
-    event: React.MouseEvent,
-    handleShowPasswordForm: (fname: string, lname: string, email: string) => void
-  ) => {
-    event.preventDefault();
-    try {
-      await setPersistence(auth, browserLocalPersistence);
-      const result = await signInWithPopup(auth, provider);
-      const { user } = result;
-      const { email, displayName, uid } = user;
-      const userToken = await result.user.getIdToken();
-      const tokenResult = await getIdTokenResult(result.user);
-      const customClaims = tokenResult.claims;
-      if (!customClaims.role) {
-        const response = await axios.post(`${baseUrl}/setCustomClaims`, { uid });
-        console.log("role not present:");
-      } else {
-        console.log("Custom claims role:", customClaims.role);
+export const signInWithGoogle = async (
+  event: React.MouseEvent,
+  handleShowPasswordForm: (fname: string, lname: string, email: string) => void
+) => {
+  event.preventDefault();
+
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+    const result = await signInWithPopup(auth, provider);
+    const { user } = result;
+    const { email, displayName, uid } = user;
+    const userToken = await result.user.getIdToken();
+    const tokenResult = await getIdTokenResult(result.user);
+    let customClaims = tokenResult.claims;
+    if (!customClaims.role) {
+      const response = await axios.post(`${baseUrl}/setCustomClaims`, { uid });
+      // console.log("custom claims response for first login:", response.data);
+const updatedUserToken = await result.user.getIdToken();
+    const updatedTokenResult = await getIdTokenResult(result.user);
+    customClaims = updatedTokenResult.claims;
+console.log("customClaims on first go :",customClaims)
+      console.log("role not present:");
+    } else {
+      console.log("Custom claims role:", customClaims.role);
+    }
+    const userTokenResult = await result.user.getIdTokenResult();
+
+    // const csrfToken = getCookie("csrfToken");
+    // console.log("csrfToken:", csrfToken);
+    const responseCookie = await axios.post(
+      `${baseUrl}/sessionLogin`,
+      { idToken: userToken },
+
+      {
+        withCredentials: true,
       }
-      const userTokenResult = await result.user.getIdTokenResult();
+    );
+
+    return  customClaims;
 
     
-
-      // const csrfToken = getCookie("csrfToken");
-      // console.log("csrfToken:", csrfToken);
-      const responseCookie = await axios.post(
-        `${baseUrl}/sessionLogin`,
-        { idToken: userToken },
-
-        {
-          withCredentials: true,
-        }
-      );
-// const { data } = responseCookie;  // se the cookie in auth headers for the backend requests and then backend to verify if user authenticated or not
-// const { sessionCookie } = data;
- // already set though
-      if (customClaims && customClaims.role === "admin") {
-        // Redirect to admin page if the 'admin' custom claim is true
-        // window.location.assign("/admin");
-      } else {
-        // Redirect to regular user profile page\
-        console.log("Custom claims:", customClaims.auth_time);
-
-        // window.location.assign('/');
-      }
-
-      return customClaims;
-    } catch (error) {
-      console.error("Login failed", error);
-    }
-  };
-
-
-
-
-
-
+  } catch (error) {
+    console.error("Login failed", error);
+  }
+};
 
 // onAuthStateChanged(auth, (user) => {
 //   if (user) {
@@ -136,7 +124,7 @@ export const handleLogin = async (email: string, password: string) => {
     // Access the custom claims from the token result
     const customClaims = tokenResult.claims;
 
-console.log("customClaims:", customClaims);
+    console.log("customClaims:", customClaims);
     // Send the ID token to the session login endpoint for session creation with CSRF protection
     // const csrfToken = getCookie("csrfToken");
     // console.log("csrfToken:", csrfToken);
@@ -204,11 +192,9 @@ export const handleSignup = async (
       // const role = customClaims?.user || null;
 
       // Log the custom claims and role
-   
 
       const role = customClaims.role;
       console.log("Role:", role);
-    
 
       console.log("signup successful");
     } catch (error) {
@@ -272,17 +258,17 @@ export const handleSignup = async (
 //   }
 // };
 
-
 export const signOutUser = async () => {
   try {
     await signOut(auth);
-    console.log('User signed out');
-    document.cookie = 'apiauth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    console.log("User signed out");
+    document.cookie =
+      "apiauth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     await axios.post(`${baseUrl}/logout`);
     // handleAuthentication(null); // Pass null to indicate user signed out
   } catch (error) {
-    console.error('Sign out failed', error);
+    console.error("Sign out failed", error);
   }
 };
 
@@ -292,7 +278,6 @@ const handleAuthentication = (customClaims: any) => {
     const { name, role, email } = customClaims;
 
     // Perform actions for a logged-in user
-   
 
     // Update the user information or perform any other necessary actions
     // updateUser({ displayName, email, role });
@@ -319,7 +304,6 @@ export { handleAuthentication };
 
 export const preload = () => {
   void getCurrentUserClaims();
- 
 };
 
 export const getCurrentUserClaims = async () => {
@@ -328,10 +312,10 @@ export const getCurrentUserClaims = async () => {
   if (currentUser) {
     try {
       const idTokenResult = await currentUser.getIdTokenResult();
- 
+
       return idTokenResult.claims;
     } catch (error) {
-      console.error('Error retrieving current user claims:', error);
+      console.error("Error retrieving current user claims:", error);
     }
   }
 
@@ -340,34 +324,26 @@ export const getCurrentUserClaims = async () => {
 
 export const fetchUserClaims = async (userId: string) => {
   try {
-
-
     // Fetch the user object
-  const response = await axios.post(
-      `${baseUrl}/fetchUserClaimsByUid`,
-      { userId },
-
-   
-    );
+    const response = await axios.post(`${baseUrl}/fetchUserClaimsByUid`, {
+      userId,
+    });
 
     // Fetch the ID token result to access custom claims
-   const customClaims = response.data;
+    const customClaims = response.data;
 
-  return { ...customClaims, name: customClaims.name };
+    return { ...customClaims, name: customClaims.name };
   } catch (error) {
     console.error("Failed to fetch user claims", error);
     throw error;
   }
 };
 
-
-
-
 // export const customSignOutUser = async () => {
 //   try {
 //     localStorage.removeItem("user");
 //     localStorage.removeItem("token");
-    
+
 //   } catch (error) {
 //     console.error("Sign out failed", error);
 //   }

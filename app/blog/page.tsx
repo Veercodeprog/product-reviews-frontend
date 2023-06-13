@@ -82,7 +82,7 @@ export default async function Blog() {
   return (
     <>
       <Nav categories={categories} />
-      <p className=" text-5xl">hiiiii{articles.attributes}</p>
+      <p className=" text-5xl">{articles.attributes}</p>
       <div className="flex justify-center">
         <div className="w-full max-w-3xl">
           <div className="uk-section">

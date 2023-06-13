@@ -49,7 +49,7 @@ export default function ProductDetail(props: any) {
       .catch((error) => {
         console.error("Error getting likes:", error);
       });
-  }, []);
+  }, [likes]);
 
   // if(user){
   //       const hasLiked = likes.some((like) => like.user_id === user?.uid);
