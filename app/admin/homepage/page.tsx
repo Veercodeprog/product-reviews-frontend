@@ -73,8 +73,9 @@ export default async function HomePageContent() {
                 </div>
               </div>
             </div> */}
-       
-       <PopularNowTable popularNow={popularNow} />
+    {popularNow &&   
+       <PopularNowTable popularNow={popularNow} /> 
+}
         </div>
         </div>
       </main>

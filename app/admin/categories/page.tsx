@@ -133,7 +133,7 @@ useEffect(() => {
     {/* Replace the example data with your actual product data */}
 
  
-{categories.length > 0 ? (
+{categories && categories.length > 0 ? (
   categories.map((category) => (
     <tr key={category.id}>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.id}</td>
