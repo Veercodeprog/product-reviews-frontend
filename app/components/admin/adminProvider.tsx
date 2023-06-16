@@ -272,7 +272,21 @@ onClick={(e) => handleTabClick(e, "reviews")}
                               </span>
                             </Link>
                           </li>
-                          {/* <li>
+                         <li>
+                            <Link
+                                href="/admin/featured-products"
+onClick={(e) => handleTabClick(e, "products")}
+                              className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
+                            >
+                              <FaAppStoreIos className="w-5 h-5" />
+
+                              <span className="ml-3 flex-1 whitespace-nowrap">
+                                Products 
+                              </span>
+                            </Link>
+                          </li>
+
+                         {/* <li>
                             <a
                               href="#"
                               className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "

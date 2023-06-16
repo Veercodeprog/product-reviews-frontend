@@ -60,7 +60,7 @@ export const AddProductToDb = async (product: any, uid: any) => {
       category_id: category.id,
       tags: tags,
     };
-  
+
     const response = await axios.post(`${baseUrl}/addProduct`, requestData, {
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export const addProductFounder = async (
   productId: any,
   uid: any
 ) => {
-console.log("socialDetails",socialDetails)
+  console.log("socialDetails", socialDetails);
   try {
     const {
       avatarImgFile,
@@ -110,12 +110,16 @@ console.log("socialDetails",socialDetails)
       social_links: socialLinks,
     };
 
-    const response = await axios.post(`${baseUrl}/addProductFounder`, requestData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-console.log("add Founder response",response.data)
+    const response = await axios.post(
+      `${baseUrl}/addProductFounder`,
+      requestData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("add Founder response", response.data);
     return response.data;
   } catch (error: any) {
     console.error(error.message);
@@ -200,3 +204,159 @@ export const getAllLikesByProduct = async (productId: number) => {
 
   return null;
 };
+export const setPopularNowActive = async (id: number) => {
+  try {
+    const response = await axios.post(`${baseUrl}/setPopularNowActive`, {
+      id,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error setting popular now:", error);
+  }
+
+  return null;
+};
+
+export const setPopularNowInactive = async (id: number) => {
+  try {
+    const response = await axios.post(`${baseUrl}/setPopularNowInactive`, {
+      id,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error setting popular now:", error);
+  }
+  return null;
+};
+
+export const updatePopularNowTextAndLink = async (
+  id: number,
+  text: string,
+  link: string
+) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/updatePopularNowTextAndLink`,
+      {
+        id,
+        text,
+        link,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error setting popular now:", error);
+  }
+  return null;
+};
+
+export const getAllCategoriesData = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/getAllCategoriesData`);
+    console.log("response", response);
+    return response.data;
+  } catch (error) {
+    console.error("Error getting categories:", error);
+  }
+
+  return null;
+};
+
+export const updateCategory = async (
+  id: number,
+  name: string,
+  description: string,
+  emoji: string,
+  category_featured: any
+) => {
+  try {
+    const response = await axios.post(`${baseUrl}/updateCategory`, {
+      id,
+      name,
+      description,
+      emoji,
+      category_featured,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating category:", error);
+  }
+  return null;
+};
+
+export const getAllReviews = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/getAllReviews`);
+    console.log("response", response);
+    return response.data;
+  } catch (error) {
+    console.error("Error getting reviews:", error);
+    return null;
+  }
+};
+
+
+export const deleteReviewById = async (id: number) => {
+  try {
+    const response = await axios.post(`${baseUrl}/deleteReviewById`, {
+      id,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting review:", error);
+  }
+  return null;
+}
+
+export const featuredAppsHomepageAdmin  = async () => {;
+ try {
+    const response = await axios.get(`${baseUrl}/featuredAppsHomepageAdmin`);
+    console.log("response", response);
+    return response.data;
+     } catch (error) {
+    console.error("Error getting featured apps:", error);
+    return null;
+    }
+}
+
+export const isOnHomepagetrue  = async (id: number) => {
+  console.log("id", id);
+  try {
+    const response = await axios.post(`${baseUrl}/productIsOnHomepageTrue`, {
+      id,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error setting popular now:", error);
+  }
+  return null;
+};
+
+export const isOnHomepagefalse  = async (id: number) => {
+    try {
+        const response = await axios.post(`${baseUrl}/productIsOnHomepageFalse`, {
+        id,
+        });
+    
+        return response.data;
+    } catch (error) {
+        console.error("Error setting popular now:", error);
+    }
+    return null;
+    }
+
+    export const deleteProductById = async (id: number) => {
+        try {
+            const response = await axios.post(`${baseUrl}/deleteProductById`, {
+            id,
+            });
+        
+            return response.data;
+        } catch (error) {
+            console.error("Error deleting product:", error);
+        }   
+        return null;
+        }

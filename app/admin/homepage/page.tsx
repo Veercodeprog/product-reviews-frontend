@@ -1,3 +1,4 @@
+import "server-only"
 import { fetchArticles, preload } from "@/app/utils/strapi/strapiPreloadData";
 // import AllArticlesTable from "@/app/components/admin/homepage/article-table";
 import { getAllPopularNowAdmin } from "@/app/utils/dataApi";
@@ -79,4 +80,5 @@ export default async function HomePageContent() {
       </main>
     </>
   );
+
 }
