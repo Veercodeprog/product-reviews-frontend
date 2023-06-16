@@ -20,7 +20,7 @@ export default async function ProductsAdmin() {
             </div>
             <div className="flow-root">
               <ul role="list" className="divide-y divide-gray-200">
-                {appsList.map((app: any) => (
+                {appsList && appsList.map((app: any) => (
                   <ProductsList key={app.product_id} app={app} />
                 ))}
               </ul>
