@@ -133,8 +133,7 @@ function MainHeader() {
               {user ? (
                 <>
                   <p className="no-underline text-grey-darkest hover:text-black">
-                    Welcome, {user.claims.name}
-                  </p>
+  Welcome, {user.claims.name.split(' ')[0]}                  </p>
                 </>
               ) : (
                 <>
