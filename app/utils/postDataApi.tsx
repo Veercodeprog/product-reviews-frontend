@@ -340,6 +340,7 @@ export const isOnHomepagefalse  = async (id: number) => {
         const response = await axios.post(`${baseUrl}/productIsOnHomepageFalse`, {
         id,
         });
+
     
         return response.data;
     } catch (error) {
