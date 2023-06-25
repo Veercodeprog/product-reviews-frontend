@@ -59,7 +59,7 @@ try {
   }
 })
 
-export const getAllPopularNowAdmin = async () => {
+export const getAllPopularNowAdmin = cache(async () => {
 try {
     const response = await axios.get(`${baseUrl}/getAllPopularNowAdmin`);
     
@@ -71,4 +71,4 @@ try {
     // Handle any errors here
     console.error("api error:",error);
   }
-}
+})
