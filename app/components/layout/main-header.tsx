@@ -98,10 +98,10 @@ function MainHeader() {
   const handleCloseSignup = () => {
     setShowSignup(false);
   };
-  const handleLoginSubmit = (user: UserType) => {
-    // Update the user state
-    setUser(user);
-  };
+    const handleLoginSubmit = (user: UserType) => {
+      // Update the user state
+      setUser(user);
+    };
 
 
   //  const handleLogout = () => {

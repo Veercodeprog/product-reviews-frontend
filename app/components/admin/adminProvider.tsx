@@ -210,8 +210,7 @@ export default function AdminProvider({
                           </li>
                           <li>
                             <Link
-                          href="/"
-
+                              href="/"
                               onClick={(e) => handleTabClick(e, "homepage")}
                               className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                             >
@@ -229,8 +228,10 @@ export default function AdminProvider({
                           </li>
                           <li>
                             <Link
-                             href="/admin/product-categories"
-onClick={(e) => handleTabClick(e, "product-categories")}
+                              href="/admin/product-categories"
+                              onClick={(e) =>
+                                handleTabClick(e, "product-categories")
+                              }
                               className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                             >
                               <FontAwesomeIcon
@@ -245,8 +246,10 @@ onClick={(e) => handleTabClick(e, "product-categories")}
                           </li>
                           <li>
                             <Link
-                                href="/admin/featured-products"
-onClick={(e) => handleTabClick(e, "featured-products")}
+                              href="/admin/featured-products"
+                              onClick={(e) =>
+                                handleTabClick(e, "featured-products")
+                              }
                               className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                             >
                               <FaAppStoreIos className="w-5 h-5" />
@@ -258,10 +261,9 @@ onClick={(e) => handleTabClick(e, "featured-products")}
                           </li>
                           <li>
                             <Link
-                           href="/admin/reviews"
-onClick={(e) => handleTabClick(e, "reviews")}
+                              href="/admin/reviews"
+                              onClick={(e) => handleTabClick(e, "reviews")}
                               className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
- 
                             >
                               <FontAwesomeIcon
                                 icon={faStarHalfStroke}
@@ -272,21 +274,21 @@ onClick={(e) => handleTabClick(e, "reviews")}
                               </span>
                             </Link>
                           </li>
-                         <li>
+                          <li>
                             <Link
-                                href="/admin/featured-products"
-onClick={(e) => handleTabClick(e, "products")}
+                              href="/admin/featured-products"
+                              onClick={(e) => handleTabClick(e, "products")}
                               className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                             >
                               <FaAppStoreIos className="w-5 h-5" />
 
                               <span className="ml-3 flex-1 whitespace-nowrap">
-                                Products 
+                                Products
                               </span>
                             </Link>
                           </li>
 
-                         {/* <li>
+                          {/* <li>
                             <a
                               href="#"
                               className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
@@ -338,7 +340,7 @@ onClick={(e) => handleTabClick(e, "products")}
                       </svg>
                       <span className="ml-4">Upgrade to Pro</span>
                     </a> */}
-{/* 
+                          {/* 
                           <Link
                             href="/admin/reference"
                             onClick={(e) => handleTabClick(e, "reference")}
@@ -486,9 +488,9 @@ onClick={(e) => handleTabClick(e, "products")}
                     </div> */}
                   </footer>
                   <p className="text-center text-sm text-gray-500 my-10">
-                 2023 
+                    2023
                     <a href="#" className="hover:underline" target="_blank">
-                       RustyVeer
+                      RustyVeer
                     </a>
                     . All rights reserved.
                   </p>

@@ -127,7 +127,7 @@ useEffect(() => {
         <div className="row justify-content-center mb-4">
           <div className="col-lg-8">
             <div className="comments max-h-96 overflow-y-auto">
-  {rootComments.map((comment) => (
+  {rootComments && rootComments.map((comment) => (
 
                 <Comment
                   key={comment.id}
