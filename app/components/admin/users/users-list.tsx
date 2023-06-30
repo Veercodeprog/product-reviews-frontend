@@ -11,15 +11,14 @@ export default function UsersList({ users }: any) {
             </h3>
             <a
               href="#"
-                         className="text-sm font-medium text-purple-600 hover:bg-gray-100 rounded-lg p-2"
-
-                        >
+              className="text-sm font-medium text-purple-600 hover:bg-gray-100 rounded-lg p-2"
+            >
               View all
             </a>
           </div>
           <div className="flow-root">
             <ul role="list" className="divide-y divide-gray-200">
-              {users && users.map((user: any) => <UsersListItem user={user} />)}
+              {users && users.map((user: any) => <UsersListItem key={user.uid}  user={user} />)}
             </ul>
           </div>
         </div>
