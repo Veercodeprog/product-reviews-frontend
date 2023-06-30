@@ -41,7 +41,7 @@ export default function Reviews(props: any) {
       .catch((error) => {
         console.error("Error getting reviews:", error);
       });
-  }, [props.product?.product_id]);
+  }, []);
 
   // console.log("reviews:", reviews);
   const handleReviewSubmit = async (
@@ -65,7 +65,7 @@ export default function Reviews(props: any) {
 
       const result: any = await addProductReviews(reviewData);
       console.log("reviewData:", result);
-      fetchUserClaimsForReviews([...reviews, result]);
+       fetchUserClaimsForReviews([...reviews, result]);
 
       setReviews([...reviews, result]);
       //  setReviewText("");

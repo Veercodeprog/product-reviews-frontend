@@ -433,7 +433,7 @@ const validateForm = () => {
           }}
         >
           <option value="">--Select Category--</option>
-          {categories.map((category: any) => (
+          {categories &&  categories.map((category: any) => (
             <option
               key={category.category_id}
               value={`${category.category_id}|${category.name}`}

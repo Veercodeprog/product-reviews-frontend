@@ -1,5 +1,7 @@
-'use client'
-import { useState, useRef,RefObject } from "react";
+
+"use client";
+
+import { useState, useRef, useEffect } from "react";
 import OverviewTab from "./Overview-tab-section";
 import ReviewTab from "./Reviews-tab-section";
 import FoundersTab from "./Founders-tab-section";
@@ -16,20 +18,20 @@ type TabProps = {
   tab: {
     id: string;
     title: string;
-    // other properties of the tab object
   };
   toggle: (id: string) => void;
+  activeTab: string;
 };
 
 const Tab = (props: TabProps) => {
-  const isActive = props.tab.id;
+  const isActive = props.tab.id === props.activeTab;
 
   return (
     <a
       href={`#${props.tab.id}`}
-      className={`my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent ${
-        isActive ? "active" : ""
-      }`}
+      className={`my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight ${
+        isActive ? "text-purple-600 border-purple-600 " : "text-neutral-500"
+      } hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent`}
       onClick={(e) => {
         e.preventDefault();
         props.toggle(props.tab.id);
@@ -42,69 +44,104 @@ const Tab = (props: TabProps) => {
 
 export default function TabSection(props: any) {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
-  const contentRefs = useRef<(any | null)[]>([]);
+  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const observer = useRef<IntersectionObserver | null>(null);
 
-// if (contentRefs.current.length === 0) {
-//     contentRefs.current = tabs.map(() => useRef<HTMLDivElement | null>(null));
-//   }
- const handleTabClick = (id: string) => {
+  useEffect(() => {
+    contentRefs.current = tabs.map(() => null);
+
+    const options = {
+      threshold: 0.5, // Adjust the threshold as needed
+    };
+
+   observer.current = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      if (activeTab !== id) {
+        setActiveTab(id);
+      }
+    }
+  });
+}, options);
+
+
+   tabs.forEach((tab) => {
+  const ref = contentRefs.current[tabs.indexOf(tab)];
+  if (ref && observer.current) { // Check if observer.current exists
+    observer.current.observe(ref);
+  }
+});
+
+
+    // Clean up the IntersectionObserver on component unmount
+    return () => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+    };
+  }, []);
+
+  const handleTabClick = (id: string) => {
     setActiveTab(id);
-    const ref = contentRefs.current.find((ref) => ref?.current?.id === id);
-    if (ref?.current) {
-      ref.current.scrollIntoView({ behavior: "smooth" });
+    const ref = contentRefs.current.find((ref) => ref?.id === id);
+    if (ref) {
+      ref.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const tabsContent = tabs.map((tab) => (
-    <Tab key={tab.id} tab={tab} toggle={handleTabClick} />
+  const tabsTitle = tabs.map((tab) => (
+    <Tab key={tab.id} tab={tab} toggle={handleTabClick} activeTab={activeTab} />
   ));
 
   return (
     <section>
       <div className="">
         <ul
-          className=" mt-o mb-5 flex list-none flex-row flex-wrap border-b-0 pl-0"
+          className="mt-0 mb-5 flex list-none flex-row flex-wrap border-b-0 pl-0"
           role="tablist"
           data-te-nav-ref
         >
-          {tabsContent}
+          {tabsTitle}
         </ul>
       </div>
       <div className="tab-container">
-        <div className="tab-content" style={{ maxHeight: "400px", overflowY: "scroll" }}>
+        <div
+          className="tab-content"
+          style={{ maxHeight: "400px", overflowY: "scroll" }}
+        >
           {tabs.map((tab) => (
             <div
               key={tab.id}
               id={tab.id}
-              ref={contentRefs.current[tabs.indexOf(tab)]}
+              ref={(ref) => (contentRefs.current[tabs.indexOf(tab)] = ref)}
               className={`${activeTab === tab.id ? "active" : ""}`}
             >
+              {tab.id === "tab1" && (
+                <>
+                  <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
+                  <OverviewTab />
+                </>
+              )}
 
-      {tab.id === "tab1" && (
-  <>
-    <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
-    <OverviewTab />
-  </>
-)}
-
-              {tab.id === "tab2" && 
-  <>
-    <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
-<FeaturesTab />
-</>
-}
-              {tab.id === "tab3" && 
-  <>
-    <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
-<FoundersTab />
-</>
-}
-              {tab.id === "tab4" && 
-  <>
-    <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
-<ReviewTab product={props.product} />
-</>
-}
+              {tab.id === "tab2" && (
+                <>
+                  <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
+                  <FeaturesTab />
+                </>
+              )}
+              {tab.id === "tab3" && (
+                <>
+                  <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
+                  <FoundersTab />
+                </>
+              )}
+              {tab.id === "tab4" && (
+                <>
+                  <h2 className="text-3xl font-bold mb-4">{tab.title}</h2>
+                  <ReviewTab product={props.product} />
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -112,3 +149,4 @@ export default function TabSection(props: any) {
     </section>
   );
 }
+

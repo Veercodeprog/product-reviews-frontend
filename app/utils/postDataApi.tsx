@@ -296,8 +296,26 @@ export const getAllReviews = async () => {
     return null;
   }
 };
-
-
+export const getAllUsers = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/users`);
+    console.log("response", response);
+    return response.data;
+  } catch (error) {
+    console.error("Error getting reviews:", error);
+    return null;
+  }
+};
+export const setUserRoles = async (uid:string, role : string ) => {
+  try {
+    const response = await axios.post(`${baseUrl}/setUserRoles`, {uid, role } );
+    console.log("response", response);
+    return response.data;
+  } catch (error) {
+    console.error("Error getting reviews:", error);
+    return null;
+  }
+};
 export const deleteReviewById = async (id: number) => {
   try {
     const response = await axios.post(`${baseUrl}/deleteReviewById`, {

@@ -197,16 +197,17 @@ export default function AdminProvider({
                       </form> */}
                           </li>
                           <li>
-                            <a
-                              href="#"
+                            <Link
+                              href="/"
+                              onClick={(e) => handleTabClick(e, "users")}
                               className="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group"
                             >
                               <FontAwesomeIcon
                                 icon={faTableColumns}
                                 className="w-5 h-5"
                               />
-                              <span className="ml-3">Dashboard</span>
-                            </a>
+                              <span className="ml-3">Users</span>
+                            </Link>
                           </li>
                           <li>
                             <Link

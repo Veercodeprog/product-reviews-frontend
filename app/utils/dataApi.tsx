@@ -59,11 +59,10 @@ try {
   }
 })
 
-export const getAllPopularNowAdmin = cache(async () => {
+export const getAllPopularNowAdmin = async () => {
 try {
     const response = await axios.get(`${baseUrl}/getAllPopularNowAdmin`);
     
-   console.log(response.data); // Example: log the category to the console
     
     return response.data;// You can return the category or perform additional operations as needed
     
@@ -71,4 +70,42 @@ try {
     // Handle any errors here
     console.error("api error:",error);
   }
-})
+}
+
+export const getAllPopularNowActive = async () => {
+try {
+    const response = await axios.get(`${baseUrl}/getAllPopularNowActive`);
+    
+    
+    return response.data;// You can return the category or perform additional operations as needed
+    
+  } catch (error) {
+    // Handle any errors here
+    console.error("api error:",error);
+  }
+}
+export const getFeaturedProductsHomepage = async () => {
+try {
+    const response = await axios.get(`${baseUrl}/getFeaturedProductsHomepage`);
+    
+    
+    return response.data;// You can return the category or perform additional operations as needed
+    
+  } catch (error) {
+    // Handle any errors here
+    console.error("api error:",error);
+  }
+}
+
+export const getCategoryFeaturedProducts = async (categoryName: any) => {
+try {
+    const response = await axios.get(`${baseUrl}/category/${categoryName}/featured-products`);
+
+    
+    return response.data;// You can return the category or perform additional operations as needed
+    
+  }catch (error) {
+    // Handle any errors here
+    console.error("api error:",error);
+  }
+}

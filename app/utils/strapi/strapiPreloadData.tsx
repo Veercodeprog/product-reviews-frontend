@@ -10,8 +10,9 @@ export const fetchArticles = cache(async () => {
   try {
     const articlesRes = await fetchAPI("/articles", { populate: ["image", "category"] }, );
 
+ const featuredArticles = articlesRes.data.filter((article:any) => article.attributes.is_featured === true);
 
-    return articlesRes.data;
+    return featuredArticles;
   } catch (error) {
     console.error("Error fetching articles:", error);
     throw error;

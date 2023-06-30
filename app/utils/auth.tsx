@@ -325,9 +325,12 @@ export const getCurrentUserClaims = async () => {
 export const fetchUserClaims = async (userId: string) => {
   try {
     // Fetch the user object
-    const response = await axios.post(`${baseUrl}/fetchUserClaimsByUid`, {
-      userId,
-    });
+  const response = await axios.get(`${baseUrl}/fetchUserClaimsByUid`, {
+  params: {
+    userId: userId,
+  },
+});
+
 
     // Fetch the ID token result to access custom claims
     const customClaims = response.data;

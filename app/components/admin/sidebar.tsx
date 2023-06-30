@@ -61,10 +61,10 @@ export default function AdminSidebar() {
               onClick={() => handleTabClick("dashboard")}
             >
               <span
-                className={pathname.includes("/dashboard") ? "bg-white" : ""}
+                className={pathname.includes("/users") ? "bg-white" : ""}
               >
                 <FontAwesomeIcon icon={faHouse} className="items-start mx-2" />
-                Dashboard
+                Users
               </span>
             </Link>
           </div>

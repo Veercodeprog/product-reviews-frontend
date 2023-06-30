@@ -1,4 +1,4 @@
-import "server-only"
+
 import { CategoriesTableRow } from "./categories-table-row" 
 export default function CategoriesTable({categoriesTableData}:any){
 return(

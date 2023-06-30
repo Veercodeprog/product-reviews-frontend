@@ -50,7 +50,7 @@ export default function Review({
   const creationTime = moment(review.createdAt).fromNow();
   const comment = review.comment;
   function getCommentTitle(comment: string) {
-    const words = comment.split(" ");
+    const words = comment?.split(" ");
     const titleWords = words.slice(0, 3);
     return titleWords.join(" ");
   }
