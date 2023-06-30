@@ -31,7 +31,7 @@ export default async function Home() {
                   <span className=" mr-2 font-medium">Popular Now:</span>
                   {popularNow &&
                     popularNow.map((popularNow: any) => (
-                      <PopularNowText popularNow={popularNow} />
+                      <PopularNowText key={popularNow.popular_now_id}   popularNow={popularNow} />
                     ))}
                 </p>
               </div>
@@ -42,11 +42,11 @@ export default async function Home() {
             <div className="featured-week--section mt-10">
               <p className="small--sub--headings">Featured This Week</p>
 
-              <FeaturedWeekList  featuredProducts={featuredProducts}  />
+              <FeaturedWeekList key={featuredProducts.product_id}  featuredProducts={featuredProducts}  />
             </div>
             <div className="featured-article--section">
               <p className="small--sub--headings">Featured Articles</p>
-              <FeaturedArticleList articles={articles} />
+              <FeaturedArticleList key={articles.id}  articles={articles} />
             </div>
           </div>
         </div>
