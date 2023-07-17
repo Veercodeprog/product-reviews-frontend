@@ -68,19 +68,19 @@ const tabs = [
   }
 
   return (
-    <main className="container mx-auto p-4 md:px-10 md:pr-10 mt-16">
+    <main className="container md:w-[90%] px-4 mx-auto mt-16">
       <Breadcrumb />
      
 
-      <section className="sm:ml-10 se:ml-10 md:ml-0 ss:ml-20">
+      <section className=" ">
         <div className="text-gray-700 body-font mt-7">
-          <div className="container sm:mx-auto flex sm:px-2 sm:py-2 md:flex-row sm:-ml-12 md:ml-0  flex-col sm:items-center">
-            <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left md:mb-0 items-center text-center">
+          <div className="container sm:mx-auto grid sm:px-2 sm:py-2 sm:items-center">
+            <div className="">
               <ProductDetail product={product} />
 
             </div>
 
-            <div className="lg:max-w-lg lg:w-full xs:-ml-16 sm:ml-0	 ss:mr-16 md:w-1/2 w-5/6">
+            <div className=" ">
               <div className="flex justify-center  md:justify-end mt-4 sm:hidden  sm:items-start sm:justify-start md:mr-0   ">
                 {/* <FontAwesomeIcon icon={faHeart} className="text-2xl mr-3" /> */}
                 <button

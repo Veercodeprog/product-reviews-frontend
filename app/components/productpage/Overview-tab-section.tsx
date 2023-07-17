@@ -38,7 +38,7 @@ const getYoutubeVideoId = (url: string) => {
 const youtubeVideoId = getYoutubeVideoId(videoUrl);
 return (
   <section className="mb-20" >
-    <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-screen-xl mx-auto ">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-2xl font-bold">Image Gallery</h2>
       </div>
@@ -136,7 +136,7 @@ return (
               </div>
             ))}
         </div>
-        <p className="card-text para leading-tight">
+        <p className="card-text para leading-normal">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut

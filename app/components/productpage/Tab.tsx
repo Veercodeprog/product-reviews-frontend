@@ -98,7 +98,7 @@ export default function TabSection(props: any) {
     <section>
       <div className="">
         <ul
-          className="mt-0 mb-5 flex list-none flex-row flex-wrap border-b-0 pl-0"
+          className="mt-0 mb-5 flex list-none flex-row overflow-x-auto w-[100%] border-b-0 pl-0"
           role="tablist"
           data-te-nav-ref
         >

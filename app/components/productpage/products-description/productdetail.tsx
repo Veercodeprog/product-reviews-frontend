@@ -84,44 +84,47 @@ export default function ProductDetail(props: any) {
     }
   };
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center">
+    <div className="grid grid-cols-1 sm:grid-cols-5 gap-6 ">
       {/* {props.product.product_id} */}
       <SessionManager updateUser={setUser} setLoading={setLoading} />
 
+      <div className="col-span-2">
       <img
         src="https://dummyimage.com/200x150/000/fff.jpg"
         width={200}
         height={150}
         alt="..."
-        className="mr-8"
+        className="w-[100%]"
       />
-      <div className="flex flex-col sm:flex-col mt-7 ">
+      </div>
+      <div className="col-span-3 mt-4 lg:mt-6 ">
         <div className="flex-shrink-0">
-          <h2 className="page-headings text-left mb-2 whitespace-nowrap">
+          <h2 className="page-headings font-bold text-left mb-2 whitespace-nowrap">
             {props.product?.name}
           </h2>
         </div>
-        <p className="card-text para leading-tight">
+        <p className="card-text para leading-normal mt-5">
           {props.product?.short_description}
         </p>
-        <div className="card--stats md:mr-0 sm:mr-60 se:mr-60 ">
+       
+
+        <div
+          className="text-left gap-3 flex flex-wrap items-center sm:items-end my-4 "
+          role="group"
+          aria-label="Tools"
+        >
+           <div className="card--stats flex items-center">
           <FontAwesomeIcon
             icon={liked ? solidHeart : regularHeart}
-            className="items-start  mx-8"
+            className="items-start w-[20px] mr-2"
           />
 
           <span className="gray mr-2">{reviews && reviews.length}</span>
           <span className="gray">Reviews</span>
         </div>
-
-        <div
-          className="text-left flex items-center sm:items-end my-3 "
-          role="group"
-          aria-label="Tools"
-        >
           <button
             type="button"
-            className="flex items-center bg-white text-gray-700 border border-gray-300 rounded-full font-medium px-3 md:mr-2 mb-2 w-auto h-6 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-900 dark:focus:ring-gray-700"
+            className="flex items-center bg-white text-gray-700 border border-gray-300 rounded-full font-medium px-3 w-auto h-6 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-900 dark:focus:ring-gray-700"
             style={{ lineHeight: "0.8" }}
             onClick={handleLikes}
           >
@@ -134,14 +137,14 @@ export default function ProductDetail(props: any) {
 
           <button
             type="button"
-            className="bg-white text-gray-700 border border-gray-300 rounded-full font-medium px-3 mr-2 mb-2 w-auto h-6 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-900 dark:focus:ring-gray-700"
+            className="bg-white text-gray-700 border border-gray-300 rounded-full font-medium px-3 w-auto h-6 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-900 dark:focus:ring-gray-700"
             style={{ lineHeight: "0.8" }}
           >
             Blogging
           </button>
           <button
             type="button"
-            className="bg-white text-gray-700 border border-gray-300 rounded-full font-medium px-3 mr-2 mb-2 w-auto h-6 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-900 dark:focus:ring-gray-700"
+            className="bg-white text-gray-700 border border-gray-300 rounded-full font-medium px-3 w-auto h-6 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-900 dark:focus:ring-gray-700"
             style={{ lineHeight: "0.8" }}
           >
             All

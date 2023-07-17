@@ -2,7 +2,7 @@ export default function Breadcrumb(){
 return(
 
 
- <nav className=" mx-2 bg-grey-light w-full ">
+ <nav className="bg-grey-light w-full ">
 
         <ol className="list-reset flex">
           {" "}
