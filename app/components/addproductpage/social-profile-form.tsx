@@ -1,4 +1,4 @@
-import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
+import { faImage, faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { error } from "console";
 import { useFormik } from "formik";
@@ -18,7 +18,6 @@ function SocialProfileForm({
   socialProfileData: any;
   setSocialProfileData: any;
 }) {
-
   const handleAvatarImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]; // Get the first selected file
 
@@ -34,12 +33,11 @@ function SocialProfileForm({
         formik.setFieldValue("avatarImg", fileURL);
         formik.setFieldValue("avatarImgFile", file); // Set the file value
         formik.setFieldError("avatarImg", ""); // Clear any previous error
-   // Set the file name
+        // Set the file name
       } else {
         formik.setFieldValue("avatarImg", ""); // Clear the field value
         formik.setFieldError("avatarImg", "Only PNG and JPG files are allowed"); // Set the error message
         formik.setFieldValue("avatarImgFile", null); // Set the file value
-
       }
     }
   };
@@ -90,7 +88,7 @@ function SocialProfileForm({
   const formik = useFormik({
     initialValues: {
       avatarImg: "",
-    // Add avatarImgFile property with initial value null
+      // Add avatarImgFile property with initial value null
 
       fname: "",
       lname: "",
@@ -103,7 +101,6 @@ function SocialProfileForm({
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-
       setSocialProfileData(values);
       onNext(values);
     },
@@ -171,14 +168,15 @@ function SocialProfileForm({
 
   return (
     <>
-      <div className="flex flex-row items-center mb-4">
-        <label htmlFor="avatar-img" className="w-1/3 sm:w-1/6 mr-4 font-bold">
+      <div className="grid sm:grid-cols-4 gap-3 mb-4">
+        <label htmlFor="avatar-img" className="sm:col-span-1 font-bold">
           {/* <FontAwesomeIcon icon={faImage} /> Avatar Image: */}
         </label>
 
-        <div className="relative items-end w-1/4 h-20 sm:w-40 sm:h-40 rounded-full overflow-hidden">
+<div className="sm:col-span-3">
+        <div className="mx-auto w-40 text-center relative mb-4">
           <div
-            className="image-box w-full h-full bg-center bg-no-repeat bg-cover"
+            className="w-40 h-40 rounded-full bg-cover bg-gray-400 relative"
             style={{
               backgroundImage: `url(${formik.values.avatarImg})`,
             }}
@@ -186,11 +184,11 @@ function SocialProfileForm({
 
           <label
             htmlFor="avatar-img"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-2 bg-gray-700 rounded-full cursor-pointer hover:bg-gray-800"
+            className="w-40 h-40 group hover:bg-gray-200 opacity-80 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500 top-0"
           >
             <FontAwesomeIcon
               icon={faCloudUploadAlt}
-              className="text-gray-300"
+              className="hidden group-hover:block text-2xl"
             />
             <input
               type="file"
@@ -201,181 +199,240 @@ function SocialProfileForm({
               onBlur={formik.handleBlur} // Add onBlur event handler
             />
           </label>
-        </div>
-        {getErrorMessage("avatarImg") && (
-          <p className="text-red-500">{getErrorMessage("avatarImg")}</p>
-        )}
-        <div className="ml-4">
+          <div className="absolute bottom-0 right-0">
           <button
             type="button"
-            className={`justify-end next w-24 sm:w-32 bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0 mr-8 ${getErrorClassName(
+            className={`justify-end next w-10 rounded-full h-10 bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 flex justify-center  ${getErrorClassName(
               "avatarImg"
             )}`}
             onClick={handleChangeImage}
             onBlur={formik.handleBlur} // Add onBlur event handler
           >
-            Change
+            <FontAwesomeIcon
+              icon={faImage}
+              className="w-12 self-center"
+            />
           </button>
+        </div>
+        </div>
+        {getErrorMessage("avatarImg") && (
+          <p className="text-red-500">{getErrorMessage("avatarImg")}</p>
+        )}
         </div>
       </div>
 
-      <div className="flex flex-row mb-4">
-        <label htmlFor="fname" className="w-1/3 md:w-1/6 mb-2 font-bold">
+      <div className="grid sm:grid-cols-4 gap-3 mb-4">
+        <label htmlFor="fname" className="sm:col-span-1 font-bold">
           Name:
         </label>
-        <input
-          type="text"
-          name="fname"
-          id="fname"
-          placeholder="First Name"
-          className={`block w-1/5 mr-10 items-start px-4 py-2 border rounded-md ${getErrorClassName(
-            "fname"
-          )}`}
-          value={formik.values.fname}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur} // Add onBlur event handler
-        />
-        {getErrorMessage("fname") && (
-          <p className="text-red-500">{getErrorMessage("fname")}</p>
-        )}
-        <input
-          type="text"
-          name="lname"
-          id="lname"
-          placeholder="Last Name"
-          className={`block w-1/5 items-end px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
-            "lname"
-          )}`}
-          value={formik.values.lname}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur} // Add onBlur event handler
-        />
-        {getErrorMessage("lname")}
+
+        <div className="sm:col-span-3 grid grid-cols-2 gap-3">
+          <div>
+            <input
+              type="text"
+              name="fname"
+              id="fname"
+              placeholder="First Name"
+              className={`block w-full px-4 py-2 border rounded-md ${getErrorClassName(
+                "fname"
+              )}`}
+              value={formik.values.fname}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur} // Add onBlur event handler
+            />
+            {getErrorMessage("fname") && (
+              <p className="text-red-500 my-1 text-sm">
+                {getErrorMessage("fname")}
+              </p>
+            )}
+          </div>
+          <div>
+            <input
+              type="text"
+              name="lname"
+              id="lname"
+              placeholder="Last Name"
+              className={`block w-full px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
+                "lname"
+              )}`}
+              value={formik.values.lname}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur} // Add onBlur event handler
+            />
+            {getErrorMessage("lname") && (
+              <p className="text-red-500 my-1 text-sm">
+                {getErrorMessage("lname")}
+              </p>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="flex flex-row mb-4">
-        <label htmlFor="role" className="w-1/3 md:w-1/6 mb-2 font-bold">
+      <div className="grid sm:grid-cols-4 gap-3 mb-4">
+        <label htmlFor="role" className="sm:col-span-1 font-bold">
           Role:
         </label>
-        <input
-          type="text"
-          name="role"
-          id="role"
-          placeholder="Role"
-          className={`block w-2/5 px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
-            "role"
-          )}`}
-          value={formik.values.role}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur} // Add onBlur event handler
-        />
-        {getErrorMessage("role")}
+
+        <div className="sm:col-span-3 ">
+          <input
+            type="text"
+            name="role"
+            id="role"
+            placeholder="Role"
+            className={`block w-full px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
+              "role"
+            )}`}
+            value={formik.values.role}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} // Add onBlur event handler
+          />
+          {getErrorMessage("role") && (
+            <p className="text-red-500 my-1 text-sm">
+              {getErrorMessage("role")}
+            </p>
+          )}
+        </div>
       </div>
 
-      <div className="flex flex-row mb-4">
-        <label htmlFor="bio" className="w-1/3 md:w-1/6 mb-2 font-bold">
+      <div className="grid sm:grid-cols-4 gap-3 mb-4">
+        <label htmlFor="bio" className="sm:col-span-1 font-bold">
           Bio:
         </label>
-        <textarea
-          name="bio"
-          id="bio"
-          placeholder="Bio"
-          className={`block w-2/5 px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
-            "bio"
-          )}`}
-          value={formik.values.bio}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur} // Add onBlur event handler
-        ></textarea>
-        {getErrorMessage("bio")}
+
+        <div className="sm:col-span-3 ">
+          <textarea
+            name="bio"
+            id="bio"
+            placeholder="Bio"
+            className={`block w-full px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
+              "bio"
+            )}`}
+            value={formik.values.bio}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} // Add onBlur event handler
+          ></textarea>
+          {getErrorMessage("bio") && (
+            <p className="text-red-500 my-1 text-sm">
+              {getErrorMessage("bio")}
+            </p>
+          )}
+        </div>
       </div>
 
-      <div className="flex flex-row mb-4">
-        <label htmlFor="workEmail" className="w-1/3 md:w-1/6 mb-2 font-bold">
+      <div className="grid sm:grid-cols-4 gap-3 mb-4">
+        <label htmlFor="workEmail" className="sm:col-span-1 font-bold">
           Work Email:
         </label>
-        <input
-          type="email"
-          name="workEmail"
-          id="workEmail"
-          placeholder="Work Email"
-          className={`block w-2/5 px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
-            "workEmail"
-          )}`}
-          value={formik.values.workEmail}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur} // Add onBlur event handler
-        />
-        {getErrorMessage("workEmail")}
+
+        <div className="sm:col-span-3 ">
+          <input
+            type="email"
+            name="workEmail"
+            id="workEmail"
+            placeholder="Work Email"
+            className={`block w-full px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
+              "workEmail"
+            )}`}
+            value={formik.values.workEmail}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} // Add onBlur event handler
+          />
+          {getErrorMessage("workEmail") && (
+            <p className="text-red-500 my-1 text-sm">
+              {getErrorMessage("workEmail")}
+            </p>
+          )}
+        </div>
       </div>
 
-      <div className="flex flex-row mb-4">
-        <label htmlFor="msg" className="w-1/3 md:w-1/6 mb-2 font-bold">
+      <div className="grid sm:grid-cols-4 gap-3 mb-4">
+        <label htmlFor="msg" className="sm:col-span-1 font-bold">
           Message:
         </label>
-        <textarea
-          name="msg"
-          id="msg"
-          placeholder="Message"
-          className={`block w-2/5 px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
-            "msg"
-          )}`}
-          value={formik.values.msg}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur} // Add onBlur event handler
-        ></textarea>
-        {getErrorMessage("msg")}
+
+        <div className="sm:col-span-3 ">
+          <textarea
+            name="msg"
+            id="msg"
+            placeholder="Message"
+            className={`block w-full px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
+              "msg"
+            )}`}
+            value={formik.values.msg}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} // Add onBlur event handler
+          ></textarea>
+          {getErrorMessage("msg") && (
+            <p className="text-red-500 my-1 text-sm">
+              {getErrorMessage("msg")}
+            </p>
+          )}
+        </div>
       </div>
 
-      <div className="flex flex-row mb-4">
-        <label htmlFor="linkedinUrl" className="w-1/3 md:w-1/6 mb-2 font-bold">
+      <div className="grid sm:grid-cols-4 gap-3 mb-4">
+        <label htmlFor="linkedinUrl" className="sm:col-span-1 font-bold">
           LinkedIn URL:
         </label>
-        <input
-          type="text"
-          name="linkedinUrl"
-          id="linkedinUrl"
-          placeholder="LinkedIn URL"
-          className={`block w-2/5 px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
-            "linkedinUrl"
-          )}`}
-          value={formik.values.linkedinUrl}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur} // Add onBlur event handler
-        />
-        {getErrorMessage("linkedinUrl")}
+
+        <div className="sm:col-span-3 ">
+          <input
+            type="text"
+            name="linkedinUrl"
+            id="linkedinUrl"
+            placeholder="LinkedIn URL"
+            className={`block w-full px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
+              "linkedinUrl"
+            )}`}
+            value={formik.values.linkedinUrl}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} // Add onBlur event handler
+          />
+          {getErrorMessage("linkedinUrl") && (
+            <p className="text-red-500 my-1 text-sm">
+              {getErrorMessage("linkedinUrl")}
+            </p>
+          )}
+        </div>
       </div>
 
-      <div className="flex flex-row mb-4">
-        <label htmlFor="twitterUrl" className="w-1/3 md:w-1/6 mb-2 font-bold">
+      <div className="grid sm:grid-cols-4 gap-3 mb-4">
+        <label htmlFor="twitterUrl" className="sm:col-span-1 font-bold">
           Twitter URL:
         </label>
-        <input
-          type="text"
-          name="twitterUrl"
-          id="twitterUrl"
-          placeholder="Twitter URL"
-          className={`block w-2/5 px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
-            "twitterUrl"
-          )}`}
-          value={formik.values.twitterUrl}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur} // Add onBlur event handler
-        />
-        {getErrorMessage("twitterUrl")}
+
+        <div className="sm:col-span-3 ">
+          <input
+            type="text"
+            name="twitterUrl"
+            id="twitterUrl"
+            placeholder="Twitter URL"
+            className={`block w-full px-4 py-2 border border-gray-300 rounded-md ${getErrorClassName(
+              "twitterUrl"
+            )}`}
+            value={formik.values.twitterUrl}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} // Add onBlur event handler
+          />
+          {getErrorMessage("twitterUrl") && (
+            <p className="text-red-500 my-1 text-sm">
+              {getErrorMessage("twitterUrl")}
+            </p>
+          )}
+        </div>
       </div>
 
-      <div className="flex flex-row sm:justify-end mt-10 mb-10">
+      <div className="flex gap-4 flex-row flex-wrap sm:justify-end mt-10 mb-10 pb-10">
         <button
           type="button"
-          className="previous w-24 sm:w-32 bg-gray-500 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0 mr-8"
+          className="previous w-24 sm:w-32 bg-gray-500 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0 "
           onClick={handlePrevious}
         >
           Previous
         </button>
         <button
           type="button"
-          className="next w-24 sm:w-32 bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0 mr-8"
+          className="next w-24 sm:w-32 bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0 "
           onClick={handleNext}
         >
           Next

@@ -20,18 +20,18 @@ export default async function Home() {
   return (
     <>
       <main className="">
-        <div className=" container mx-auto p-2 sm:max-w-lg mt-24">
+        <div className=" container mx-auto p-2 sm:w-3/5 mt-24">
           <div className="mb-10 font-light leading-normal">
-            <h2 className="page-headings">Discover the best products</h2>
+            <h2 className="page-headings uppercase">Discover the best products</h2>
 
             <div className="relative mb-10">
               <SearchInput />
               <div className="flex flex-wrap items-center">
-                <p className="text-lg inline-flex items-center flex-shrink-0 mt-3 max-w-screen pr-4">
-                  <span className=" mr-2 font-medium">Popular Now:</span>
+                <p className="mt-3 max-w-screen">
+                  <span className="text-lg font-medium">Popular Now:</span>
                   {popularNow &&
                     popularNow.map((popularNow: any) => (
-                      <PopularNowText key={popularNow.popular_now_id}   popularNow={popularNow} />
+                      <PopularNowText className="text-sm capitalize" key={popularNow.popular_now_id}   popularNow={popularNow} />
                     ))}
                 </p>
               </div>

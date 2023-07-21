@@ -91,7 +91,7 @@ function AddProductPage() {
       </div>
       <form
         id="msform"
-        className="container mx-auto p-4  md:px-10 md:pr-10 mt-16 "
+        className="container mx-auto p-4 md:w-4/5 lg:w-3/5  mt-16 "
       >
         {/* fieldsets */}
         <fieldset className={`relative ${currentStep !== 1 && "hidden"}`}>

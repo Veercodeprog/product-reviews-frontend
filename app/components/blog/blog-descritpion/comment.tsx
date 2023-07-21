@@ -5,8 +5,8 @@ import moment from "moment";
 import handlePostComment from "./commentform";
 import CommentReplies from "./comment-replies";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReply   } from "@fortawesome/free-solid-svg-icons";
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { faReply } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 // Assuming you have a function called 'getAllArticleComments' to fetch comments from the API
 interface Comment {
@@ -55,88 +55,83 @@ const Comment = ({
   const [isLoading, setLoading] = useState(true); //    const [comments, setComments] = useState<Comment[]>([]);
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyContent, setReplyContent] = useState("");
-// const heartIcon = isSolidVersion ? faHeart : faHeartRegularAlt;
+  // const heartIcon = isSolidVersion ? faHeart : faHeartRegularAlt;
 
   const handleReply = () => {
-if(showReplyForm){
-    setShowReplyForm(!showReplyForm);
-
-}else{
-setShowReplyForm(true);
-}
-    
+    if (showReplyForm) {
+      setShowReplyForm(!showReplyForm);
+    } else {
+      setShowReplyForm(true);
+    }
   };
- const creationTime = moment(comment.data.comment.createdAt).fromNow();
+  const creationTime = moment(comment.data.comment.createdAt).fromNow();
   console.log("parentCommentId:", parentCommentId);
   const childComments = comments.filter(
     (c: any) => c.data.comment.related.parentId === comment.id
   );
   const recentChildComments = childComments.slice(-2); // Get the recent 2 child comments
 
-  const showAllChildComments = childComments.length > 2; 
+  const showAllChildComments = childComments.length > 2;
   return (
- <div className="comment mb-4">
-    <div className="comment flex mb-4">
-      <SessionManager setLoading={setLoading} updateUser={setUser} />
+    <div className="comment mb-4">
+      <div className="comment flex mb-4 ">
+        <SessionManager setLoading={setLoading} updateUser={setUser} />
 
-      {/* Render comment details */}
+        {/* Render comment details */}
 
-      <div className="flex-shrink-0">
-        <div className="avatar avatar-sm rounded-circle">
-          <img
-            className="avatar-img w-8 h-8"
-            src="https://randomuser.me/api/portraits/women/63.jpg"
-            alt=""
-          />
-        </div>
-      </div>
-
-
-
-
-      <div className="flex-shrink-1 ms-2 ms-sm-3">
-        <div className="comment-meta flex">
-          {/* <h2>Comment Id: {comment.id}</h2> */}
-          <h6 className="me-2 text-red-600">
-            {comment.data.comment.related.authorUser}
-          </h6>
-
-          <span className="text-muted">{creationTime}</span>
-        </div>
-        <div className="comment-body">{comment.data.comment.content}</div>
-
-        <div className="comment-actions mr-4 mt-5">
-          <button className="" onClick={handleReply}><FontAwesomeIcon icon={faReply} /> Reply </button>
-          <span className="ml-5"><FontAwesomeIcon icon={faHeart}  /> 
-
-</span>
-        </div>
-
-        <div className="comment-replies bg-light p-3 mt-3 rounded">
-          <h6 className="comment-replies-title mb-4 text-muted text-uppercase">
-           {childComments.length} replies
-          </h6>
-
-          {childComments.map((childComment: any) => (
-            <CommentReplies key={childComment.id} commentData={childComment} />
-          ))}
-        </div>
-
-        {showReplyForm && (
-          <div className="reply-form">
-            <CommentForm
-              handlePostComment={handlePostComment}
-              parentCommentId={parentCommentId}
+        <div className="flex-shrink-0">
+            <img
+              className="avatar-img w-12 h-12 rounded-full mt-0"
+              src="https://randomuser.me/api/portraits/women/63.jpg"
+              alt=""
             />
+        </div>
+
+        <div className="flex-shrink-1 ms-3 ms-sm-4">
+          <div className=" bg-white rounded shadow-md p-4">
+          <div className="flex items-center mb-2 flex-wrap">
+            {/* <h2>Comment Id: {comment.id}</h2> */}
+            <h6 className="me-2 me-2 font-medium leading-tight text-lg">
+              {comment.data.comment.related.authorUser}
+            </h6>
+
+            <span className="text-gray-400 text-sm leading-tight">{creationTime}</span>
           </div>
-        )}
+          <div className="text-sm">{comment.data.comment.content} Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis explicabo ea quisquam magni nemo quae saepe iure accusamus dolor rem. Alias quia similique necessitatibus earum quibusdam exercitationem itaque perferendis obcaecati.</div>
+
+          <div className="comment-actions mr-4 mt-5 text-sm">
+            <button className="" onClick={handleReply}>
+              <FontAwesomeIcon icon={faReply} /> Reply{" "}
+            </button>
+            <span className="ml-5">
+              <FontAwesomeIcon icon={faHeart} />
+            </span>
+          </div>
+          </div>
+          <div className="comment-replies bg-light ml-4 mt-2 rounded text-sm">
+            <h6 className="comment-replies-title mb-4 text-muted text-uppercase">
+              {childComments.length} replies
+            </h6>
+
+            {childComments.map((childComment: any) => (
+              <CommentReplies
+                key={childComment.id}
+                commentData={childComment}
+              />
+            ))}
+          </div>
+
+          {showReplyForm && (
+            <div className="reply-form"> 
+              <CommentForm
+                handlePostComment={handlePostComment}
+                parentCommentId={parentCommentId}
+              />
+            </div>
+          )}
+        </div>
       </div>
-
-
-
-
     </div>
-</div>
   );
 };
 

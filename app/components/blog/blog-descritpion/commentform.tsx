@@ -8,20 +8,18 @@ const handleSubmit = (event:any) => {
   };
 
   return (
-    <div className="comment-form flex items-center">
+    <div className="comment-form flex mt-5">
       <div className="flex-shrink-0">
-        <div className="avatar avatar-sm rounded-circle">
           <img
-            className="avatar-img w-8 h-8"
+            className="rounded-full w-12 h-12 my-0"
             src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200"
             alt=""
           />
-        </div>
       </div>
       <div className="flex-grow-1 ms-2 ms-sm-3 w-full">
         <form>
           <textarea
-            className="w-full form-control py-0 px-1 border-0 mt-5"
+            className="w-full form-control p-3 border leading-tight h-[140px]"
             placeholder="Start writing..."
             style={{ resize: "none" }}
             // Set the commentContent state variable on input change

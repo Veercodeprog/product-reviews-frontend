@@ -4,7 +4,7 @@ return(
 
  <nav className="bg-grey-light w-full ">
 
-        <ol className="list-reset flex">
+        <ol className="list-reset flex pl-0 mb-5">
           {" "}
           <li>
             <a

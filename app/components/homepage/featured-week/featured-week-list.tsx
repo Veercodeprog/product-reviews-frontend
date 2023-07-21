@@ -8,12 +8,12 @@ export default function FeaturedWeekList({ featuredProducts }: any) {
   return (
     <>
       <div className="featured-article-list">
-        <div className="flex flex-wrap ml-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {upperFeaturedProducts.map((featuredProduct: any) => (
             <FeaturedWeekItem featuredProduct={featuredProduct} key={featuredProduct.product_id} />
           ))}
         </div>
-        <div className="flex flex-wrap ml-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {lowerFeaturedProducts.map((featuredProduct: any) => (
             <FeaturedWeekItem featuredProduct={featuredProduct} key={featuredProduct.product_id} />
           ))}

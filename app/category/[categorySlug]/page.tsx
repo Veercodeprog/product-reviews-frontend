@@ -33,13 +33,13 @@ export default async function CategoryDescriptionPage(props: any) {
   }
   return (
     <>
-      <main className="container mx-auto p-4  md:px-20 mt-24 ">
+      <main className="container mx-auto p-4 mt-24 ">
         <Breadcrumb />
 
         <section className="text-gray-700 body-font">
-          <div className="container mx-auto flex px-2 py-2 md:flex-row flex-col items-center">
+          <div className="container mx-auto flex py-2 md:flex-row flex-col items-center">
             <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left md:mb-0 items-center text-center">
-              <h2 className="page-headings ">Featured products</h2>
+              <h2 className="page-headings text-left">Featured products</h2>
               {category && (
                 <div className="para pb-5">
                   <p>

@@ -17,7 +17,7 @@ const [reviewLike, setReviewLike] = useState(false);
     return titleWords.join(" ");
   }
   return (
-<div key={reviewData.review_id} className="ml-20  flex items-start rounded-lg p-4 my-5">
+<div key={reviewData.review_id} className="ml-20  flex items-start rounded-lg ">
   {/* User Profile Image */}
   <div className="rounded-full overflow-hidden h-12 w-12 flex-shrink-0 mt-1">
     <img

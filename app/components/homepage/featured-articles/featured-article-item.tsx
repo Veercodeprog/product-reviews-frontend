@@ -9,18 +9,18 @@ console.log ("article features",  article)
     const imageUrl = getStrapiMedia(article.attributes.image);
   return (
     <>
-      <div className="w-full sm:w-1/2 lg:w-1/4 px-2 mb-4 ">
+      <div className="w-full ">
         <Link href={`/blog/${article.attributes.slug}`}>
           <div className="relative">
-            <div className="w-200 h-150">
+            <div className="w-200 ">
               <img
-                className=" w-full h-full rounded-lg object-cover "
+                className=" w-full h-[150px] rounded-lg object-cover border p-2"
                 src={imageUrl}
                 alt={`${article.attributes.slug}`}
               />
             </div>
 
-            <h2 className="image--headings md__down:text-2xl">
+            <h2 className="image--headings md__down:text-2xl capitalize">
               {article.attributes.title}
             </h2>
             <p className="image--desc md__down:text-xl"></p>

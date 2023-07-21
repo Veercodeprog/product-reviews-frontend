@@ -111,18 +111,18 @@ event.preventDefault();
       <div>
         <div>
           <h3 className="text-lg font-bold">Personal Details</h3>
-          <ul className="mt-4">
+          <ul className="mt-4 table-auto">
             {Object.entries(personalFormData).map(
               ([key, value]: [key: any, value: any]) => {
                 if (key === "category") {
                   const { id, name } = value;
                   return (
-                    <li key={key} className="flex items-center mb-2 ">
-                      <span className="font-medium mr-2 w-40 h-20">
+                    <tr key={key} className=" ">
+                      <td className="font-medium mr-2 w-40 h-20">
                         Category:
-                      </span>
-                      <span className="w-40 h-20">{`${name} (${id})`}</span>
-                    </li>
+                      </td>
+                      <td className="w-40 h-20">{`${name} (${id})`}</td>
+                    </tr>
                   );
                 }
 
@@ -130,9 +130,22 @@ event.preventDefault();
                   return null;
                 }
                 return (
-                  <li key={key} className="flex items-center mb-7">
-                    <span className="font-medium mr-2 w-40 h-20">{key}:</span>
-                    {key === "productIcon" ? (
+          //         <ul className="mt-4">
+          //   {Object.entries(socialFormData).map(([key, value]) => (
+          //     <li className="grid gap-4 mb-4 grid-cols-2" key={key} >
+          //       <span className="font-medium border p-3">{key}:</span>
+          //      <span className="border p-3"> {key === "avatarImg" ? (
+          //         <img src={value as string} alt={key} className="w-40 h-20" />
+          //       ) : key === "avatarImgFile" ? null : ( // Return null for avatarImgFile
+          //         <span className="block">{value as string}</span>
+          //       )}</span>
+          //     </li>
+          //   ))}
+          // </ul>
+                  <li key={key} className="grid mb-4 sm:grid-cols-2">
+                    <td className="font-medium border p-3 border-b-0 sm:border-b sm:border-r-0 break-words">{key}:</td>
+                    <span className="border p-3" style={{ wordWrap: "break-word"}}>
+                    {key === "productIcon" ? (    
                       <img
                         src={value as string}
                         alt={key}
@@ -156,8 +169,9 @@ event.preventDefault();
                         />
                       )
                     ) : (
-                      <span className="w-40 h-20">{value as string}</span>
+                      <span className="block"style={{ wordWrap: "break-word"}}>{value as string}</span>
                     )}
+                    </span>
                   </li>
                 );
               }
@@ -169,13 +183,13 @@ event.preventDefault();
           <h3 className="text-lg font-bold">Social Profile Information</h3>
           <ul className="mt-4">
             {Object.entries(socialFormData).map(([key, value]) => (
-              <li key={key} className="flex items-center mb-2 w-40 h-20">
-                <span className="font-medium mr-2 w-40 h-20">{key}:</span>
-                {key === "avatarImg" ? (
+              <li className="grid mb-4 sm:grid-cols-2" key={key} >
+                <span className="font-medium border p-3 border-b-0 sm:border-b sm:border-r-0" style={{ wordWrap: "break-word"}}>{key}:</span>
+               <span className="border p-3" style={{ wordWrap: "break-word"}}> {key === "avatarImg" ? (
                   <img src={value as string} alt={key} className="w-40 h-20" />
                 ) : key === "avatarImgFile" ? null : ( // Return null for avatarImgFile
-                  <span className="w-40 h-20">{value as string}</span>
-                )}
+                  <span className="block " style={{ wordWrap: "break-word"}}>{value as string}</span>
+                )}</span>
               </li>
             ))}
           </ul>
@@ -186,11 +200,11 @@ event.preventDefault();
       </div>
 
       <div></div>
-      <div className="flex  flex-row sm:justify-end mt-10 mb-10">
+      <div className="flex gap-4 pb-20 flex-row sm:justify-end mt-10 mb-10">
         <button
           type="button"
           name="previous"
-          className="previous w-24 sm:w-32 bg-gray-500 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0 mr-8"
+          className="previous w-34 sm:w-32 bg-gray-500 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 w-full text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0"
           onClick={handlePrevious}
         >
           Previous
@@ -198,7 +212,7 @@ event.preventDefault();
         <button
           type="submit"
           name="submit"
-          className="next w-24  sm:w-32 bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0 mr-8"
+          className="next  w-34 sm:w-32 bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:bg-purple-300 font-medium text-white text-sm px-4 py-2 w-full text-center dark:bg-purple-300 dark:hover:bg-purple-600 dark:focus:bg-purple-900 mb-4 sm:mb-0 "
           onClick={handleSubmit}
         >
           Submit

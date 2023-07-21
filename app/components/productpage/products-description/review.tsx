@@ -67,32 +67,30 @@ export default function Review({
       <div>
         <SessionManager setLoading={setLoading} updateUser={setUser} />
 
-       <div key={review.review_id} className="flex items-start rounded-lg p-4 my-5">
-  {/* User Profile Image */}
-  <div className="rounded-full overflow-hidden h-12 w-12 flex-shrink-0 mt-1">
+       <div key={review.review_id} className="flex items-start rounded-lg p-4 my-5 gap-5">
+  {/* User Profile Image  */}
+  <div className="py-10 flex-none">
     <img
-      className="h-full w-full object-cover"
+      className="h-12  w-12 rounded-full object-cover"
       src={review.claims?.profileImage}
       alt="User Profile"
     />
   </div>
-  <div className="ml-12">
+  <div className="py-10 border-t border-gray-400 flex-1">
     {/* Render the review data */}
-    <div className="mb-4">
-      <p className="text-lg font-bold">{review.claims?.name || null}</p>
-      <span className="text-muted">Added on: {creationTime}</span>
+    <div className="mb-3">
+      <p className="text-lg font-bold  leading-tight">{review.claims?.name || null}</p>
+      <span className="text-muted text-xs">Added on: {creationTime}</span>
     </div>
     <p className="text-lg font-bold">{getCommentTitle(review.comment)}</p>
-    <p>{review.comment}</p>
-    <div className="star-rating">
+    <div className="star-rating mt-3">
       <p>
-        Rating:{" "}
+        {/* Rating:{" "} */}
         {[1, 2, 3, 4, 5].map((star) => (
           <FontAwesomeIcon
             key={star}
             icon={star <= review.rating ? solidStar : regularStar}
-            className={`star ${star <= review.rating ? "solid" : ""}`}
-            style={{ fontSize: "24px" }}
+            className={`text-yellow-400 text-2xl star ${star <= review.rating ? "solid" : ""}`} 
           />
         ))}
       </p>

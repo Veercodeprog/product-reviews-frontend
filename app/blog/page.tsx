@@ -81,16 +81,14 @@ export default async function Blog() {
   const homepage = await homepageData;
   return (
     <>
-      <Nav categories={categories} />
+      {/* <Nav categories={categories} /> */}
       <p className=" text-5xl">{articles.attributes}</p>
-      <div className="flex justify-center">
-        <div className="w-full max-w-3xl">
-          <div className="uk-section">
-            <div className="uk-container uk-container-large">
-              <h1>{homepage.attributes.hero.title}</h1>
-              <Articles articles={articles} />
-            </div>
-          </div>
+      <div className="flex  justify-center">
+        <div className="px-4 container md:max-w-[80%] lg:max-w-[60%] mx-auto">
+    
+              <h1 className="font-medium text-2xl py-5">{homepage.attributes.hero.title}</h1>
+              <Articles className="mt-4" articles={articles} />
+           
         </div>
       </div>
     </>
