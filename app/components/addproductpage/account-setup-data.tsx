@@ -143,8 +143,8 @@ event.preventDefault();
           //   ))}
           // </ul>
                   <li key={key} className="grid mb-4 sm:grid-cols-2">
-                    <td className="font-medium border p-3 border-b-0 sm:border-b sm:border-r-0 break-words">{key}:</td>
-                    <span className="border p-3" style={{ wordWrap: "break-word"}}>
+                    <td className="font-medium border p-3 border-b-0 sm:border-b sm:border-r-0 break-alls">{key}:</td>
+                    <span className="border p-3" style={{ wordBreak: "break-all"}}>
                     {key === "productIcon" ? (    
                       <img
                         src={value as string}
@@ -169,7 +169,7 @@ event.preventDefault();
                         />
                       )
                     ) : (
-                      <span className="block"style={{ wordWrap: "break-word"}}>{value as string}</span>
+                      <span className="block"style={{ wordBreak: "break-all"}}>{value as string}</span>
                     )}
                     </span>
                   </li>
@@ -184,11 +184,11 @@ event.preventDefault();
           <ul className="mt-4">
             {Object.entries(socialFormData).map(([key, value]) => (
               <li className="grid mb-4 sm:grid-cols-2" key={key} >
-                <span className="font-medium border p-3 border-b-0 sm:border-b sm:border-r-0" style={{ wordWrap: "break-word"}}>{key}:</span>
-               <span className="border p-3" style={{ wordWrap: "break-word"}}> {key === "avatarImg" ? (
+                <span className="font-medium border p-3 border-b-0 sm:border-b sm:border-r-0" style={{ wordBreak: "break-all"}}>{key}:</span>
+               <span className="border p-3" style={{ wordBreak: "break-all"}}> {key === "avatarImg" ? (
                   <img src={value as string} alt={key} className="w-40 h-20" />
                 ) : key === "avatarImgFile" ? null : ( // Return null for avatarImgFile
-                  <span className="block " style={{ wordWrap: "break-word"}}>{value as string}</span>
+                  <span className="block " style={{ wordBreak: "break-all"}}>{value as string}</span>
                 )}</span>
               </li>
             ))}
